@@ -20,6 +20,7 @@ import fourByFourProject from '../Projekts/4x4.json';
 import fiveByFiveProject from '../Projekts/5x5.json';
 import smileysProject from '../Projekts/smileys.json';
 import mnistMiniProject from '../Projekts/MNIST-mini.json';
+import quickdrawFiveCatProject from '../Projekts/quickdraw_5cat.json';
 
 declare const Plotly: any;
 
@@ -656,12 +657,14 @@ const presetProjects: Record<string, ProjectConfig> = {
   '5x5': fiveByFiveProject as ProjectConfig,
   smileys: smileysProject as ProjectConfig,
   'MNIST-mini': mnistMiniProject as ProjectConfig,
+  quickdraw_5cat: quickdrawFiveCatProject as ProjectConfig,
 };
 
 const presetProjectAliases: Record<string, string> = {
   smiley: 'smileys',
   'mnist mini': 'MNIST-mini',
   'mnist-mini': 'MNIST-mini',
+  'quickdraw 5cat': 'quickdraw_5cat',
 };
 
 let currentProjectType = 'basic';

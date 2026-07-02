@@ -51,6 +51,7 @@
         <option value="5x5">5x5 grid</option>
         <option value="smileys">smileys</option>
         <option value="MNIST-mini">MNIST-mini</option>
+        <option value="quickdraw_5cat">quickdraw 5cat</option>
       </select>
       <button type="button" id="load-project-btn" class="btn btn-outline-primary btn-sm project-json-btn"
         onclick="openLoadProjectOverlay()">load or edit project via JSON
@@ -573,6 +574,7 @@
         <li>5x5: simple 25x25x25 network, includes 4 of the 2^25 possible (discrete) input samples</li>
         <li>smileys: 1600x11x1 network for deciding whether a smiley drawn on a 40x40 pixel grayscale canvas is happy or not. 11 examples are included, 5 of which are earmarked for testing only</li>
         <li>MNIST-mini: 256x12x10 network for the task of recognizing handwritten digits from the MNIST dataset (16x16 pixels each). 1000 examples included, 20% of which are earmarked for testing only</li>
+        <li>quickdraw 5cat: 784-input project based on Google Quick, Draw! data (28x28 pixels) with 5 categories</li>
       </ul>
       All examples can be explored and modified. You can also save your own projects to a plain-text JSON format and load them later by pasting the JSON.
     </div>
