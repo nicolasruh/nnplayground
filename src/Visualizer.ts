@@ -32,6 +32,13 @@ export class DrawableNeuron {
   }
 }
 
+type WeightHoverHotspot = {
+  x: number;
+  y: number;
+  radius: number;
+  message: string;
+};
+
 export class Visualizer {
 
   private content: HTMLCanvasElement;
@@ -40,6 +47,8 @@ export class Visualizer {
   private width: number;
   private drawableNeurons: DrawableNeuron[] = [];
   private drawableInputNeurons: DrawableNeuron[] = [];
+  private hoverHotspots: WeightHoverHotspot[] = [];
+  private displayNameMap = new Map<string, string>();
   private manualInputX = 0;
   private manualInputVisible: boolean;
 
@@ -70,6 +79,8 @@ export class Visualizer {
 
     this.drawableNeurons = [];
     this.drawableInputNeurons = [];
+    this.hoverHotspots = [];
+    this.displayNameMap = new Map<string, string>();
     const topPadding = 84;
     const bottomPadding = 88;
     const usableHeight = Math.max(80, this.height - topPadding - bottomPadding);
@@ -84,6 +95,7 @@ export class Visualizer {
     const outputTargets: DrawableNeuron[] = [];
     let outputVirtualBiasY: number | null = null;
     const drawableNameMap = new Map<string, DrawableNeuron>();
+    const neuronNameMap = new Map<string, Neuron>();
     const summaryNameSet = new Set<string>();
 
     // (Labels are rendered after neuron layout so spacing matches positions)
@@ -102,6 +114,8 @@ export class Visualizer {
           const drawableNeuron = new DrawableNeuron(x, y, neuron.getActivation(), neuron.getName(), nIdx);
           this.drawableNeurons.push(drawableNeuron);
           drawableNameMap.set(neuron.getName(), drawableNeuron);
+          neuronNameMap.set(neuron.getName(), neuron);
+          this.displayNameMap.set(neuron.getName(), this.getDisplayNameForNeuron(lIdx, nIdx, neurons.length));
 
           if (lIdx === 0) {
             this.drawableInputNeurons.push(drawableNeuron);
@@ -134,6 +148,7 @@ export class Visualizer {
           const biasNode = new DrawableNeuron(x, outputVirtualBiasY, 1, `bias${lIdx}`, layer.length, true);
           this.drawableNeurons.push(biasNode);
           drawableNameMap.set(`bias${lIdx}`, biasNode);
+          this.displayNameMap.set(`bias${lIdx}`, this.getDisplayNameForBias(lIdx, neurons.length));
         }
       } else {
         const visualCount = layer.length + 1;
@@ -145,6 +160,8 @@ export class Visualizer {
           const drawableNeuron = new DrawableNeuron(x, y, neuron.getActivation(), neuron.getName(), nIdx);
           this.drawableNeurons.push(drawableNeuron);
           drawableNameMap.set(neuron.getName(), drawableNeuron);
+          neuronNameMap.set(neuron.getName(), neuron);
+          this.displayNameMap.set(neuron.getName(), this.getDisplayNameForNeuron(lIdx, nIdx, neurons.length));
 
           if (lIdx === 0) {
             this.drawableInputNeurons.push(drawableNeuron);
@@ -160,6 +177,7 @@ export class Visualizer {
           const biasNode = new DrawableNeuron(x, outputVirtualBiasY, 1, `bias${lIdx}`, layer.length, true);
           this.drawableNeurons.push(biasNode);
           drawableNameMap.set(`bias${lIdx}`, biasNode);
+          this.displayNameMap.set(`bias${lIdx}`, this.getDisplayNameForBias(lIdx, neurons.length));
         }
       }
     });
@@ -193,13 +211,33 @@ export class Visualizer {
       this.drawNeuron(neuron);
     });
 
+    this.drawableNeurons.forEach((drawableNeuron) => {
+      if (drawableNeuron.isSummary || drawableNeuron.isBias) {
+        return;
+      }
+      const displayName = this.getDisplayName(drawableNeuron.name);
+      if (displayName.startsWith('i')) {
+        return;
+      }
+      const neuron = neuronNameMap.get(drawableNeuron.name);
+      if (!neuron) {
+        return;
+      }
+      this.pushHoverHotspot(
+        drawableNeuron.x,
+        drawableNeuron.y,
+        drawableNeuron.isSummary ? 12 : 25,
+        this.buildNeuronTooltipMessage(neuron)
+      );
+    });
+
     // Top labels (render here so positions align with computed layout)
     this.ctx.fillStyle = `rgb(46, 40, 42, 1)`;
     this.ctx.font = `bold 14px sans-serif`;
     this.ctx.textAlign = 'center';
     const labelY = 28;
     if (this.manualInputVisible) {
-      this.ctx.fillText('live', columnCenter(0), labelY);
+      this.drawLiveColumnLabel(columnCenter(0), labelY);
     }
 
     neurons.forEach((layer, lIdx) => {
@@ -245,13 +283,17 @@ export class Visualizer {
         const diff = Math.max(-1, Math.min(1, neuron.activation - targetValue));
 
         const targetLabel = targetLabels[idx] || `target ${idx + 1}`;
-        this.ctx.fillStyle = isManualInput ? `rgba(120, 120, 120, 1)` : `rgb(46, 40, 42, 1)`;
-        this.ctx.font = `11px sans-serif`;
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText(targetLabel, targetColumnX, neuron.y - boxHeight / 2 - 6);
+        this.drawSmallTargetLabel(targetLabel, neuron.x, neuron.y - 31, isManualInput);
+        this.drawSmallTargetLabel(targetLabel, targetColumnX, neuron.y - boxHeight / 2 - 6, isManualInput);
 
         this.drawTargetSquare(targetColumnX - boxWidth / 2, neuron.y - boxHeight / 2, boxWidth, boxHeight, 10, targetValue, isManualInput);
         this.drawDiffSquare(costColumnX - boxWidth / 2, neuron.y - boxHeight / 2, boxWidth, boxHeight, 10, diff, isManualInput);
+        this.pushHoverHotspot(
+          costColumnX,
+          neuron.y,
+          boxWidth * 0.6,
+          `the error of a single neuron is calculated as the difference between the actual (output) and the desired (target) value of this neuron\n${neuron.activation.toFixed(5)} - ${targetValue.toFixed(5)} = ${diff.toFixed(5)}`
+        );
       });
 
       const summaryAnchorY = outputVirtualBiasY != null
@@ -288,6 +330,81 @@ export class Visualizer {
 
   public getInputSummaryNeurons() {
     return this.drawableNeurons.filter((neuron) => neuron.isSummary && neuron.name.startsWith('summary-0-'));
+  }
+
+  public getHoverMessageAt(canvasX: number, canvasY: number) {
+    for (let idx = this.hoverHotspots.length - 1; idx >= 0; idx--) {
+      const hotspot = this.hoverHotspots[idx];
+      const dx = canvasX - hotspot.x;
+      const dy = canvasY - hotspot.y;
+      if (dx * dx + dy * dy <= hotspot.radius * hotspot.radius) {
+        return hotspot.message;
+      }
+    }
+    return null;
+  }
+
+  private drawSmallTargetLabel(label: string, x: number, y: number, gray = false) {
+    this.ctx.fillStyle = gray ? `rgba(120, 120, 120, 1)` : `rgb(46, 40, 42, 1)`;
+    this.ctx.font = `11px sans-serif`;
+    this.ctx.textAlign = 'center';
+    this.ctx.fillText(label, x, y);
+    this.ctx.textAlign = 'start';
+  }
+
+  private drawLiveColumnLabel(x: number, y: number) {
+    this.ctx.textAlign = 'center';
+    this.ctx.fillText('live', x, y);
+    this.ctx.textAlign = 'start';
+  }
+
+  private getDisplayNameForNeuron(layerIdx: number, neuronIdx: number, layerCount: number) {
+    if (layerIdx === 0) {
+      return `i${neuronIdx + 1}`;
+    }
+    if (layerIdx === layerCount - 1) {
+      return `o${neuronIdx + 1}`;
+    }
+    return `h${layerIdx}_${neuronIdx + 1}`;
+  }
+
+  private getDisplayNameForBias(layerIdx: number, layerCount: number) {
+    if (layerIdx >= layerCount - 2) {
+      return 'out_bias';
+    }
+    return `h${layerIdx + 1}_bias`;
+  }
+
+  private getDisplayName(name: string) {
+    return this.displayNameMap.get(name) || name;
+  }
+
+  private pushHoverHotspot(x: number, y: number, radius: number, message: string) {
+    this.hoverHotspots.push({ x, y, radius, message });
+  }
+
+  private buildNeuronTooltipMessage(neuron: Neuron) {
+    const inputs = neuron.getInputs() || [];
+    const truncated = inputs.length > 6;
+    const shownInputs = truncated ? inputs.slice(0, 5) : inputs;
+    const currentDisplayName = this.getDisplayName(neuron.getName());
+    const biasDisplayName = currentDisplayName.startsWith('o')
+      ? 'out_bias'
+      : currentDisplayName.replace(/_.*/, '_bias');
+    const terms = shownInputs.map((connection) => {
+      const sourceNeuron = connection.getInputNeuron();
+      const sourceName = sourceNeuron.getIsBias()
+        ? biasDisplayName
+        : this.getDisplayName(sourceNeuron.getName());
+      const activation = sourceNeuron.calculateActivation();
+      const weight = connection.getWeight();
+      return `${sourceName}(${activation.toFixed(4)})*${weight.toFixed(4)}`;
+    });
+    if (truncated) {
+      terms.push('...');
+    }
+    const sum = inputs.reduce((acc, connection) => acc + connection.calculateValue(), 0);
+    return `the activity of a neuron is the sum of the weighted activities of its predecessor neurons, normalized to a value between 0 and 1\nsigmoid(${terms.join(' + ')}) = sigmoid(${sum.toFixed(5)}) = ${neuron.getActivation().toFixed(5)}`;
   }
 
   private drawNeuron(drawableNeuron: DrawableNeuron) {
@@ -432,12 +549,26 @@ export class Visualizer {
       x = outputNeuron.x - (distanceFromOrigin / Math.sqrt(1 + a ** 2))
     }
     const y = a * x + c;
+    const displayWeight = Number(weight).toFixed(3);
+    const inputName = this.getDisplayName(inputNeuron.name);
+    const outputName = this.getDisplayName(outputNeuron.name);
 
     this.ctx.font = `8px sans-serif`;
+    const textWidth = this.ctx.measureText(displayWeight).width;
+    const angle = Math.atan(a);
+    const centerX = x + Math.cos(angle) * (textWidth / 2);
+    const centerY = y + Math.sin(angle) * (textWidth / 2);
+    this.pushHoverHotspot(
+      centerX,
+      centerY,
+      Math.max(9, textWidth * 0.7),
+      `the weight between ${inputName} and ${outputName} has the value ${Number(weight).toFixed(5)}`
+    );
+
     this.ctx.save();
     this.ctx.translate(x, y);
-    this.ctx.rotate(Math.atan(a));
-    this.ctx.fillText(Number(weight).toFixed(3), 0, 0);
+    this.ctx.rotate(angle);
+    this.ctx.fillText(displayWeight, 0, 0);
     this.ctx.restore();
   }
 }

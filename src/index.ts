@@ -109,6 +109,7 @@ let inspectHoverInputCanvas: HTMLCanvasElement;
 let inspectHoverInputCtx: CanvasRenderingContext2D;
 let inspectHoverSampleTitle: HTMLDivElement;
 let inspectHoverTargetWrap: HTMLDivElement;
+let visualizerWeightHoverTooltip: HTMLDivElement;
 let interfaceHelpTooltip: HTMLDivElement;
 
 (window as any).slide = (i: number, value: number) => {
@@ -2083,6 +2084,41 @@ const hideInspectHover = () => {
   if (inspectHoverTooltip) {
     inspectHoverTooltip.style.display = 'none';
   }
+};
+
+const hideVisualizerWeightHover = () => {
+  if (visualizerWeightHoverTooltip) {
+    visualizerWeightHoverTooltip.style.display = 'none';
+  }
+};
+
+const handleVisualizerWeightHover = (event: MouseEvent) => {
+  if (!canvas || !visualizer || !visualizerWeightHoverTooltip) {
+    return;
+  }
+
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / Math.max(1, rect.width);
+  const scaleY = canvas.height / Math.max(1, rect.height);
+  const canvasX = (event.clientX - rect.left) * scaleX;
+  const canvasY = (event.clientY - rect.top) * scaleY;
+  const message = visualizer.getHoverMessageAt(canvasX, canvasY);
+
+  if (!message) {
+    hideVisualizerWeightHover();
+    return;
+  }
+
+  visualizerWeightHoverTooltip.textContent = message;
+  visualizerWeightHoverTooltip.style.display = 'block';
+  const tipRect = visualizerWeightHoverTooltip.getBoundingClientRect();
+  const left = Math.max(8, Math.min(window.innerWidth - tipRect.width - 8, event.clientX + 10));
+  const topCandidate = event.clientY - tipRect.height - 10;
+  const top = topCandidate < 8
+    ? Math.min(window.innerHeight - tipRect.height - 8, event.clientY + 10)
+    : topCandidate;
+  visualizerWeightHoverTooltip.style.left = `${left}px`;
+  visualizerWeightHoverTooltip.style.top = `${top}px`;
 };
 
 const getInspectHoverOutputFillColor = (value: number) => {
@@ -4838,6 +4874,10 @@ const main = () => {
   document.body.appendChild(inspectHoverTooltip);
   inspectHoverInputCtx = inspectHoverInputCanvas.getContext('2d');
 
+  visualizerWeightHoverTooltip = document.createElement('div');
+  visualizerWeightHoverTooltip.className = 'visualizer-weight-hover-tooltip';
+  document.body.appendChild(visualizerWeightHoverTooltip);
+
   if (inspectCanvas) {
     inspectCanvas.addEventListener('mousemove', (event) => handleInspectCanvasHover(event));
     inspectCanvas.addEventListener('mouseleave', () => hideInspectHover());
@@ -4855,6 +4895,10 @@ const main = () => {
   }, true);
 
   visualizer = new Visualizer(canvas);
+  if (canvas) {
+    canvas.addEventListener('mousemove', (event) => handleVisualizerWeightHover(event));
+    canvas.addEventListener('mouseleave', () => hideVisualizerWeightHover());
+  }
   itersInput.addEventListener('input', updateTrainButtonLabel);
   window.addEventListener('keydown', (event: KeyboardEvent) => {
     if (event.key !== 'Escape') {
@@ -5284,7 +5328,7 @@ const updateUI = () => {
       eyeBtn.classList.toggle('summary-bulk', id === 'summary-bulk');
     };
 
-    upsertEyeButton('header', canvasOffsetX + visualizer.getManualInputX() + liveColumnShiftPx + 22, 12, false);
+    upsertEyeButton('header', canvasOffsetX + visualizer.getManualInputX() + liveColumnShiftPx + 10, 12, false);
 
     let hasSummaryBulkEye = false;
     if (neuralCore.getInputSize() > 25) {
