@@ -557,59 +557,62 @@
   </section>
   <section id="id_tooltips">
     <div class="tooltip" id="tt_project-selector-help">
-      <p>Choose one of the preconfigured example projekts:</p>
+      <p>Choose one of the preconfigured example projects:</p>
       <ul>
         <li>basic: simple network with 3 inputs, 1 hidden layer with 3 neurons and 2 outputs</li>
         <li>perceptron: basically just one (output) neuron with two inputs</li>
-        <li>XOR: simple 2x2x1 network that can learn the XOR task </li>
-        <li>2x2: simple 4x3x1 network, includes all 16 possible (descrete) input samples </li>
-        <li>3x3: simple 9x4x1 network, includes 4 of the 2^9 possible (descrete) input samples </li>
-        <li>4x4: simple 16x4x1 network, includes 4 of the 2^16 possible (descrete) input samples </li>
-        <li>5x5: simple 25x25x25 network, includes 4 of the 2^25 possible (descrete) input samples </li>
-        <li>smileys: 1600x11x1 network for the task of deciding if a smiley drawn on a 40x40 pixel grayscale canvas is happy or not. 11 examples included, 5 of which are earmarked for testing only</li>
+        <li>XOR: simple 2x2x1 network that can learn the XOR task</li>
+        <li>2x2: simple 4x3x1 network, includes all 16 possible (discrete) input samples</li>
+        <li>3x3: simple 9x4x1 network, includes 4 of the 2^9 possible (discrete) input samples</li>
+        <li>4x4: simple 16x4x1 network, includes 4 of the 2^16 possible (discrete) input samples</li>
+        <li>5x5: simple 25x25x25 network, includes 4 of the 2^25 possible (discrete) input samples</li>
+        <li>smileys: 1600x11x1 network for deciding whether a smiley drawn on a 40x40 pixel grayscale canvas is happy or not. 11 examples are included, 5 of which are earmarked for testing only</li>
         <li>MNIST-mini: 256x12x10 network for the task of recognizing handwritten digits from the MNIST dataset (16x16 pixels each). 1000 examples included, 20% of which are earmarked for testing only</li>
       </ul>
-      All examples can be explored and modified. You can also save your own projects to a pure text format (JSON) and load them later (by pasting the JSON).
+      All examples can be explored and modified. You can also save your own projects to a plain-text JSON format and load them later by pasting the JSON.
     </div>
     <div class="tooltip" id="tt_architecture-help">
-      <p>Configure the network structure here:</p>
+      <p>The network architecture can be configured here, for example:</p>
       <ul>
-        <li>add/remove hidden layers</li>
         <li>change input size and output size</li>
+        <li>determine the number of hidden layers</li>
         <li>change neuron count of each hidden layer</li>
       </ul>
-      Large architectures with many neurons and layers can be slow to train and test. In this app some parameters (e.g. input output size, number of hidden layers) are capped because larger values would break the visualisation.
-      Keep architecture, data and weights consistent to avoid shape errors.
+      <p>Large architectures with many neurons and layers can be slow to train and test. In this app some parameters, such as input size, output size and the number of hidden layers, are capped because larger values would break the visualisation.</p>
     </div>
     <div class="tooltip" id="tt_weights-help">
-      <p>The numerical values of all weights in the network can be inspected here. Values ar updatedis displayed here</p>
-      <ul>
-        <li>randomize weights</li>
-        <li>edit weights manually via JSON</li>
-        <li>save current weights as JSON</li>
+      <p>The numerical values of all weights in the network can be inspected here. Values are automatically updated when they change, for example during training.</p>
+      <p>In the JSON structure, each layer is represented as one array with nested arrays for each downstream neuron.</p>
+      <p>Using the controls below, you can:</p>
+      <ul> 
+        <li>randomize weights: set all weights to random values</li>
+        <li>edit or load weights manually via JSON: modify the structure directly or paste in new values using the JSON format</li>
+        <li>save weights via JSON: export the current weights to a JSON file.</li>
       </ul>
+
+      <p>When working with JSON, it is important to keep architecture, data and weights consistent to avoid shape errors.</p>
     </div>
     <div class="tooltip" id="tt_data-help">
-      <p>Manage training and test samples.</p>
+      <p>Manage the samples that feed the network.</p>
       <ul>
-        <li>load/edit data via JSON</li>
-        <li>edit samples directly in the table editor</li>
-        <li>define target labels for outputs</li>
+        <li>load or edit data via JSON</li>
+        <li>edit samples directly in the table view or visual editor</li>
+        <li>define target labels for output neurons</li>
       </ul>
     </div>
     <div class="tooltip" id="tt_training-help">
       <p>Train the model with the configured data and settings.</p>
       <ul>
-        <li>train one sample or one full epoch</li>
+        <li>train the current sample or one full epoch</li>
         <li>run long training with live progress</li>
-        <li>stop/continue full training and reset the model</li>
+        <li>stop, continue or reset training at any time</li>
       </ul>
     </div>
     <div class="tooltip" id="tt_testing-help">
       <p>Evaluate how well the model predicts outputs.</p>
       <ul>
         <li>test on train data or test-only data</li>
-        <li>sort by index or error</li>
+        <li>sort by index, error or predicted confidence</li>
         <li>inspect hidden activations for deeper analysis</li>
       </ul>
     </div>
@@ -617,7 +620,7 @@
       <p>This canvas visualizes the current neural network state.</p>
       <ul>
         <li>node values and connection weights update live</li>
-        <li>selected sample input is shown directly</li>
+        <li>the selected sample input is shown directly in the input controls</li>
         <li>training changes can be observed step by step</li>
       </ul>
     </div>
