@@ -396,6 +396,10 @@
             <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-toggle" id="pixel-tool-toggle-btn" title="Toggle brush" onclick="setPixelEditorTool('toggle')"><span class="pixel-tool-swatch pixel-tool-swatch-toggle"></span></button>
             <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-black-brush" id="pixel-tool-black-btn" title="Black brush" onclick="setPixelEditorTool('black')"><span class="pixel-tool-swatch pixel-tool-swatch-black"></span></button>
             <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-white-brush" id="pixel-tool-white-btn" title="White brush" onclick="setPixelEditorTool('white')"><span class="pixel-tool-swatch pixel-tool-swatch-white"></span></button>
+            <label id="pixel-soft-brush-toggle" class="pixel-soft-brush-toggle" title="Use a softer brush with neighboring falloff">
+              <input type="checkbox" id="pixel-soft-brush-checkbox" onchange="setPixelSoftBrushEnabled(this.checked)">
+              <span>soft brush</span>
+            </label>
             <span class="editable-toolbar-spacer"></span>
             <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-undo-btn" id="pixel-tool-undo-btn" title="Undo last stroke" onclick="undoPixelEditorStroke()" disabled aria-label="Undo last stroke">
               <svg class="pixel-tool-undo-icon" viewBox="0 0 16 16" aria-hidden="true">
@@ -409,7 +413,7 @@
           <div class="editable-input-fill-controls mt-2">
             <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-fill-btn" title="Fill all input pixels black (0)" onclick="fillPixelEditorBlack()"><span class="pixel-tool-fill-glyph pixel-tool-fill-black"></span></button>
             <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-fill-btn" title="Fill all input pixels white (1)" onclick="fillPixelEditorWhite()"><span class="pixel-tool-fill-glyph pixel-tool-fill-white"></span></button>
-            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-circle-btn" title="Draw black circle outline" onclick="applyPixelEditorCircle()"><span class="pixel-tool-circle-glyph"></span></button>
+            <button type="button" id="pixel-tool-circle-btn" class="btn btn-outline-secondary btn-sm pixel-tool-circle-btn" title="Draw black circle outline" onclick="applyPixelEditorCircle()"><span class="pixel-tool-circle-glyph"></span></button>
             <button type="button" class="btn btn-outline-secondary btn-sm" onclick="resetPixelEditorInputs()">reset</button>
           </div>
         </section>
@@ -479,6 +483,7 @@
     </div>
   </div>
   <section id="id_info">
+    <br>
     <h2>What is this?</h2>
 <p>In this app, you can experiment with simple neural networks and visually inspect every aspect of what is happening under the hood. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load them using a plain-text JSON structure.</p>
 
@@ -593,12 +598,18 @@
       <p>When working with JSON, it is important to keep architecture, data and weights consistent to avoid shape errors.</p>
     </div>
     <div class="tooltip" id="tt_data-help">
-      <p>Manage the samples that feed the network.</p>
+      <p>Manage the samples that feed the network. You can:</p>
       <ul>
-        <li>load or edit data via JSON</li>
-        <li>edit samples directly in the table view or visual editor</li>
-        <li>define target labels for output neurons</li>
+        <li>
+          edit samples directly in the table view or visual editor<br>
+          <span>(e.g. set input values, target values, target labels, and earmark samples for either training or testing)</span>
+        </li>
+        <li>load or edit data via JSON<br>
+          <span>In JSON form, each sample is stored as one entry with input values, target values and a train/test flag. You can edit the structure directly or use the table and visual editor for convenience.</span>
+        </li>
+
       </ul>
+      
     </div>
     <div class="tooltip" id="tt_training-help">
       <p>Train the model with the configured data and settings.</p>

@@ -369,6 +369,10 @@ let interfaceHelpTooltip: HTMLDivElement;
   setPixelEditorTool(tool);
 }
 
+(window as any).setPixelSoftBrushEnabled = (enabled: boolean) => {
+  setPixelSoftBrushEnabled(Boolean(enabled));
+}
+
 (window as any).undoPixelEditorStroke = () => {
   undoPixelEditorStroke();
 }
@@ -741,6 +745,8 @@ let editablePixelApplyBtn: HTMLButtonElement;
 let liveInputAddTestSampleControls: HTMLElement;
 let editablePixelEditorCanvas: HTMLCanvasElement;
 let editablePixelEditorCtx: CanvasRenderingContext2D;
+let editablePixelSoftBrushToggleEl: HTMLElement;
+let editablePixelCircleBtn: HTMLButtonElement;
 let editableTargetEditorCanvas: HTMLCanvasElement;
 let editableTargetEditorCtx: CanvasRenderingContext2D;
 let editablePixelTargetLabelsEl: HTMLElement;
@@ -749,6 +755,7 @@ let editableSampleList: HTMLElement;
 let editableActiveSampleTrainCheckbox: HTMLInputElement;
 let editablePixelEditorError: HTMLElement;
 let editablePixelUndoBtn: HTMLButtonElement;
+let editablePixelSoftBrushCheckbox: HTMLInputElement;
 let editablePixelEditorActiveRow = -1;
 let editablePixelEditorCols = 1;
 let editablePixelEditorInputValues: number[] = [];
@@ -757,6 +764,7 @@ let editablePixelEditorOriginalInputValues: number[] = [];
 let editablePixelEditorOriginalOutputValues: number[] = [];
 let editablePixelEditorTool: 'toggle' | 'black' | 'white' = 'toggle';
 let editablePixelEditorOutputMode: 'paint' | 'numeric' = 'paint';
+let editablePixelEditorSoftBrushEnabled = false;
 let editablePixelEditorMouseDown = false;
 let editablePixelEditorMouseSurface: 'input' | 'target' | null = null;
 let editablePixelEditorStrokeSnapshot: number[] | null = null;
@@ -770,6 +778,39 @@ let targetLabelsError: HTMLElement;
 let targetLabels: string[] = [];
 let editableTargetLabels: string[] = [];
 let targetLabelsJson = '[]';
+
+// Soft-brush parameters are defined relative to canvas width (columns).
+// Tuned for MNIST-like 16x16 inputs: compact brush footprint with quick falloff.
+const SOFT_BRUSH_RADIUS_REL_TO_COLS = 0.055;
+const SOFT_BRUSH_RADIUS_MIN = 1;
+const SOFT_BRUSH_RADIUS_MAX = 4;
+const SOFT_BRUSH_SIGMA_REL_TO_RADIUS = 0.58;
+const SOFT_BRUSH_SIGMA_OFFSET = 0.12;
+const SOFT_BRUSH_STRENGTH = 0.5;
+const SOFT_BRUSH_MIN_INFLUENCE = 0.13;
+
+const getSoftBrushParams = (cols: number) => {
+  const radius = Math.max(
+    SOFT_BRUSH_RADIUS_MIN,
+    Math.min(SOFT_BRUSH_RADIUS_MAX, Math.round(cols * SOFT_BRUSH_RADIUS_REL_TO_COLS))
+  );
+  const sigma = Math.max(0.35, radius * SOFT_BRUSH_SIGMA_REL_TO_RADIUS + SOFT_BRUSH_SIGMA_OFFSET);
+  return { radius, sigma };
+};
+
+const normalizeProjectType = (projectType: string) => projectType
+  .trim()
+  .toLowerCase()
+  .replace(/[\s_]+/g, '-');
+
+const isMnistMiniProjectActive = () => {
+  const normalized = normalizeProjectType(currentProjectType || '');
+  return normalized === 'mnist-mini' || normalized === 'mnistmini';
+};
+
+const isSoftBrushAvailableForInput = (inputCount: number, isSquare: boolean) => isSquare && inputCount >= 100;
+
+const shouldShowCircleControlForInput = (inputCount: number, isSquare: boolean) => isSquare && inputCount > 400;
 
 const getMainDataLayout = (): DataLayout => {
   const mainTableWrap = (trainingSetDataOutput
@@ -1335,6 +1376,8 @@ const clampEditableValue = (value: number) => {
   const clamped = Math.max(0, Math.min(1, value));
   return Math.round(clamped * 10) / 10;
 };
+
+const clampUnitValue = (value: number) => Math.max(0, Math.min(1, value));
 
 const hideInterfaceHelpTooltip = () => {
   if (!interfaceHelpTooltip) {
@@ -2493,6 +2536,59 @@ const setPixelEditorTool = (tool: 'toggle' | 'black' | 'white') => {
   });
 };
 
+const setPixelSoftBrushEnabled = (enabled: boolean) => {
+  editablePixelEditorSoftBrushEnabled = enabled;
+  if (editablePixelSoftBrushCheckbox) {
+    editablePixelSoftBrushCheckbox.checked = enabled;
+  }
+  if (editablePixelEditorOverlay) {
+    editablePixelEditorOverlay.classList.toggle('soft-brush-enabled', enabled);
+  }
+};
+
+const updatePixelEditorInputControlVisibility = () => {
+  const inputCount = editablePixelEditorInputValues.length > 0
+    ? editablePixelEditorInputValues.length
+    : neuralCore.getInputSize();
+  const shape = getInputEditorShape(inputCount);
+  const softBrushAvailable = isSoftBrushAvailableForInput(inputCount, shape.square);
+  const showCircleControl = shouldShowCircleControlForInput(inputCount, shape.square);
+
+  if (editablePixelSoftBrushToggleEl) {
+    editablePixelSoftBrushToggleEl.style.display = softBrushAvailable ? 'inline-flex' : 'none';
+  }
+  if (!softBrushAvailable) {
+    setPixelSoftBrushEnabled(false);
+  }
+
+  if (editablePixelCircleBtn) {
+    editablePixelCircleBtn.style.display = showCircleControl ? 'inline-flex' : 'none';
+  }
+};
+
+const applyPixelEditorInputBrushDefaults = () => {
+  const inputCount = editablePixelEditorInputValues.length > 0
+    ? editablePixelEditorInputValues.length
+    : neuralCore.getInputSize();
+  const shape = getInputEditorShape(inputCount);
+  const softBrushAvailable = isSoftBrushAvailableForInput(inputCount, shape.square);
+
+  if (isMnistMiniProjectActive() && softBrushAvailable) {
+    setPixelSoftBrushEnabled(true);
+    setPixelEditorTool('white');
+    return;
+  }
+
+  setPixelSoftBrushEnabled(false);
+
+  if (inputCount > 20) {
+    setPixelEditorTool('black');
+    return;
+  }
+
+  setPixelEditorTool('toggle');
+};
+
 const updatePixelEditorUndoButton = () => {
   if (!editablePixelUndoBtn) {
     return;
@@ -2702,6 +2798,8 @@ const updatePixelEditorCanvas = () => {
   if (!editablePixelEditorCanvas || !editablePixelEditorCtx) {
     return;
   }
+
+  updatePixelEditorInputControlVisibility();
 
   const shape = getInputEditorShape(editablePixelEditorInputValues.length);
   editablePixelEditorCols = shape.cols;
@@ -2956,6 +3054,50 @@ const applyPixelToolAtIndex = (idx: number) => {
     return;
   }
 
+  if (editablePixelEditorSoftBrushEnabled && editablePixelEditorTool !== 'toggle') {
+    const shape = getInputEditorShape(editablePixelEditorInputValues.length);
+    const cols = shape.cols;
+    const rows = shape.rows;
+    const softBrush = getSoftBrushParams(cols);
+    const centerRow = Math.floor(idx / cols);
+    const centerCol = idx % cols;
+    const targetValue = editablePixelEditorTool === 'black' ? 0 : 1;
+    const sigmaSq = softBrush.sigma * softBrush.sigma;
+
+    for (let rowOffset = -softBrush.radius; rowOffset <= softBrush.radius; rowOffset++) {
+      for (let colOffset = -softBrush.radius; colOffset <= softBrush.radius; colOffset++) {
+        const row = centerRow + rowOffset;
+        const col = centerCol + colOffset;
+        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+          continue;
+        }
+
+        const distance = Math.sqrt(rowOffset * rowOffset + colOffset * colOffset);
+        if (distance > softBrush.radius) {
+          continue;
+        }
+
+        const gaussianWeight = Math.exp(-(distance * distance) / (2 * sigmaSq));
+        const influence = SOFT_BRUSH_STRENGTH * gaussianWeight;
+        if (influence < SOFT_BRUSH_MIN_INFLUENCE) {
+          continue;
+        }
+
+        const neighborIdx = row * cols + col;
+        if (neighborIdx < 0 || neighborIdx >= editablePixelEditorInputValues.length) {
+          continue;
+        }
+
+        const current = editablePixelEditorInputValues[neighborIdx];
+        const next = current + (targetValue - current) * influence;
+        editablePixelEditorInputValues[neighborIdx] = Math.round(clampUnitValue(next) * 1000) / 1000;
+      }
+    }
+
+    syncCurrentEditablePixelSampleFromEditor();
+    return;
+  }
+
   const current = editablePixelEditorInputValues[idx];
   let next = current;
   if (editablePixelEditorTool === 'toggle') {
@@ -3136,13 +3278,14 @@ const openEditablePixelEditorOverlay = (rowIdx: number) => {
     editablePixelEditorError.textContent = '';
   }
   applyEditablePixelOverlayMode('samples');
-  setPixelEditorTool('toggle');
+  applyPixelEditorInputBrushDefaults();
   editablePixelEditorOutputMode = 'paint';
   editablePixelEditorOverlay.style.display = 'flex';
 
   // Wait one frame so pane dimensions are measurable before sizing the canvases.
   window.requestAnimationFrame(() => {
     loadEditablePixelSample(rowIdx);
+    applyPixelEditorInputBrushDefaults();
     setPixelOutputEditMode('paint');
   });
 };
@@ -3165,7 +3308,7 @@ const openLiveInputVisualOverlay = () => {
   editablePixelEditorOriginalOutputValues = [];
   editablePixelEditorActiveRow = -1;
   clearEditablePixelStrokeHistory();
-  setPixelEditorTool('toggle');
+  applyPixelEditorInputBrushDefaults();
   editablePixelEditorOutputMode = 'paint';
   editablePixelEditorOverlay.style.display = 'flex';
 
@@ -4726,7 +4869,10 @@ const main = () => {
   liveInputAddTestSampleControls = document.getElementById('live-input-add-test-controls');
   editablePixelEditorCanvas = document.getElementById('editable-pixel-editor-canvas') as HTMLCanvasElement;
   editablePixelEditorCtx = editablePixelEditorCanvas.getContext('2d');
+  editablePixelSoftBrushToggleEl = document.getElementById('pixel-soft-brush-toggle');
+  editablePixelSoftBrushCheckbox = document.getElementById('pixel-soft-brush-checkbox') as HTMLInputElement;
   editablePixelUndoBtn = document.getElementById('pixel-tool-undo-btn') as HTMLButtonElement;
+  editablePixelCircleBtn = document.getElementById('pixel-tool-circle-btn') as HTMLButtonElement;
   editableTargetEditorCanvas = document.getElementById('editable-target-editor-canvas') as HTMLCanvasElement;
   editableTargetEditorCtx = editableTargetEditorCanvas.getContext('2d');
   editablePixelTargetLabelsEl = document.getElementById('editable-target-labels');
@@ -4757,6 +4903,10 @@ const main = () => {
   bindInterfaceHelpTooltip('training-help-btn', 'tt_training-help');
   bindInterfaceHelpTooltip('testing-help-btn', 'tt_testing-help');
   bindInterfaceHelpTooltip('visualisation-help-btn', 'tt_visualisation-help');
+
+  setPixelSoftBrushEnabled(false);
+
+  setPixelSoftBrushEnabled(false);
 
   editablePixelEditorCanvas.addEventListener('mousedown', (event) => {
     editablePixelEditorMouseDown = true;
