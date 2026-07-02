@@ -77,7 +77,10 @@ type InspectMarker = {
   x: number;
   y: number;
   size: number;
+  nr: number;
+  trainSample: boolean;
   input: number[];
+  output: number[];
   target: number[];
 };
 
@@ -104,6 +107,7 @@ let inspectPca3SubsetSourceCount = 0;
 let inspectHoverTooltip: HTMLDivElement;
 let inspectHoverInputCanvas: HTMLCanvasElement;
 let inspectHoverInputCtx: CanvasRenderingContext2D;
+let inspectHoverSampleTitle: HTMLDivElement;
 let inspectHoverTargetWrap: HTMLDivElement;
 let interfaceHelpTooltip: HTMLDivElement;
 
@@ -780,21 +784,21 @@ let editableTargetLabels: string[] = [];
 let targetLabelsJson = '[]';
 
 // Soft-brush parameters are defined relative to canvas width (columns).
-// Tuned for MNIST-like 16x16 inputs: compact brush footprint with quick falloff.
-const SOFT_BRUSH_RADIUS_REL_TO_COLS = 0.055;
+// Targets: ~3px max diameter at 16x16 and ~5px max diameter at 40x40.
+const SOFT_BRUSH_RADIUS_REL_TO_COLS = 0.05;
 const SOFT_BRUSH_RADIUS_MIN = 1;
-const SOFT_BRUSH_RADIUS_MAX = 4;
-const SOFT_BRUSH_SIGMA_REL_TO_RADIUS = 0.58;
-const SOFT_BRUSH_SIGMA_OFFSET = 0.12;
+const SOFT_BRUSH_RADIUS_MAX = 2;
+const SOFT_BRUSH_SIGMA_RADIUS_1 = 0.62;
+const SOFT_BRUSH_SIGMA_RADIUS_2 = 0.76;
 const SOFT_BRUSH_STRENGTH = 0.5;
-const SOFT_BRUSH_MIN_INFLUENCE = 0.13;
+const SOFT_BRUSH_MIN_INFLUENCE = 0.035;
 
 const getSoftBrushParams = (cols: number) => {
   const radius = Math.max(
     SOFT_BRUSH_RADIUS_MIN,
     Math.min(SOFT_BRUSH_RADIUS_MAX, Math.round(cols * SOFT_BRUSH_RADIUS_REL_TO_COLS))
   );
-  const sigma = Math.max(0.35, radius * SOFT_BRUSH_SIGMA_REL_TO_RADIUS + SOFT_BRUSH_SIGMA_OFFSET);
+  const sigma = radius <= 1 ? SOFT_BRUSH_SIGMA_RADIUS_1 : SOFT_BRUSH_SIGMA_RADIUS_2;
   return { radius, sigma };
 };
 
@@ -1917,6 +1921,12 @@ const updateTestingOverlayControls = () => {
 
   const overlayTexts = buildTestingOverlayTexts(testingCurrentMode, testingRows);
   testingResultsSwitchBtn.textContent = overlayTexts.switchButtonText;
+  testingResultsSwitchBtn.classList.remove('btn-outline-primary', 'btn-outline-secondary', 'btn-primary', 'btn-secondary');
+  if (testingCurrentMode === 'train') {
+    testingResultsSwitchBtn.classList.add('btn-secondary');
+  } else {
+    testingResultsSwitchBtn.classList.add('btn-primary');
+  }
 
   if (testingRows.length > 0) {
     testingResultsTitle.innerHTML = overlayTexts.titleHtml;
@@ -2075,32 +2085,50 @@ const hideInspectHover = () => {
   }
 };
 
-const renderInspectHoverTarget = (target: number[]) => {
+const getInspectHoverOutputFillColor = (value: number) => {
+  const clamped = Math.max(0, Math.min(1, value));
+  const alpha = Math.max(0.18, clamped);
+  return `rgba(33, 100, 205, ${alpha})`;
+};
+
+const getInspectHoverTargetFillColor = (value: number) => {
+  const clamped = Math.max(0, Math.min(1, value));
+  const alpha = Math.max(0.2, clamped);
+  return `rgba(0, 0, 0, ${alpha})`;
+};
+
+const renderInspectHoverBars = (values: number[], isTarget: boolean, chartWidth: number) => {
+  if (values.length <= 1) {
+    const value = values.length ? values[0] : 0;
+    const clamped = Math.max(0, Math.min(1, value));
+    const fillColor = isTarget ? getInspectHoverTargetFillColor(clamped) : getInspectHoverOutputFillColor(clamped);
+    const textColor = isTarget ? '#ffffff' : 'rgba(46, 40, 42, 0.9)';
+    return `<div class="inspect-hover-target-single" style="width:${chartWidth}px;"><div class="inspect-hover-target-single-fill" style="width:${clamped * 100}%; background:${fillColor};"></div><div class="inspect-hover-target-single-value" style="color:${textColor};">${value.toFixed(4)}</div></div>`;
+  }
+
+  const bars = values
+    .map((value) => {
+      const clamped = Math.max(0, Math.min(1, value));
+      const fillColor = isTarget ? getInspectHoverTargetFillColor(clamped) : getInspectHoverOutputFillColor(clamped);
+      return `<div class="inspect-hover-target-bar" style="height:${Math.max(4, clamped * 100)}%; background:${fillColor};"></div>`;
+    })
+    .join('');
+  return `<div class="inspect-hover-target-bars" style="width:${chartWidth}px;">${bars}</div>`;
+};
+
+const renderInspectHoverTarget = (sample: Pick<InspectPoint, 'nr' | 'trainSample' | 'output' | 'target'>, chartWidth: number) => {
   if (!inspectHoverTargetWrap) {
     return;
   }
-  inspectHoverTargetWrap.innerHTML = '';
-  if (target.length <= 1) {
-    const value = target.length ? target[0] : 0;
-    const clamped = Math.max(0, Math.min(1, value));
-    inspectHoverTargetWrap.innerHTML = `<div class="inspect-hover-target-single"><div class="inspect-hover-target-single-fill" style="width:${clamped * 100}%;"></div><div class="inspect-hover-target-single-value">${value.toFixed(4)}</div></div>`;
-    return;
-  }
-
-  const bars = target
-    .map((value) => {
-      const clamped = Math.max(0, Math.min(1, value));
-      return `<div class="inspect-hover-target-bar" style="height:${Math.max(4, clamped * 100)}%;"></div>`;
-    })
-    .join('');
-  inspectHoverTargetWrap.innerHTML = `<div class="inspect-hover-target-bars">${bars}</div>`;
+  inspectHoverTargetWrap.innerHTML = `<div class="inspect-hover-section-title target-title">output</div>${renderInspectHoverBars(sample.output, false, chartWidth)}<div class="inspect-hover-section-title target-title">target</div>${renderInspectHoverBars(sample.target, true, chartWidth)}`;
 };
 
-const showInspectHover = (inputValues: number[], targetValues: number[], anchorX: number, anchorY: number) => {
+const showInspectHover = (sample: Pick<InspectPoint, 'nr' | 'trainSample' | 'input' | 'output' | 'target'>, anchorX: number, anchorY: number) => {
   if (!inspectHoverTooltip || !inspectHoverInputCanvas || !inspectHoverInputCtx) {
     return;
   }
 
+  const inputValues = sample.input;
   const count = Math.max(1, inputValues.length);
   const root = Math.sqrt(count);
   const cols = Number.isInteger(root) ? root : count;
@@ -2126,7 +2154,12 @@ const showInspectHover = (inputValues: number[], targetValues: number[], anchorX
   inspectHoverInputCtx.lineWidth = 1;
   inspectHoverInputCtx.strokeRect(0.5, 0.5, width - 1, height - 1);
 
-  renderInspectHoverTarget(targetValues);
+  if (inspectHoverSampleTitle) {
+    const sampleType = sample.trainSample ? 'train' : 'test';
+    inspectHoverSampleTitle.textContent = `Nr ${sample.nr} (${sampleType})`;
+  }
+
+  renderInspectHoverTarget(sample, width);
 
   inspectHoverTooltip.style.display = 'block';
   const tipRect = inspectHoverTooltip.getBoundingClientRect();
@@ -2252,7 +2285,7 @@ const renderInspectPca3D = () => {
         clientX = Number.isFinite(localX) ? containerRect.left + localX : containerRect.left + containerRect.width / 2;
         clientY = Number.isFinite(localY) ? containerRect.top + localY : containerRect.top + containerRect.height / 2;
       }
-      showInspectHover(sourcePoint.input, sourcePoint.target, clientX, clientY);
+      showInspectHover(sourcePoint, clientX, clientY);
     });
     plotlyEl.on('plotly_unhover', () => {
       hideInspectHover();
@@ -2405,7 +2438,7 @@ const handleInspectCanvasHover = (event: MouseEvent) => {
     return;
   }
 
-  showInspectHover(hoveredMarker.input, hoveredMarker.target, event.clientX, event.clientY);
+  showInspectHover(hoveredMarker, event.clientX, event.clientY);
 };
 
 const openInspectOverlay = () => {
@@ -4314,7 +4347,7 @@ const updateTrainButtonLabel = () => {
 
   const parsedEpochs = Number.parseInt(itersInput.value);
   const epochs = Number.isNaN(parsedEpochs) || parsedEpochs < 1 ? 1 : parsedEpochs;
-  runFullTrainingBtn.innerText = `Train ${epochs} epochs`;
+  runFullTrainingBtn.innerText = `train ${epochs} epochs`;
 };
 
 const getActiveSampleIndex = () => {
@@ -4790,18 +4823,17 @@ const main = () => {
 
   inspectHoverTooltip = document.createElement('div');
   inspectHoverTooltip.className = 'inspect-hover-tooltip';
+  inspectHoverSampleTitle = document.createElement('div');
+  inspectHoverSampleTitle.className = 'inspect-hover-sample-title';
   const inputTitle = document.createElement('div');
   inputTitle.className = 'inspect-hover-section-title';
   inputTitle.textContent = 'input';
   inspectHoverInputCanvas = document.createElement('canvas');
   inspectHoverInputCanvas.className = 'testing-input-hover-canvas';
-  const targetTitle = document.createElement('div');
-  targetTitle.className = 'inspect-hover-section-title target-title';
-  targetTitle.textContent = 'target';
   inspectHoverTargetWrap = document.createElement('div');
+  inspectHoverTooltip.appendChild(inspectHoverSampleTitle);
   inspectHoverTooltip.appendChild(inputTitle);
   inspectHoverTooltip.appendChild(inspectHoverInputCanvas);
-  inspectHoverTooltip.appendChild(targetTitle);
   inspectHoverTooltip.appendChild(inspectHoverTargetWrap);
   document.body.appendChild(inspectHoverTooltip);
   inspectHoverInputCtx = inspectHoverInputCanvas.getContext('2d');

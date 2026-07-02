@@ -29,7 +29,7 @@
 <main class="container mt-3" id="id_main" style="min-width: 992px;">
   <section id="id_header">
     <h1>Neural network playground</h1>
-    <p class="lead">Configure, train and test simple "vanilla" neural networks, all without coding and conveniently visualized.</p>
+    <p class="lead">Configure, train and test simple "vanilla" neural networks in your browser. Explore all the bits & pieces under the hood of these foundation models of modern AI without writing a single line of code.</p>
   </section>
   <hr>
   <section id="id_project">
@@ -191,13 +191,13 @@
       </div>
       <div class="training-actions-row mb-1">
         <button type="button" id="train-current-sample-btn" class="btn btn-primary" onclick="trainCurrentSample()">
-          Train current sample
+          train current sample
         </button>
         <button type="button" id="train-one-epoch-btn" class="btn btn-secondary" onclick="trainOneEpoch()">
           train 1 epoch
         </button>
         <button type="button" id="run-full-training-btn" class="btn btn-dark" onclick="runFullTraining()">
-          Train
+          train
         </button>
         <button type="button" id="reset-btn" class="btn btn-danger training-reset-btn" onclick="reset()">Reset</button>
       </div>
@@ -211,8 +211,8 @@
         </button>
       </div>
       <div class="testing-panel-controls d-flex flex-wrap align-items-center">
-        <button type="button" class="btn btn-outline-primary btn-sm mr-2 mb-2" onclick="openTestingResultsOverlay('train')">test with train data</button>
-        <button type="button" class="btn btn-outline-secondary btn-sm mr-2 mb-2" onclick="openTestingResultsOverlay('test')">test with test data</button>
+        <button type="button" class="btn btn-primary btn-sm mr-2 mb-2" onclick="openTestingResultsOverlay('train')">test with train data</button>
+        <button type="button" class="btn btn-secondary btn-sm mr-2 mb-2" onclick="openTestingResultsOverlay('test')">test with test data</button>
         <button type="button" id="inspect-hidden-btn" class="btn btn-outline-dark mb-2" onclick="openInspectOverlay()">inspect hidden activations</button>
       </div>
     </section>
@@ -261,7 +261,7 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0" id="testing-results-title">testing results</h5>
         <div class="d-flex align-items-center">
-          <button type="button" id="testing-results-switch-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="switchTestingResultsMode()">test with test data</button>
+          <button type="button" id="testing-results-switch-btn" class="btn btn-secondary btn-sm mr-2" onclick="switchTestingResultsMode()">test with test data</button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="closeTestingResultsOverlay()">close</button>
         </div>
       </div>

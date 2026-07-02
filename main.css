@@ -1556,6 +1556,13 @@ body{
   margin: 0 0 3px 0;
 }
 
+.inspect-hover-sample-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(46, 40, 42, 0.92);
+  margin: 0 0 4px 0;
+}
+
 .inspect-hover-section-title.target-title {
   margin-top: 6px;
 }

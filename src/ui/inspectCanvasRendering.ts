@@ -3,6 +3,7 @@ import type { DendrogramNode } from './inspectComputation';
 export type InspectCanvasPoint = {
   nr: number;
   input: number[];
+  output: number[];
   target: number[];
   trainSample: boolean;
 };
@@ -11,7 +12,10 @@ export type InspectCanvasMarker = {
   x: number;
   y: number;
   size: number;
+  nr: number;
+  trainSample: boolean;
   input: number[];
+  output: number[];
   target: number[];
 };
 
@@ -107,7 +111,16 @@ export const renderInspectPca2DCanvas = (args: {
     ctx.fillStyle = 'rgba(20, 20, 20, 0.92)';
     ctx.font = '11px sans-serif';
     ctx.fillText(`${marker.nr}`, coords.x + size + 2, coords.y + 3);
-    markers.push({ x: coords.x, y: coords.y, size: size + 4, input: marker.input.slice(), target: marker.target.slice() });
+    markers.push({
+      x: coords.x,
+      y: coords.y,
+      size: size + 4,
+      nr: marker.nr,
+      trainSample: marker.trainSample,
+      input: marker.input.slice(),
+      output: marker.output.slice(),
+      target: marker.target.slice(),
+    });
   });
 
   return markers;
@@ -207,7 +220,16 @@ export const renderInspectNearestCanvas = (args: {
     ctx.fillStyle = 'rgba(20, 20, 20, 0.92)';
     ctx.font = '12px sans-serif';
     ctx.fillText(markerLabelTexts.get(leafIdx) || `sample ${point.nr}`, x + markerTextGap, y + 4);
-    markers.push({ x, y, size: size + 5, input: point.input.slice(), target: point.target.slice() });
+    markers.push({
+      x,
+      y,
+      size: size + 5,
+      nr: point.nr,
+      trainSample: point.trainSample,
+      input: point.input.slice(),
+      output: point.output.slice(),
+      target: point.target.slice(),
+    });
   });
 
   return markers;

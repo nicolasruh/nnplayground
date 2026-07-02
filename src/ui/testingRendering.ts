@@ -11,18 +11,20 @@ const getTestingOutputFillColor = (value: number) => {
 
 const getTestingTargetFillColor = (value: number) => {
   const clamped = Math.max(0, Math.min(1, value));
-  const shade = Math.round(clamped * 255);
-  return `rgb(${shade}, ${shade}, ${shade})`;
+  const alpha = Math.max(0.2, clamped);
+  return `rgba(0, 0, 0, ${alpha})`;
 };
 
 const buildTestingChartTooltipRows = (
   values: number[],
   getTargetLabel: TargetLabelFn,
   escapeHtmlAttr: EscapeFn,
-  getFillColor: (value: number) => string
+  getFillColor: (value: number) => string,
+  isTarget: boolean
 ) => values
   .map((value, idx) => {
-    const label = escapeHtmlAttr(getTargetLabel(idx, false));
+    const rawLabel = isTarget ? getTargetLabel(idx, false) : `output ${idx + 1}`;
+    const label = escapeHtmlAttr(rawLabel);
     const widthPercent = Math.max(0, Math.min(100, value * 100));
     return `<div class="testing-chart-tooltip-row"><span class="testing-chart-tooltip-label">${label}</span><div class="testing-chart-tooltip-bar-wrap"><div class="testing-chart-tooltip-bar" style="width:${widthPercent}%; background:${getFillColor(value)};"></div></div><span class="testing-chart-tooltip-value">${value.toFixed(5)}</span></div>`;
   })
@@ -38,7 +40,7 @@ const buildTestingBarCellHtml = (
   if (values.length <= 1) {
     const value = values.length === 1 ? values[0] : 0;
     const clamped = Math.max(0, Math.min(1, value));
-    const textColor = isTarget && clamped < 0.55 ? '#ffffff' : undefined;
+    const textColor = isTarget ? '#ffffff' : undefined;
     const textColorStyle = textColor ? ` color:${textColor};` : '';
     return `<div class="testing-single-wrap"><div class="testing-single-bar-frame"><div class="testing-single-bar-fill" style="width:${clamped * 100}%; background:${fillColor(clamped)};"></div><span class="testing-single-value" style="${textColorStyle}">${value.toFixed(5)}</span></div><div class="testing-single-scale-labels"><span>0</span><span>1</span></div></div>`;
   }
@@ -49,7 +51,7 @@ const buildTestingBarCellHtml = (
       return `<div class="testing-mini-bar" style="height:${clamped * 100}%; background:${fillColor(clamped)};"></div>`;
     })
     .join('');
-  const tooltipRows = buildTestingChartTooltipRows(values, getTargetLabel, escapeHtmlAttr, fillColor);
+  const tooltipRows = buildTestingChartTooltipRows(values, getTargetLabel, escapeHtmlAttr, fillColor, isTarget);
   return `<div class="testing-multi-wrap"><span class="testing-mini-axis-label testing-mini-axis-top">1</span><span class="testing-mini-axis-label testing-mini-axis-bottom">0</span><div class="testing-multi-bars">${bars}</div><div class="testing-chart-tooltip">${tooltipRows}</div></div>`;
 };
 
