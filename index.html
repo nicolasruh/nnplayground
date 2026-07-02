@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name=”description” content="Interactive visualization of a neural network. "/>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="main.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <script src="./dist/main.js"></script>
+  <script
+    src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML'
+    async></script>
+  <script defer data-domain="nnplayground.com"
+          src="https://analytics.gifmemes.io/js/plausible.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <title>Neural network visualized</title>
+</head>
+
+<body>
+<main class="container mt-3" id="id_main" style="min-width: 992px;">
+  <section id="id_header">
+    <h1>Neural network playground</h1>
+    <p class="lead">Configure, train and test simple "vanilla" neural networks, all without coding and conveniently visualized.</p>
+  </section>
+  <hr>
+  <section id="id_project">
+  <div id="controls">
+    <div class="section-heading-with-help mb-2">
+      <h5 class="mb-0">Projects</h5>
+      <button type="button" id="project-selector-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+              aria-label="Project presets help">?
+      </button>
+    </div>
+    <div class="d-flex align-items-center flex-wrap project-controls-row">
+      <select class="form-control form-control-sm mr-2" id="project-select" style="width: 170px;">
+        <option value="basic" selected="true">basic</option>
+        <option value="perceptron">perceptron</option>
+        <option value="XOR">XOR</option>
+        <option value="2x2">2x2</option>
+        <option value="3x3">3x3 grid</option>
+        <option value="4x4">4x4 grid</option>
+        <option value="5x5">5x5 grid</option>
+        <option value="smileys">smileys</option>
+        <option value="MNIST-mini">MNIST-mini</option>
+      </select>
+      <button type="button" id="load-project-btn" class="btn btn-outline-primary btn-sm project-json-btn"
+        onclick="openLoadProjectOverlay()">load or edit project via JSON
+      </button>
+      <button type="button" id="save-project-btn" class="btn btn-outline-dark btn-sm project-json-btn"
+        onclick="openSaveProjectOverlay()">save project via JSON
+      </button>
+    </div>
+  </div>
+  </section>
+    <hr>
+    <section id="id_architecture_weights_row" class="top-controls-row id-row">
+      <section class="top-controls-architecture id-panel" id="id_architecture_panel">
+        <div class="section-heading-with-help mb-2">
+          <h5 class="mb-0">Network architecture</h5>
+          <button type="button" id="architecture-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+                  aria-label="Network architecture help">?
+          </button>
+        </div>
+        <table id="layer-controls">
+        </table>
+      </section>
+      <section class="top-controls-weights id-panel" id="id_weights_panel">
+        <div class="section-heading-with-help mb-2">
+          <h5 class="mb-0">Weights</h5>
+          <button type="button" id="weights-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+                  aria-label="Weights help">?
+          </button>
+        </div>
+        <textarea class="form-control" id="weights-preview" rows="6" readonly></textarea>
+        <div class="weights-controls-row mt-3">
+          <button type="button" id="random-weights-btn" class="btn btn-outline-secondary btn-sm"
+            onclick="randomWeights()">random weights
+          </button>
+          <span class="weights-controls-gap"></span>
+          <button type="button" id="set-weights-manually-btn" class="btn btn-outline-primary btn-sm"
+            onclick="openWeightsEditor()">edit or load weights via JSON
+          </button>
+          <button type="button" id="save-weights-btn" class="btn btn-outline-dark btn-sm"
+            onclick="openSaveWeightsOverlay()">save weights via JSON
+          </button>
+        </div>
+      </section>
+  </section>
+    <hr>
+  <section id="id_data">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-heading-with-help mb-2">
+          <h5 class="mb-0">Data</h5>
+          <button type="button" id="data-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+                  aria-label="Data help">?
+          </button>
+        </div>
+        <div class="d-flex align-items-center mb-2 data-controls-row">
+          <button type="button" id="edit-in-table-btn" class="btn btn-outline-primary btn-sm"
+            onclick="handleEditInTableButton()">edit in table
+          </button>
+          <button type="button" id="open-visual-editor-btn" class="btn btn-outline-secondary btn-sm"
+            onclick="openVisualDataEditor()">edit visually
+          </button>
+          <button type="button" class="btn btn-outline-secondary btn-sm"
+            onclick="openTrainingDataEditor()">load or edit data via JSON
+          </button>
+        </div>
+        <div class="table-responsive main-data-table-wrap">
+          <table class="table table-sm table-bordered table-hover table-striped main-data-table">
+            <thead class="thead-dark">
+            <tr id="training-set-neurons-output">
+            </tr>
+            </thead>
+            <tbody id="training-set-data-output">
+            </tbody>
+          </table>
+        </div>
+        <div id="main-data-edit-controls" class="main-data-edit-controls" style="display: none;">
+          <div class="d-flex align-items-center flex-wrap main-data-edit-controls-left">
+            <button type="button" class="btn btn-outline-primary btn-sm mr-2" onclick="addMainTableEditSample()">+ add sample</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm mr-2" onclick="openTargetLabelsOverlay()">label targets</button>
+            <div id="main-edit-train-select-control" class="btn btn-outline-secondary btn-sm align-items-center editable-train-select-control" style="display: none;" onclick="applyMainEditTrainSamplePercentage()" onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); applyMainEditTrainSamplePercentage(); }" role="button" tabindex="0">
+              <span>select</span>
+              <input id="main-edit-train-percent-input" type="number" min="0" max="100" step="1" value="80" class="form-control form-control-sm mx-1 editable-train-percent-input" onclick="event.stopPropagation();" onkeydown="event.stopPropagation();">
+              <span>% of samples for training</span>
+            </div>
+          </div>
+          <div class="main-data-edit-controls-right">
+            <button type="button" class="btn btn-primary btn-sm" onclick="finishMainTableEdits()">set data</button>
+          </div>
+        </div>
+        <div id="main-data-hint"><i>Hint: Click on an entry in the table to activate an input</i></div>
+      </div>
+    </div>
+  </section>
+  <div id="main-data-delete-all-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog" style="max-width: 360px;">
+      <h5 class="mb-2">delete all samples?</h5>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-danger mr-2" onclick="confirmDeleteAllMainTableEditSamples()">confirm</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelDeleteAllMainTableEditSamples()">cancel</button>
+      </div>
+    </div>
+  </div>
+    <hr>
+  <section id="id_training_testing_row" class="mb-3 top-controls-row id-row">
+    <section id="id_training_panel" class="id-panel">
+      <div class="section-heading-with-help mb-2">
+        <h5 class="mb-0">Training</h5>
+        <button type="button" id="training-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+                aria-label="Training help">?
+        </button>
+      </div>
+      <div class="learning-params-row mb-2">
+        <div class="learning-param-control training-param-pair">
+          <label for="rate-input" class="control-label mb-0 training-param-label">Learning rate:</label>
+          <select class="form-control form-control-sm training-param-input training-param-input-rate" id="rate-input">
+            <option value="0.001">0.001</option>
+            <option value="0.003">0.003</option>
+            <option value="0.01">0.01</option>
+            <option value="0.03">0.03</option>
+            <option value="0.1">0.1</option>
+            <option value="0.3" selected="true">0.3</option>
+            <option value="1">1</option>
+            <option value="3">3</option>
+            <option value="10">10</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="learning-param-control training-param-pair">
+          <label for="momentum-input" class="control-label mb-0 training-param-label">Momentum:</label>
+          <input class="form-control form-control-sm training-param-input training-param-input-momentum" id="momentum-input" type="number"
+                 min="0" max="1" step="0.05" value="0">
+        </div>
+        <div class="learning-param-control training-param-pair">
+          <label for="iters-input" class="control-label mb-0 training-param-label">Epochs:</label>
+          <input class="form-control form-control-sm training-param-input training-param-input-epochs" id="iters-input" type="number"
+                 min="1" max="200000" value="5000" step="1000">
+        </div>
+      </div>
+      <div class="training-actions-row mb-1">
+        <button type="button" id="train-current-sample-btn" class="btn btn-primary" onclick="trainCurrentSample()">
+          Train current sample
+        </button>
+        <button type="button" id="train-one-epoch-btn" class="btn btn-secondary" onclick="trainOneEpoch()">
+          train 1 epoch
+        </button>
+        <button type="button" id="run-full-training-btn" class="btn btn-dark" onclick="runFullTraining()">
+          Train
+        </button>
+        <button type="button" id="reset-btn" class="btn btn-danger training-reset-btn" onclick="reset()">Reset</button>
+      </div>
+      <div id="training-epoch-notice" class="training-epoch-notice" style="display: none;"></div>
+    </section>
+    <section id="id_testing_panel" class="id-panel">
+      <div class="section-heading-with-help mb-2">
+        <h5 class="mb-0">Testing</h5>
+        <button type="button" id="testing-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+                aria-label="Testing help">?
+        </button>
+      </div>
+      <div class="testing-panel-controls d-flex flex-wrap align-items-center">
+        <button type="button" class="btn btn-outline-primary btn-sm mr-2 mb-2" onclick="openTestingResultsOverlay('train')">test with train data</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm mr-2 mb-2" onclick="openTestingResultsOverlay('test')">test with test data</button>
+        <button type="button" id="inspect-hidden-btn" class="btn btn-outline-dark mb-2" onclick="openInspectOverlay()">inspect hidden activations</button>
+      </div>
+    </section>
+  </section>
+  <hr>
+  <section id="id_visualisation">
+  <div class="row">
+    <div class="col-12">
+      <div class="section-heading-with-help mb-2">
+        <h5 class="mb-0">Network visualisation</h5>
+        <button type="button" id="visualisation-help-btn" class="btn btn-outline-secondary btn-sm heading-help-btn"
+                aria-label="Network visualisation help">?
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="visualization-view">
+    <div id="input-controls"></div>
+    <div class="visualization-canvas-wrap">
+      <canvas id="content" width="982" height="600"
+              style="border: 5px solid #2E282A; display: block; width: 100%; height: auto;">Sorry,
+        you need
+        a better browser to see the neural net.
+      </canvas>
+    </div>
+  </div>
+  </section>
+  <div id="training-graph-view" class="weights-editor-overlay training-graph-overlay" style="display: none;">
+    <div class="weights-editor-dialog training-graph-dialog" id="training-graph-dialog">
+      <div class="d-flex justify-content-between align-items-center mb-2 training-graph-toolbar">
+        <h5 class="mb-0">Full training progress</h5>
+        <div class="d-flex align-items-center">
+          <button type="button" id="continue-training-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="continueFullTraining()" style="display: none;">continue training</button>
+          <button type="button" id="stop-full-training-btn" class="btn btn-warning btn-sm" onclick="stopFullTraining()" style="display: none;">stop</button>
+          <button type="button" id="close-training-graph-btn" class="btn btn-secondary btn-sm" onclick="closeTrainingGraphOverlay()" style="display: none;">close</button>
+        </div>
+      </div>
+      <canvas id="training-graph" width="982" height="600" style="border: 2px solid rgba(46, 40, 42, 0.45); display: block; width: 100%; height: auto;">Sorry,
+        you need
+        a better browser to see the training graph.
+      </canvas>
+    </div>
+  </div>
+  <div id="testing-results-overlay" class="weights-editor-overlay testing-results-overlay" style="display: none;">
+    <div class="weights-editor-dialog testing-results-dialog">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="mb-0" id="testing-results-title">testing results</h5>
+        <div class="d-flex align-items-center">
+          <button type="button" id="testing-results-switch-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="switchTestingResultsMode()">test with test data</button>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeTestingResultsOverlay()">close</button>
+        </div>
+      </div>
+      <div id="testing-results-empty" class="text-muted mb-2" style="display: none;">No matching samples found.</div>
+      <div class="testing-results-header" id="testing-results-header">
+        <div class="testing-header-cell testing-header-sortable">
+          <span>nr.</span>
+          <button type="button" class="testing-sort-triangle" onclick="sortTestingResultsBy('nr', 'asc')" title="sort nr. ascending">&#9650;</button>
+          <button type="button" class="testing-sort-triangle" onclick="sortTestingResultsBy('nr', 'desc')" title="sort nr. descending">&#9660;</button>
+        </div>
+        <div class="testing-header-cell">input</div>
+        <div class="testing-header-cell">model (epoche)</div>
+        <div class="testing-header-cell">output</div>
+        <div class="testing-header-cell" id="testing-header-target">target</div>
+        <div class="testing-header-cell testing-header-sortable">
+          <span id="testing-cost-label">error</span>
+          <button type="button" class="testing-sort-triangle" onclick="sortTestingResultsBy('cost', 'asc')" title="sort error ascending">&#9650;</button>
+          <button type="button" class="testing-sort-triangle" onclick="sortTestingResultsBy('cost', 'desc')" title="sort error descending">&#9660;</button>
+        </div>
+        <div class="testing-header-cell testing-header-sortable" id="testing-sort-correct">
+          <span>predicted (confidence)</span>
+          <button type="button" class="testing-sort-triangle" onclick="sortTestingResultsBy('predicted', 'asc')" title="sort predicted confidence ascending">&#9650;</button>
+          <button type="button" class="testing-sort-triangle" onclick="sortTestingResultsBy('predicted', 'desc')" title="sort predicted confidence descending">&#9660;</button>
+        </div>
+      </div>
+      <div id="testing-results-body" class="testing-results-body"></div>
+    </div>
+  </div>
+  <div id="inspect-overlay" class="weights-editor-overlay inspect-overlay" style="display: none;">
+    <div class="weights-editor-dialog inspect-dialog">
+      <div class="d-flex justify-content-between align-items-start mb-2 inspect-toolbar">
+        <div id="inspect-layer-controls" class="d-flex flex-wrap align-items-center mr-2"></div>
+        <div class="d-flex align-items-center inspect-mode-controls">
+          <button type="button" class="btn btn-outline-primary btn-sm mr-2 inspect-mode-btn" data-inspect-mode="pca2d" onclick="setInspectMode('pca2d')">PCA 2D</button>
+          <button type="button" class="btn btn-outline-primary btn-sm mr-2 inspect-mode-btn" data-inspect-mode="pca3d" onclick="setInspectMode('pca3d')">PCA 3D</button>
+          <button type="button" class="btn btn-outline-primary btn-sm inspect-mode-btn" data-inspect-mode="nearest" onclick="setInspectMode('nearest')">nearest neighbour</button>
+        </div>
+        <div class="d-flex align-items-center ml-2">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeInspectOverlay()">close</button>
+        </div>
+      </div>
+      <div id="inspect-scroll-area" class="inspect-scroll-area">
+        <canvas id="inspect-canvas" width="1100" height="560" style="border: 2px solid rgba(46, 40, 42, 0.45); display: block; width: 100%; height: auto;">Sorry, you need a better browser to inspect hidden activations.</canvas>
+        <div id="inspect-plotly" style="display: none; width: 100%; height: min(72vh, 700px); border: 2px solid rgba(46, 40, 42, 0.45);"></div>
+      </div>
+      <div class="inspect-legend mt-2">
+        <div class="inspect-legend-item"><span class="inspect-legend-shape inspect-legend-circle"></span><span>shape: train sample</span></div>
+        <div class="inspect-legend-item"><span class="inspect-legend-shape inspect-legend-triangle"></span><span>shape: test sample</span></div>
+        <div class="inspect-legend-item"><span class="inspect-legend-fill inspect-legend-fill-a"></span><span>fill: target coding</span></div>
+        <div class="inspect-legend-item"><span class="inspect-legend-fill inspect-legend-fill-b"></span><span>single target: 0 | 1 | between</span></div>
+        <div class="inspect-legend-item"><span class="inspect-legend-fill inspect-legend-fill-c"></span><span>classification: color per class</span></div>
+        <div class="inspect-legend-item"><span class="inspect-legend-border inspect-legend-border-good"></span><span>border: good/correct</span></div>
+        <div class="inspect-legend-item"><span class="inspect-legend-border inspect-legend-border-bad"></span><span>border: error/deviation</span></div>
+      </div>
+    </div>
+  </div>
+  <div id="weights-editor-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog">
+      <h5 class="mb-2">change weights manually</h5>
+      <p class="text-muted mb-3">Edit JSON manually or paste a previous configuration. Make sure the format matches the current architecture.</p>
+      <textarea class="form-control weights-editor-input" id="weights-editor-input" rows="12"></textarea>
+      <div id="weights-editor-error" class="text-danger small mt-2"></div>
+      <div class="d-flex justify-content-end mt-3">
+        <div class="form-check form-check-inline mr-3">
+          <input class="form-check-input" type="checkbox" id="weights-adjust-architecture-checkbox">
+          <label class="form-check-label" for="weights-adjust-architecture-checkbox">adjust architectuer to these weights</label>
+        </div>
+        <button type="button" class="btn btn-primary mr-2" onclick="applyWeightsFromEditor()">set weights</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelWeightsEditor()">cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="weights-save-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog">
+      <h5 class="mb-2">Save weights</h5>
+      <p class="text-muted mb-3">to save, paste this weights configuration into any text editor</p>
+      <textarea class="form-control weights-editor-input" id="weights-save-output" rows="12" readonly></textarea>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-primary mr-2" onclick="copyWeightsToClipboard()">copy ti clipboard</button>
+        <button type="button" class="btn btn-secondary" onclick="closeSaveWeightsOverlay()">close</button>
+      </div>
+    </div>
+  </div>
+  <div id="project-save-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog">
+      <h5 class="mb-2">Save project</h5>
+      <p class="text-muted mb-3">To save, paste this full project JSON into any text editor. You can copy it directly.</p>
+      <textarea class="form-control weights-editor-input" id="project-save-output" rows="12" readonly></textarea>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-outline-secondary mr-2" onclick="saveProjectToFile()">save project to file</button>
+        <button type="button" class="btn btn-primary mr-2" onclick="copyProjectToClipboard()">copy to clipboard</button>
+        <button type="button" class="btn btn-secondary" onclick="closeSaveProjectOverlay()">close</button>
+      </div>
+    </div>
+  </div>
+  <div id="project-editor-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog">
+      <h5 class="mb-2">load project</h5>
+      <p class="text-muted mb-3">Paste a full project JSON object. Architecture, learning settings, data and weights must be consistent.</p>
+      <textarea class="form-control weights-editor-input" id="project-editor-input" rows="12"></textarea>
+      <div id="project-editor-error" class="text-danger small mt-2"></div>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-outline-secondary mr-2" onclick="loadProjectFromFile()">load project from file</button>
+        <button type="button" class="btn btn-primary mr-2" onclick="applyProjectFromEditor()">set project</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelLoadProjectOverlay()">cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="training-data-editor-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog">
+      <h5 class="mb-2">set data with JSON</h5>
+      <p class="text-muted mb-3">Edit JSON manually or paste a previous configuration. Make sure the format matches the current architecture.</p>
+      <textarea class="form-control weights-editor-input" id="training-set-input" rows="12"></textarea>
+      <div id="training-data-editor-error" class="text-danger small mt-2"></div>
+      <div class="d-flex justify-content-end mt-3">
+        <div class="form-check form-check-inline mr-3">
+          <input class="form-check-input" type="checkbox" id="data-adjust-architecture-checkbox">
+          <label class="form-check-label" for="data-adjust-architecture-checkbox">adjust architecture to these data</label>
+        </div>
+        <button type="button" class="btn btn-primary mr-2" onclick="applyTrainingDataFromEditor()">set data</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelTrainingDataEditor()">cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="editable-pixel-editor-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog editable-pixel-editor-dialog">
+      <h5 id="editable-pixel-overlay-title" class="mb-2">edit samples visually</h5>
+      <div class="editable-sample-editor-grid">
+        <section class="editable-editor-pane editable-editor-pane-input">
+          <h5 class="editable-editor-pane-title">input</h5>
+          <div class="editable-pixel-editor-toolbar mb-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-toggle" id="pixel-tool-toggle-btn" title="Toggle brush" onclick="setPixelEditorTool('toggle')"><span class="pixel-tool-swatch pixel-tool-swatch-toggle"></span></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-black-brush" id="pixel-tool-black-btn" title="Black brush" onclick="setPixelEditorTool('black')"><span class="pixel-tool-swatch pixel-tool-swatch-black"></span></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-white-brush" id="pixel-tool-white-btn" title="White brush" onclick="setPixelEditorTool('white')"><span class="pixel-tool-swatch pixel-tool-swatch-white"></span></button>
+            <span class="editable-toolbar-spacer"></span>
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-undo-btn" id="pixel-tool-undo-btn" title="Undo last stroke" onclick="undoPixelEditorStroke()" disabled aria-label="Undo last stroke">
+              <svg class="pixel-tool-undo-icon" viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M6.5 3.5 2 8l4.5 4.5V9.5H10a3.5 3.5 0 0 1 0 7H6v2h4a5.5 5.5 0 0 0 0-11H6.5V3.5Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+          <div class="editable-pixel-canvas-wrap">
+            <canvas id="editable-pixel-editor-canvas"></canvas>
+          </div>
+          <div class="editable-input-fill-controls mt-2">
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-fill-btn" title="Fill all input pixels black (0)" onclick="fillPixelEditorBlack()"><span class="pixel-tool-fill-glyph pixel-tool-fill-black"></span></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-fill-btn" title="Fill all input pixels white (1)" onclick="fillPixelEditorWhite()"><span class="pixel-tool-fill-glyph pixel-tool-fill-white"></span></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-circle-btn" title="Draw black circle outline" onclick="applyPixelEditorCircle()"><span class="pixel-tool-circle-glyph"></span></button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="resetPixelEditorInputs()">reset</button>
+          </div>
+        </section>
+
+        <section class="editable-editor-pane editable-editor-pane-target">
+          <h5 class="editable-editor-pane-title">target</h5>
+          <div class="editable-target-toolbar mb-2">
+            <button type="button" id="target-tool-toggle-btn" class="btn btn-outline-secondary btn-sm pixel-tool-brush-btn pixel-tool-toggle" title="Toggle brush" onclick="setTargetToggleBrushMode()"><span class="pixel-tool-swatch pixel-tool-swatch-toggle"></span></button>
+            <button type="button" id="target-mode-numeric-btn" class="btn btn-outline-secondary btn-sm" title="Numeric input mode" onclick="setPixelOutputEditMode('numeric')"><span class="target-mode-label">1..0</span><span class="target-mode-spinner-icon" aria-hidden="true"><span class="target-mode-triangle target-mode-triangle-up"></span><span class="target-mode-triangle target-mode-triangle-down"></span></span></button>
+          </div>
+          <div class="editable-target-content-wrap">
+            <div class="editable-target-visual-wrap">
+              <div id="editable-target-labels" class="editable-target-labels"></div>
+              <div class="editable-target-edit-wrap">
+                <canvas id="editable-target-editor-canvas"></canvas>
+                <div id="editable-target-numeric-wrap" class="editable-target-numeric-wrap" style="display:none;"></div>
+              </div>
+            </div>
+            <div class="editable-target-fill-controls mt-2">
+              <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-fill-btn" title="Fill all target values with 0" onclick="fillPixelEditorTargetsBlack()"><span class="pixel-tool-fill-glyph pixel-tool-fill-black"></span></button>
+              <button type="button" class="btn btn-outline-secondary btn-sm pixel-tool-fill-btn" title="Fill all target values with 1" onclick="fillPixelEditorTargetsWhite()"><span class="pixel-tool-fill-glyph pixel-tool-fill-white"></span></button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" onclick="resetPixelEditorTargets()">reset</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="editable-editor-pane editable-editor-pane-samples">
+          <h5 class="editable-editor-pane-title">sample</h5>
+          <label class="editable-sample-train-toggle mb-2"><input id="editable-active-sample-train-checkbox" type="checkbox" onchange="toggleActiveEditablePixelSampleTrain(this.checked)"> <span>train sample?</span></label>
+          <button type="button" class="btn btn-outline-secondary btn-sm editable-sample-nav-btn" onclick="navigateEditablePixelSample(-1)" aria-label="previous sample">&#9650;</button>
+          <div id="editable-sample-list" class="editable-sample-list"></div>
+          <button type="button" class="btn btn-outline-secondary btn-sm editable-sample-nav-btn" onclick="navigateEditablePixelSample(1)" aria-label="next sample">&#9660;</button>
+          <button type="button" class="btn btn-outline-primary btn-sm editable-sample-add-btn" onclick="addEditablePixelSample()">+ add sample</button>
+        </section>
+      </div>
+      <div id="editable-pixel-editor-error" class="text-danger small mt-2"></div>
+      <div class="d-flex align-items-center justify-content-between mt-3 flex-wrap">
+        <div id="live-input-add-test-controls" style="display:none;">
+          <button type="button" class="btn btn-outline-secondary" onclick="addLiveInputAsTestSample()">add as test sample</button>
+        </div>
+        <div>
+          <button type="button" id="editable-pixel-apply-btn" class="btn btn-primary mr-2" onclick="applyPixelEditorData()">set data</button>
+          <button type="button" class="btn btn-secondary" onclick="cancelPixelEditorOverlay()">cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="target-labels-overlay" class="weights-editor-overlay" style="display: none;">
+    <div class="weights-editor-dialog">
+      <h5 class="mb-2">label targets</h5>
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered table-striped mb-2">
+          <thead class="thead-light">
+          <tr>
+            <th>nr.</th>
+            <th>labels</th>
+          </tr>
+          </thead>
+          <tbody id="target-labels-body"></tbody>
+        </table>
+      </div>
+      <div id="target-labels-error" class="text-danger small mt-2"></div>
+      <div class="d-flex justify-content-end mt-3">
+        <button type="button" class="btn btn-primary mr-2" onclick="applyTargetLabelsOverlay()">set labels</button>
+        <button type="button" class="btn btn-secondary" onclick="cancelTargetLabelsOverlay()">cancel</button>
+      </div>
+    </div>
+  </div>
+  <section id="id_info">
+    <h2>What is this?</h2>
+<p>In this app, you can experiment with simple neural networks and visually inspect every aspect of what is happening under the hood. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load them using a plain-text JSON structure.</p>
+
+<h3>Limits</h3>
+<p>Since this app runs entirely in your browser, the maximum size of the network architecture is limited (e.g. no more than 11 output neurons). Even within these limits, you may notice that training or testing projects with many neurons or large numbers of samples can become quite slow. For substantially larger projects, you would need a more powerful environment in which all aspects of the network are defined programmatically.</p>
+
+<h3>Learning</h3>
+<p>There are many different paradigms in machine learning, including reinforcement learning, self-organizing learning, autoencoders, and others. This app focuses exclusively on the most fundamental paradigm: supervised learning with backpropagation. "Supervised learning" means that each training sample is associated with a target, i.e. the desired output for a given input. The learning process consists of three basic steps. First, the difference between the target and the actual output of the network (the loss) is calculated. Second, this loss is propagated backwards through the network, allowing the contribution of each individual weight to the overall error to be determined, as well as the direction in which the weight should be adjusted to reduce the loss (using gradient descent). Third, the weights are updated accordingly. The learning rate determines how aggressively these updates are applied. The weights may be updated after each individual training sample or after an entire batch of samples has been processed (e.g. after one epoch). This process is repeated many times until, ideally, only a negligible discrepancy remains between the target values and the actual outputs of the network.</p>
+
+<h3>Stable learning</h3>
+<p>In theory, even standard neural networks can learn any mapping between inputs and outputs because it can be proven that there exists a configuration of weights capable of implementing the desired function. However, this does not imply that the training process will actually find such a configuration. Stable and efficient learning depends on many additional factors, including the network architecture, the initialization of the weights, the choice of activation functions, the learning rate, and the quality of the training data.</p>
+
+<h3>Deep learning</h3>
+<p>This app supports architectures with up to three hidden layers. However, since all layers are fully connected, this does not really constitute "deep learning." Instead, it demonstrates that simply stacking multiple fully connected hidden layers often makes learning more difficult rather than more effective. Modern deep learning architectures typically include specialized layers, such as convolutional layers, that perform dedicated preprocessing tasks like feature extraction, edge detection, or spatial filtering. Such architectures are beyond the scope of this app, which is limited to fully connected "vanilla" neural networks.</p>
+
+
+   
+    <h5>Error function</h5>
+    <p>The error is defined as \(C = \frac{1}{2 \times
+      sampleCnt}\sum^{sampleCnt}_{m=1}(\sum^{outputSize}_{n=1}(neruon_n-target_n)^2)\).
+      In words: Error is defined as \((value - target)^2\). To get error of neural network for one
+      training sample,
+      you
+      simply add errors of all output neurons. The average cost is then defined as average error of
+      all training
+      samples.
+    </p>
+    <h5>Forward propagation</h5>
+    <p>
+      Let's say that the value of connection is the connection's weight (how wide it is) times the
+      first connected
+      neuron. To calculate
+      the value of some neuron you add the values of all incoming connections and apply the
+      <a target="_blank" href="https://www.desmos.com/calculator/dw9fmqwlmn">sigmoid</a> function to
+      that sum. Other
+      activation functions are possible, but I have not implemented them yet.
+    </p>
+    <h5>Back propagation</h5>
+    <p>The error function defined above is a function dependend on weights of connections in the same
+      way as \(f(x, y)
+      = x^2
+      + y^2\) is dependend on x and y. In the beginning, the weights are random. Let's say x = 5 and
+      y = 3. The error
+      at
+      this point would be 25 + 9 = 34, which we want to get to 0. Now we take the derivate with
+      respect to each of
+      these
+      weights, which tells us how to adjust the wieghts to minimize the function. \(\frac{\partial
+      f(x, y)}{\partial
+      x}
+      = 2x\), \(\frac{\partial f(x, y)}{\partial y} = 2y\). Now that we have the derivatives, we
+      know the "direction"
+      in
+      which to change the weights. \(x_{new} = x_{old} - rate \times 2x = 5 - 0.1 \times 2 \times 5
+      = 4\) and that's
+      a
+      little bit closer to the desired 0 result of f(x, y). The rate is necessary to avoid stepping
+      over the minimum.</p>
+    <p>
+      In practice is the computation of the derivatives is a little bit harder, but all you need to
+      know is the
+      <i>chain rule</i>. I highly recommend
+      <a target="_blank" href="https://www.youtube.com/watch?v=aircAruvnKk">3blue1brown's series</a>
+      and
+      <a target="_blank"
+         href="https://web.archive.org/web/20150317210621/https://www4.rgu.ac.uk/files/chapter3%20-%20bp.pdf">this
+        paper</a> for better understanding.
+    </p>
+
+  
+    <footer class="futter m-5" style="text-align: center;">
+      <br> Created by Nicolas Ruh
+      
+    </footer>
+
+  </section>
+  <section id="id_tooltips">
+    <div class="tooltip" id="tt_project-selector-help">
+      <p>Choose one of the preconfigured example projekts:</p>
+      <ul>
+        <li>basic: simple network with 3 inputs, 1 hidden layer with 3 neurons and 2 outputs</li>
+        <li>perceptron: basically just one (output) neuron with two inputs</li>
+        <li>XOR: simple 2x2x1 network that can learn the XOR task </li>
+        <li>2x2: simple 4x3x1 network, includes all 16 possible (descrete) input samples </li>
+        <li>3x3: simple 9x4x1 network, includes 4 of the 2^9 possible (descrete) input samples </li>
+        <li>4x4: simple 16x4x1 network, includes 4 of the 2^16 possible (descrete) input samples </li>
+        <li>5x5: simple 25x25x25 network, includes 4 of the 2^25 possible (descrete) input samples </li>
+        <li>smileys: 1600x11x1 network for the task of deciding if a smiley drawn on a 40x40 pixel grayscale canvas is happy or not. 11 examples included, 5 of which are earmarked for testing only</li>
+        <li>MNIST-mini: 256x12x10 network for the task of recognizing handwritten digits from the MNIST dataset (16x16 pixels each). 1000 examples included, 20% of which are earmarked for testing only</li>
+      </ul>
+      All examples can be explored and modified. You can also save your own projects to a pure text format (JSON) and load them later (by pasting the JSON).
+    </div>
+    <div class="tooltip" id="tt_architecture-help">
+      <p>Configure the network structure here:</p>
+      <ul>
+        <li>add/remove hidden layers</li>
+        <li>change input size and output size</li>
+        <li>change neuron count of each hidden layer</li>
+      </ul>
+      Large architectures with many neurons and layers can be slow to train and test. In this app some parameters (e.g. input output size, number of hidden layers) are capped because larger values would break the visualisation.
+      Keep architecture, data and weights consistent to avoid shape errors.
+    </div>
+    <div class="tooltip" id="tt_weights-help">
+      <p>The numerical values of all weights in the network can be inspected here. Values ar updatedis displayed here</p>
+      <ul>
+        <li>randomize weights</li>
+        <li>edit weights manually via JSON</li>
+        <li>save current weights as JSON</li>
+      </ul>
+    </div>
+    <div class="tooltip" id="tt_data-help">
+      <p>Manage training and test samples.</p>
+      <ul>
+        <li>load/edit data via JSON</li>
+        <li>edit samples directly in the table editor</li>
+        <li>define target labels for outputs</li>
+      </ul>
+    </div>
+    <div class="tooltip" id="tt_training-help">
+      <p>Train the model with the configured data and settings.</p>
+      <ul>
+        <li>train one sample or one full epoch</li>
+        <li>run long training with live progress</li>
+        <li>stop/continue full training and reset the model</li>
+      </ul>
+    </div>
+    <div class="tooltip" id="tt_testing-help">
+      <p>Evaluate how well the model predicts outputs.</p>
+      <ul>
+        <li>test on train data or test-only data</li>
+        <li>sort by index or error</li>
+        <li>inspect hidden activations for deeper analysis</li>
+      </ul>
+    </div>
+    <div class="tooltip" id="tt_visualisation-help">
+      <p>This canvas visualizes the current neural network state.</p>
+      <ul>
+        <li>node values and connection weights update live</li>
+        <li>selected sample input is shown directly</li>
+        <li>training changes can be observed step by step</li>
+      </ul>
+    </div>
+  </section>
+  <div id="project-loading-overlay" class="project-loading-overlay" style="display: none;">
+    <div class="project-loading-dialog">
+      <div class="project-loading-spinner"></div>
+      <div class="project-loading-message">Loading project…</div>
+    </div>
+  </div>
+</main>
+</body>
+
+</html>

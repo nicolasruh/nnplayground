@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "git-setup-local",
+			"type": "shell",
+			"command": "rm -f .git/index.lock && git rev-parse --is-inside-work-tree >/dev/null 2>&1 || git init && git add . && git commit -m \"Initial import of NeuralNetworkPlayground current state\" && git branch -M main && git status --short --branch",
+			"problemMatcher": []
+		}
+	]
+}

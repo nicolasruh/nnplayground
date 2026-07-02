@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"chat.tools.terminal.autoApprove": {
+			"git rev-parse": true,
+			"git init": true,
+			"git add": true,
+			"git commit": true,
+			"true": true
+		}
+	}
+}

@@ -1,0 +1,27 @@
+{
+  "projectType": "perceptron",
+  "architecture": {
+    "inputSize": 2,
+    "hiddenSizes": [],
+    "outputSize": 1
+  },
+  "learning": {
+    "rate": 0.3,
+    "momentum": 0,
+    "epochs": 3000
+  },
+  "data": {
+    "samples": [
+      [[0, 0], [0], [true]],
+      [[0, 1], [0], [true]],
+      [[1, 0], [0], [true]],
+      [[1, 1], [1], [true]]
+    ],
+    "targetLabels": ["AND"]
+  },
+  "weights": [
+    [
+      [0.45, 0.42, -0.6]
+    ]
+  ]
+}

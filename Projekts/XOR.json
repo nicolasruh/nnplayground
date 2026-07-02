@@ -1,0 +1,31 @@
+{
+  "projectType": "XOR",
+  "architecture": {
+    "inputSize": 2,
+    "hiddenSizes": [2],
+    "outputSize": 1
+  },
+  "learning": {
+    "rate": 0.3,
+    "momentum": 0,
+    "epochs": 8000
+  },
+  "data": {
+    "samples": [
+      [[0, 0], [0], [true]],
+      [[0, 1], [1], [true]],
+      [[1, 0], [1], [true]],
+      [[1, 1], [0], [true]]
+    ],
+    "targetLabels": ["xor"]
+  },
+  "weights": [
+    [
+      [0.35, 0.32, -0.48],
+      [-0.52, -0.47, 0.25]
+    ],
+    [
+      [0.6, -0.63, 0.15]
+    ]
+  ]
+}
