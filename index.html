@@ -486,73 +486,110 @@
   <section id="id_info">
     <br>
     <h2>What is this?</h2>
-<p>In this app, you can experiment with simple neural networks and visually inspect every aspect of what is happening under the hood. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load them using a plain-text JSON structure.</p>
+    <p>In this app, you can experiment with simple neural networks and visually inspect every aspect of what is happening under the hood. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load projekts - or weights or data individually - using a plain-text JSON structure.</p>
+    <h3>Limits</h3>
+    <p>Since this app runs entirely in your browser, the maximum size of the network architecture is limited (e.g. no more than 11 output neurons, no more than 5 fully connected layers). Even within these limits, you may notice that training or testing projects with many neurons or large numbers of samples can become quite slow. For substantially larger projects or deep learning architectures, you would need a more powerful environment in which all aspects of the network are defined programmatically. </p>
+    <p>Similarly, this app only implements the standard supervised learning paradigm. If you want to experiment with other learning paradigms, different activation functions, additional tricks to stabilize learning or other customized workflows, you would need a more advanced setup.</p>
+    <h2>Architecture</h2>
+    <p>The architecture of a neural network defines its structure, including the number of layers, the number of neurons in each layer, and how these neurons are connected. In this app, the architecture is kept intentionally simple: all layers are fully connected, meaning each neuron receives input from every neuron in the previous layer.</p>
 
-<h3>Limits</h3>
-<p>Since this app runs entirely in your browser, the maximum size of the network architecture is limited (e.g. no more than 11 output neurons). Even within these limits, you may notice that training or testing projects with many neurons or large numbers of samples can become quite slow. For substantially larger projects, you would need a more powerful environment in which all aspects of the network are defined programmatically.</p>
+    <h3>Input layer</h3>
+    <p>The input layer receives the raw values of a sample. Each input neuron corresponds to one value in the input vector. For example, if the input is a grayscale image, the color of each pixel can be represented by one number between 0 (=black) and 1 (white) that is applied to the corresponding input neuron. The values of the input neurons are then passed onward to the next layers.</p>
 
-<h3>Learning</h3>
-<p>There are many different paradigms in machine learning, including reinforcement learning, self-organizing learning, autoencoders, and others. This app focuses exclusively on the most fundamental paradigm: supervised learning with backpropagation. "Supervised learning" means that each training sample is associated with a target, i.e. the desired output for a given input. The learning process consists of three basic steps. First, the difference between the target and the actual output of the network (the loss) is calculated. Second, this loss is propagated backwards through the network, allowing the contribution of each individual weight to the overall error to be determined, as well as the direction in which the weight should be adjusted to reduce the loss (using gradient descent). Third, the weights are updated accordingly. The learning rate determines how aggressively these updates are applied. The weights may be updated after each individual training sample or after an entire batch of samples has been processed (e.g. after one epoch). This process is repeated many times until, ideally, only a negligible discrepancy remains between the target values and the actual outputs of the network.</p>
+    <h3>Hidden layer(s)</h3>
+    <p>Hidden layers sit between the input and output layers. Their role is to transform the input into a representation that is useful for solving the task. A network with more hidden layers can, in principle, learn more complex mappings, but deeper networks are also harder to train and more sensitive to initialization, learning rate, and the choice of activation function.</p>
 
-<h3>Stable learning</h3>
-<p>In theory, even standard neural networks can learn any mapping between inputs and outputs because it can be proven that there exists a configuration of weights capable of implementing the desired function. However, this does not imply that the training process will actually find such a configuration. Stable and efficient learning depends on many additional factors, including the network architecture, the initialization of the weights, the choice of activation functions, the learning rate, and the quality of the training data.</p>
+    <h3>Output layer</h3>
+    <p>The output layer contains the final predictions of the network. Its size depends on the task: for binary classification, it may contain a single neuron; for multi-class classification, it may contain one neuron per class. The output values are interpreted as predictions, which are then compared to the target values during training and testing.</p>
 
-<h3>Deep learning</h3>
-<p>This app supports architectures with up to three hidden layers. However, since all layers are fully connected, this does not really constitute "deep learning." Instead, it demonstrates that simply stacking multiple fully connected hidden layers often makes learning more difficult rather than more effective. Modern deep learning architectures typically include specialized layers, such as convolutional layers, that perform dedicated preprocessing tasks like feature extraction, edge detection, or spatial filtering. Such architectures are beyond the scope of this app, which is limited to fully connected "vanilla" neural networks.</p>
+    <h3>Weights</h3>
+    <p>Each connection between neurons has a numerical weight. These weights determine how strongly one neuron influences another. During training, the network gradually updates these weights, thus changing the flow of activation through the network and ultimately the resulting prediction at the output layer. The overall behavior of the network is therefore determined by both the architecture and the learned weight values.</p>
 
+    <h3>Bias nodes</h3>
+    <p>In addition to incoming weighted connections, each neuron can also have a bias term. A bias acts like a constant offset: it shifts the neuron’s activation independently of the actual inputs, thus "biasing" the neuron to be active or inactive even when the inputs are zero. Biases are often represented as additional neurons (bias nodes) with a fixed value of 1 and (learned) weights that represent the individual bias values of the corresponding downstream neurons. For many tasks the inclusion of bias nodes makes it much easier for the network to learn the desired mapping.</p>
 
+    <h3>Deep learning architectures</h3>
+    <p>This app supports architectures with up to three hidden layers. However, since all layers are fully connected, this does not really constitute "deep learning." Instead, it demonstrates that simply stacking multiple fully connected hidden layers often makes learning more difficult rather than more effective. Modern deep learning architectures typically include specialized layers, such as convolutional layers, that perform dedicated preprocessing tasks like feature extraction, edge detection, or spatial filtering. Such architectures are beyond the scope of this app, which is limited to fully connected "vanilla" neural networks.</p>
+    
+    <h2>Data</h2>
+    <p>Neural networks learn from examples. Each sample in the dataset contains an input vector and a target value or target vector that specifies the desired output. In this app, the data is represented in a simple tabular form, where every row corresponds to one sample and each column represents either an input feature or a target value. It is also possible to edit data visually, using the provided interface. In this representation, colors are mapped to numerical values (e.g., white = 1, black = 0).</p>
+
+    <h3>Input & target values</h3>
+    <p>The input values are fed directly into the input layer which, therefore, needs one node per input value. Input values range from 0 to 1, intermediary values are possible, but not used in some tasks. </p>
+    <p>The target values describe the desired output for each sample, the output layer needs one node per target value. Target values are used during training to compute the loss and drive the update of the weights. Target values range from 0 to 1. Classification tasks usually use binary values to represent the network's judgement whether the input belongs to a class or has a feature. Regression tasks may use continuous values as approximation targets.</p>
+
+    <h3>Train & test samples</h3>
+    <p>Samples can be marked either as training samples or as test samples. Training samples are used to adapt the weights of the network, while test samples are held back and used to assess how well the model generalizes to unseen data. It is important to keep these roles separate: if the model is evaluated on training data only, it may appear to perform very well even when it has not learned a general rule.</p>
+
+    <h2>Forward propagation</h2>
+    <p>Forward propagation is the process of passing an input sample through the network, layer by layer, until the final output is produced. In a fully connected network, every neuron receives values from all neurons in the previous layer, combines them according to their weights, and then passes the result onward.</p>
+
+    <h3>Activation function</h3>
+    <p>To calculate the activation value of a neuron, you first compute the weighted sum of all incoming signals. Then you apply the activation function to this sum. In this app, the activation function is the sigmoid: \(\sigma(z) = \frac{1}{1 + e^{-z}}\). This maps the weighted sum to a value between 0 and 1, which makes the output of one neuron interpretable as a normalized activation level.</p>
+
+    <h3>Prediction</h3>
+    <p>Once the activations have been computed for all neurons in the final layer, the network produces its output, often called "prediction". This output is then compared with the target values for the current sample. The difference between network output and target provides the basis for learning: the weights are adjusted so that the next forward pass brings the output closer to the desired result.</p>
+
+    
+    <h3>Error function (loss / cost)</h3>
+    <p>To assess how well the network is performing, we need a measure of how far the predictions deviate from the target values. In this app, the loss for one output neuron is defined as the squared difference between prediction and target: \((\hat{y} - y)^2\). For a single training sample, the total loss is the sum of the squared errors of all output neurons. The cost for one epoch is then the average loss across the full training set.</p>
+    <p>The differences between the terms error, loss and cost are subtle and not always consistently applied. Generally, "error" refers to the discrepancy for a single output neuron, "loss" refers to the total discrepancy for a single training sample, and "cost" refers to the average loss over the entire training set.</p>
+    
+    <h2>Learning</h2>
+    <p>The goal of learning in neural networks is to find a set of weights that makes the network display the desired behavior - that is, produce the correct output for a given input. In order to achieve this, the network must be trained in an iterative process that repeatedly presents training samples to the network and then adjusts the weights such that the network gets better at producing the desired output. </p>
    
-    <h5>Error function</h5>
-    <p>The error is defined as \(C = \frac{1}{2 \times
-      sampleCnt}\sum^{sampleCnt}_{m=1}(\sum^{outputSize}_{n=1}(neruon_n-target_n)^2)\).
-      In words: Error is defined as \((value - target)^2\). To get error of neural network for one
-      training sample,
-      you
-      simply add errors of all output neurons. The average cost is then defined as average error of
-      all training
-      samples.
+    <p> The supervised learning process consists of three basic steps: 
+      <ol>
+        <li>First, the difference between the target and the actual output of the network (the loss) is calculated. </li>
+        <li>Second, this loss is propagated backwards through the network, allowing the contribution of each individual weight to the overall error to be determined, as well as the direction in which the weight should be adjusted to reduce the loss (using gradient descent).</li>
+        <li>Third, the weights are updated accordingly. The learning rate determines how aggressively these updates are applied. The weights may be updated after each individual training sample or after an entire batch of samples has been processed (e.g. after one epoch). </li>
+      </ol>
+      These steps are repeated many times with many different learning samples until, ideally, only a negligible discrepancy remains between the target values and the actual outputs of the network. 
     </p>
-    <h5>Forward propagation</h5>
-    <p>
-      Let's say that the value of connection is the connection's weight (how wide it is) times the
-      first connected
-      neuron. To calculate
-      the value of some neuron you add the values of all incoming connections and apply the
-      <a target="_blank" href="https://www.desmos.com/calculator/dw9fmqwlmn">sigmoid</a> function to
-      that sum. Other
-      activation functions are possible, but I have not implemented them yet.
+    <h3>Supervised learning</h3>
+    <p>"Supervised learning" means that each training sample is associated with a target, i.e. the desired output for a given input. This target is used to calculate the error of the network's output, which in turn guides the learning process.</p>
+    <p>There are many different paradigms in machine learning, including reinforcement learning, self-organizing learning, autoencoders, and others. This app focuses exclusively on the most fundamental paradigm: supervised learning with backpropagation.</p>
+    <h3 >Backpropagation </h3>
+    <p>Backpropagation is the most common algorithm for training neural networks with supervised learning. Essentially it consists of comparing the actual output of the network with the desired output (target) an then propagating this error backwards through the network, thus figuring out via some clever math, which weight is to blame for the error to which extent. Based on this calculation the weights can be adjusted such that the error for this particular input is minimized.</p>
+    <h3>Gradient descent</h3>
+    <p>Gradient descent is a method for finding the minimum of a function and the principle behind the clever math performed during backpropagation. In the case of neural networks, the function to be minimized is the loss function, which measures the discrepancy between the actual output of the network and the target output. <br>
+    The goal of training is to adjust the weights of the network in such a way that this loss is minimized for all training samples. For an individual training sample this can be done by calculating the derivative of the loss function with respect to each individual weight, thus finding the direction in which to adjust this weight. 
+    The sigmoidal activation function used in this app has the advantage that its derivative can be expressed in terms of the function itself, which makes the math a lot easier: \(\sigma'(z) = \sigma(z)(1 - \sigma(z))\).
     </p>
-    <h5>Back propagation</h5>
-    <p>The error function defined above is a function dependend on weights of connections in the same
-      way as \(f(x, y)
-      = x^2
-      + y^2\) is dependend on x and y. In the beginning, the weights are random. Let's say x = 5 and
-      y = 3. The error
-      at
-      this point would be 25 + 9 = 34, which we want to get to 0. Now we take the derivate with
-      respect to each of
-      these
-      weights, which tells us how to adjust the wieghts to minimize the function. \(\frac{\partial
-      f(x, y)}{\partial
-      x}
-      = 2x\), \(\frac{\partial f(x, y)}{\partial y} = 2y\). Now that we have the derivatives, we
-      know the "direction"
-      in
-      which to change the weights. \(x_{new} = x_{old} - rate \times 2x = 5 - 0.1 \times 2 \times 5
-      = 4\) and that's
-      a
-      little bit closer to the desired 0 result of f(x, y). The rate is necessary to avoid stepping
-      over the minimum.</p>
-    <p>
-      In practice is the computation of the derivatives is a little bit harder, but all you need to
-      know is the
-      <i>chain rule</i>. I highly recommend
-      <a target="_blank" href="https://www.youtube.com/watch?v=aircAruvnKk">3blue1brown's series</a>
-      and
-      <a target="_blank"
-         href="https://web.archive.org/web/20150317210621/https://www4.rgu.ac.uk/files/chapter3%20-%20bp.pdf">this
-        paper</a> for better understanding.
+    <h3>Learning rate</h3>
+    <p>The main difficulty in training neural networks arises from the fact that the derivatives of the loss function tell us how to adjust the weights in order to minimize the loss for a single training sample. However, since we want to minimize the loss for all training samples, we need to find a compromise between the adjustments suggested by each individual sample. This is where the learning rate comes into play. The learning rate determines how aggressively the weights are adjusted based on the calculated gradients. By presenting the training samples repeatedly, in random order, and adapting the weights only by a fraction (the learning rate) into the direction demanded by this sample, we hope that the network gradually converges to a configuration of weights that minimizes the loss of all training samples. </p>
+    <p>Choosing an appropriate learning rate can be challenging. If the learning rate is too high, the weights may oscillate or even diverge, preventing the network from converging to a minimum. If the learning rate is too low, the training process may become excessively slow and get stuck in local minima. Finding a suitable learning rate is crucial for effective learning.</p>
+    <h3>Why learning might fail</h3>
+    <p>In theory, even standard neural networks can learn any mapping between inputs and outputs because it can be proven that there exists a configuration (many, actually) of weights capable of implementing the desired function. However, this does not imply that the training process will actually find such a configuration. Stable and efficient learning depends on many additional factors, including the network architecture, the initialization of the weights, the choice of activation functions, the learning rate, and the quality of the training data.</p>
+    
+    <h2>Testing</h2>
+    <p>Once a neural network has been trained, it is important to test how it performs and whether it generalizes to new inputs rather than just memorizing the training data. Testing is therefore a separate phase in which the model's reaction to various inputs is evaluated, but the weights are not updated.</p>
+
+    <h3>Testing with train/test data</h3>
+    <p>To evaluate a trained network, it is useful to test it on both the data it was trained on and on data it has not seen before. Testing on training data shows how well the model fits the examples it has learned from, whereas testing on test data reveals whether it can also handle new inputs. These two checks complement each other: the training result indicates how much the model has learned, while the test result shows how well it generalizes beyond the training set.</p>
+    <h3>Overfitting</h3>
+    <p>A model that performs well on the training data but fails on new examples is not very useful: we could have written a "normal" program that simply looks up the input in the data table and gives the corresponding target as output. This would work perfectly with all the training samples, but fail catastrophically as soon as a single input value deviates from the training set. Neural networks can also show this behaviour of simply memorizing the specific patterns from the training set - this is called overfitting. The risk of overfitting is particularly high when the network has many more parameters (weights) than are needed to solve the task. Conversely, limiting the number of parameters forces the network to use more general patterns of similarity between the training samples, which are more likely to be useful for unseen inputs. However, if the network is too small, it may not have enough capacity to learn the task at all. The art of designing a neural network is therefore to find a good balance between these two extremes.</p>
+    <h3>Generalisation</h3>
+    <p>Generalisation is one of the central goals in machine learning - or learning in general. After all, you probably would not claim to have learned to read when in reality you have only memorized a few individual words. Someone who is able to read could be expected to demonstrate this ability by reading new words that they have never seen before. Similarly, a neural network that has learned a task should be able to make correct predictions on inputs it has not seen during training, thus indicating that it has learned something about the underlying rules or regularities of the task.</p>
+    <p>Testing the networks ability to generalize to novel inputs (test data) is thus an extremely important aspect of evaluating a networks performance. As with most aspects of neural networks, however, this is not all or nothing; generalisation might work for some examples but not for others, and we can never prove perfect generalisation because, just like the train set, the test set can always only be a - hopefully representative - selection of examples from the underlaying task in general.  </p>      
+    <h3>Bias</h3>
+    <p>Bias refers to a systematic failure in generalisation. </p>
+    <p>Bias is usually introduced when the selection of training samples is in some way skewed and thus not representative of the task as a whole.  </p>
+    <h3>Inspecting activations</h3>
+    <p>A problematic aspect of neural networks is the fact that even when they perform admirably at a task, it is hard to understand how exactly they solve this problem - other than the general observation that, obviously, they have found an appropriate set of weights during the learning process. While a network is not really a black box, as is sometimes claimed, we could maybe call it a gray box: while it is possible to look under the hood and inspect each and every value (this app allows you to do exactly that) it can still be challenging to interpret these values meaningfully.</p>
+    <p>At its core this problem is unsolvable: the very essence of this approach is that an individual weight does not perform an identifiable subtask, it does not represent anything specific, it has no meaning other than contributing in some small way to the overall workings of the system.</p>
+    <p>However, there are some techniques that can help to gain insight into the network's behavior. For example, one can visualize the activations of hidden neurons in response to different inputs. This can reveal which features or patterns the network has learned to detect and how it (re)organizes the data internally prior to making a final prediction in the output layer.</p>
+    <p>Most of these techniques are concerned with dimension reduction: The hidden layer may be understood as a high-dimensional representation of the input data, so its activation in response to an individual sample is a point in this high-dimensional space. The position of these points can reveal insights into which inputs the network considers similar. </p>
+    <p>Two such techniques are provided in this app:
+      <ul>
+        <li><strong>Principal component analysis (PCA)</strong> is a way of mapping high-dimensional data to an alternative coordinate system such that the first dimension contains the most variance, the second dimension contains the second most variance, and so on. Visualizing only the first two (PCA 2D) or three (PCA 3D) dimensions thus should still reveal the most meaningful aspects of the clustering of the data in hidden layer space.</li>
+        <li><strong>Nearest neighbour</strong> is another way of visualizing clusters of the data in hidden layer space. It involves grouping the points that are closest to another in a minicluster, then grouping these miniclusters with their closest neighbours into slightly larger clusters and so on, such that this hierarchical clustering of neighbours reveals the overall structure of the data.</li>
+      </ul>
     </p>
+    
+
+    
+
 
   
     <footer class="futter m-5" style="text-align: center;">
