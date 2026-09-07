@@ -8,7 +8,7 @@
   "learning": {
     "rate": 0.3,
     "momentum": 0,
-    "epochs": 6000
+    "epochs": 1000
   },
   "data": {
     "samples": [

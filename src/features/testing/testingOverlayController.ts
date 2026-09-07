@@ -2,6 +2,7 @@ export type TestingMode = 'train' | 'test';
 
 export type TestingOverlayRow = {
   cost: number;
+  loss: number;
   isClassification: boolean;
   output: number[];
   target: number[];
@@ -18,8 +19,8 @@ export const getNextTestingMode = (mode: TestingMode): TestingMode => (
 );
 
 export const buildTestingOverlayTexts = (mode: TestingMode, rows: TestingOverlayRow[]): TestingOverlayTexts => {
-  const avgError = rows.length > 0
-    ? rows.reduce((sum, row) => sum + row.cost, 0) / rows.length
+  const avgLoss = rows.length > 0
+    ? rows.reduce((sum, row) => sum + row.loss, 0) / rows.length
     : 0;
   const modeLabel = mode === 'train' ? 'train data' : 'test data';
   const sampleInfo = `${modeLabel}, ${rows.length} sample${rows.length === 1 ? '' : 's'}`;
@@ -29,7 +30,7 @@ export const buildTestingOverlayTexts = (mode: TestingMode, rows: TestingOverlay
     : 'test with train data';
 
   if (rows.length > 0) {
-    const performanceParts = [`avg. error: ${avgError.toFixed(5)}`];
+    const performanceParts = [`${avgLoss.toFixed(5)} (average loss of samples)`];
     const classificationRows = rows.filter((row) => row.isClassification && row.output.length === row.target.length && row.output.length > 0);
 
     if (classificationRows.length > 0) {

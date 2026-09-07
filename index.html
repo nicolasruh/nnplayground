@@ -141,7 +141,7 @@
             <button type="button" class="btn btn-primary btn-sm" onclick="finishMainTableEdits()">set data</button>
           </div>
         </div>
-        <div id="main-data-hint"><i>Hint: Click on an entry in the table to activate an input</i></div>
+        <div id="main-data-hint"><i>Hint: Click on an entry in the table to activate an input in the visualisation below</i></div>
       </div>
     </div>
   </section>
@@ -246,7 +246,9 @@
       <div class="d-flex justify-content-between align-items-center mb-2 training-graph-toolbar">
         <h5 class="mb-0">Full training progress</h5>
         <div class="d-flex align-items-center">
-          <button type="button" id="continue-training-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="continueFullTraining()" style="display: none;">continue training</button>
+          <button type="button" id="continue-training-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="continueFullTraining()" style="display: none;">continue for another 5000 epochs</button>
+          <button type="button" id="copy-training-graph-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="copyTrainingGraphToClipboard()" style="display: none;">copy train graph to clipboard</button>
+          <button type="button" id="test-with-train-samples-btn" class="btn btn-primary btn-sm mr-2" onclick="testWithTrainSamplesAfterTraining()" style="display: none;">test with train samples</button>
           <button type="button" id="stop-full-training-btn" class="btn btn-warning btn-sm" onclick="stopFullTraining()" style="display: none;">stop</button>
           <button type="button" id="close-training-graph-btn" class="btn btn-secondary btn-sm" onclick="closeTrainingGraphOverlay()" style="display: none;">close</button>
         </div>

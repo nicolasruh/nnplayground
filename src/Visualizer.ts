@@ -240,6 +240,7 @@ export class Visualizer {
       this.drawLiveColumnLabel(columnCenter(0), labelY);
     }
 
+    this.ctx.textAlign = 'center';
     neurons.forEach((layer, lIdx) => {
       const labelX = columnCenter(lIdx + layerColumnOffset);
       let label = '';
@@ -272,7 +273,7 @@ export class Visualizer {
           return acc;
         }
         return acc + (neuron.getActivation() - targetValue) ** 2;
-      }, 0);
+      }, 0) / 2;
 
       this.ctx.globalAlpha = isManualInput ? 0.25 : 1.0;
       outputTargets.forEach((neuron, idx) => {
@@ -304,9 +305,10 @@ export class Visualizer {
       this.ctx.fillStyle = isManualInput ? `rgba(120, 120, 120, 1)` : `rgb(46, 40, 42, 1)`;
       this.ctx.font = `12px sans-serif`;
       this.ctx.textAlign = 'center';
-      this.ctx.fillText(`summed squares`, costColumnX, summaryLabelY);
+      this.ctx.fillText(`cost of this sample`, costColumnX, summaryLabelY);
       this.ctx.font = `bold 14px sans-serif`;
       this.ctx.fillText(sampleCost.toFixed(4), costColumnX, summaryValueY);
+      this.pushHoverHotspot(costColumnX, (summaryLabelY + summaryValueY) / 2, 34, 'Half summed squared error');
       this.ctx.textAlign = 'start';
       this.ctx.globalAlpha = 1.0;
     }
@@ -316,7 +318,9 @@ export class Visualizer {
     this.ctx.textAlign = 'left';
     this.ctx.fillText(`epochs trained: ${epochsTrained}`, 18, this.height - 14);
     this.ctx.textAlign = 'right';
-    this.ctx.fillText(`current error of an epoch: ${currentEpochCost.toFixed(6)}`, this.width - 18, this.height - 14);
+    const epochLossText = `current loss of an epoch: ${currentEpochCost.toFixed(6)}`;
+    this.ctx.fillText(epochLossText, this.width - 18, this.height - 14);
+    this.pushHoverHotspot(this.width - 18 - this.ctx.measureText(epochLossText).width / 2, this.height - 18, 16, 'average cost of all train samples');
     this.ctx.textAlign = 'start';
   }
 

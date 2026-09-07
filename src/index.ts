@@ -59,6 +59,7 @@ type TestingResultRow = {
   output: number[];
   target: number[];
   cost: number;
+  loss: number;
   isSingleOutput: boolean;
   isClassification: boolean;
 };
@@ -169,6 +170,14 @@ let interfaceHelpTooltip: HTMLDivElement;
 
 (window as any).continueFullTraining = () => {
   continueFullTraining();
+}
+
+(window as any).copyTrainingGraphToClipboard = () => {
+  copyTrainingGraphToClipboard();
+}
+
+(window as any).testWithTrainSamplesAfterTraining = () => {
+  testWithTrainSamplesAfterTraining();
 }
 
 (window as any).closeTrainingGraphOverlay = () => {
@@ -686,6 +695,8 @@ let trainOneEpochBtn: HTMLButtonElement;
 let runFullTrainingBtn: HTMLButtonElement;
 let stopFullTrainingBtn: HTMLButtonElement;
 let continueTrainingBtn: HTMLButtonElement;
+let copyTrainingGraphBtn: HTMLButtonElement;
+let testWithTrainSamplesBtn: HTMLButtonElement;
 let closeTrainingGraphBtn: HTMLButtonElement;
 let resetBtn: HTMLButtonElement;
 let trainingEpochNotice: HTMLElement;
@@ -1604,7 +1615,7 @@ const buildTestingOutputCellHtml = (values: number[]) => renderTestingOutputCell
 
 const buildTestingTargetCellHtml = (values: number[]) => renderTestingTargetCellHtml(values, getTargetLabel, escapeHtmlAttr);
 
-const buildTestingCostCellHtml = (cost: number, isSingleOutput: boolean) => renderTestingCostCellHtml(cost, isSingleOutput);
+const buildTestingCostCellHtml = (cost: number, output: number[], target: number[]) => renderTestingCostCellHtml(cost, output, target);
 
 const buildTestingModelCellHtml = () => {
   const parts = [neuralCore.getInputSize(), ...neuralCore.getHiddenLayerSizes(), neuralCore.getOutputSize()];
@@ -1815,18 +1826,20 @@ const evaluateTestingRows = (mode: TestingMode): TestingResultRow[] => {
     const prediction = neuralCore.evaluate(sampleEntry.sample.input.slice());
     const isSingleOutput = sampleEntry.sample.output.length === 1;
     const isClassification = isOneHotTarget(sampleEntry.sample.output);
+    const loss = prediction.reduce((sum, value, idx) => {
+      const expectedValue = sampleEntry.sample.output[idx] || 0;
+      return sum + (value - expectedValue) ** 2;
+    }, 0) / 2;
     const cost = isSingleOutput
       ? ((sampleEntry.sample.output[0] || 0) - prediction[0])
-      : prediction.reduce((acc, value, idx) => {
-          const expectedValue = sampleEntry.sample.output[idx] || 0;
-          return acc + (value - expectedValue) ** 2;
-        }, 0);
+      : loss;
     return {
       nr: sampleEntry.idx + 1,
       input: sampleEntry.sample.input.slice(),
       output: prediction,
       target: sampleEntry.sample.output.slice(),
       cost,
+      loss,
       isSingleOutput,
       isClassification,
     };
@@ -1893,8 +1906,9 @@ const renderTestingResultsBody = () => {
 
   const costHeaderLabelEl = document.getElementById('testing-cost-label');
   if (costHeaderLabelEl) {
-    const outputSize = sortedRows.length > 0 ? sortedRows[0].target.length : 0;
-    costHeaderLabelEl.textContent = outputSize > 1 ? 'summed error' : 'error';
+    const isClassification = sortedRows.length > 0 && sortedRows[0].isClassification;
+    costHeaderLabelEl.textContent = isClassification ? 'loss' : 'error';
+    costHeaderLabelEl.title = isClassification ? 'Half summed squared error' : '';
   }
 
   let html = '';
@@ -1906,7 +1920,7 @@ const renderTestingResultsBody = () => {
     html += `<div class="testing-cell">${buildTestingModelCellHtml()}</div>`;
     html += `<div class="testing-cell">${buildTestingOutputCellHtml(row.output)}</div>`;
     html += `<div class="testing-cell">${buildTestingTargetCellHtml(row.target)}</div>`;
-    html += `<div class="testing-cell">${buildTestingCostCellHtml(row.cost, row.isSingleOutput)}</div>`;
+    html += `<div class="testing-cell">${buildTestingCostCellHtml(row.cost, row.output, row.target)}</div>`;
     if (row.isClassification) {
       html += `<div class="testing-cell">${buildTestingCorrectCellHtml(row.output, row.target)}</div>`;
     }
@@ -4461,13 +4475,15 @@ const updateTrainingGraphDialogWidth = () => {
 };
 
 const setTrainingGraphOverlayButtons = (isRunning: boolean, isVisible: boolean) => {
-  if (!stopFullTrainingBtn || !continueTrainingBtn || !closeTrainingGraphBtn) {
+  if (!stopFullTrainingBtn || !continueTrainingBtn || !copyTrainingGraphBtn || !testWithTrainSamplesBtn || !closeTrainingGraphBtn) {
     return;
   }
 
   if (!isVisible) {
     stopFullTrainingBtn.style.display = 'none';
     continueTrainingBtn.style.display = 'none';
+    copyTrainingGraphBtn.style.display = 'none';
+    testWithTrainSamplesBtn.style.display = 'none';
     closeTrainingGraphBtn.style.display = 'none';
     return;
   }
@@ -4475,12 +4491,17 @@ const setTrainingGraphOverlayButtons = (isRunning: boolean, isVisible: boolean) 
   if (isRunning) {
     stopFullTrainingBtn.style.display = 'inline-block';
     continueTrainingBtn.style.display = 'none';
+    copyTrainingGraphBtn.style.display = 'none';
+    testWithTrainSamplesBtn.style.display = 'none';
     closeTrainingGraphBtn.style.display = 'none';
     return;
   }
 
   stopFullTrainingBtn.style.display = 'none';
+  continueTrainingBtn.textContent = `continue for another ${itersInput.value} epochs`;
   continueTrainingBtn.style.display = 'inline-block';
+  copyTrainingGraphBtn.style.display = 'inline-block';
+  testWithTrainSamplesBtn.style.display = 'inline-block';
   closeTrainingGraphBtn.style.display = 'inline-block';
 };
 
@@ -4610,7 +4631,7 @@ const drawFullTrainingGraph = (costHistory: number[]) => {
     ctx.fillText(`current epoch: ${currentEpoch}/${targetEpoch}`, width - right - 20, currentLabelY);
     ctx.fillStyle = 'rgba(33, 100, 205, 1)';
     ctx.font = 'bold 14px sans-serif';
-    ctx.fillText(`current error: ${lastValue.toFixed(4)}`, width - right - 20, currentLabelY + lineHeight);
+    ctx.fillText(`Current loss of an epoch: ${lastValue.toFixed(4)}`, width - right - 20, currentLabelY + lineHeight);
   }
 };
 
@@ -4799,6 +4820,31 @@ const continueFullTraining = () => {
   startFullTraining();
 };
 
+const copyTrainingGraphToClipboard = async () => {
+  if (!trainingGraphCanvas || !navigator.clipboard?.write || typeof ClipboardItem === 'undefined') {
+    return;
+  }
+
+  const graphImage = await new Promise<Blob | null>((resolve) => {
+    trainingGraphCanvas.toBlob(resolve, 'image/png');
+  });
+  if (!graphImage) {
+    return;
+  }
+
+  await navigator.clipboard.write([new ClipboardItem({ 'image/png': graphImage })]);
+  closeTrainingGraphOverlay();
+};
+
+const testWithTrainSamplesAfterTraining = () => {
+  if (fullTrainingRunning) {
+    return;
+  }
+
+  closeTrainingGraphOverlay();
+  openTestingResultsOverlay('train');
+};
+
 const main = () => {
   mainContainer = document.getElementById('id_main') as HTMLElement;
   canvas = document.getElementById('content') as HTMLCanvasElement;
@@ -4832,6 +4878,8 @@ const main = () => {
   runFullTrainingBtn = document.getElementById('run-full-training-btn') as HTMLButtonElement;
   stopFullTrainingBtn = document.getElementById('stop-full-training-btn') as HTMLButtonElement;
   continueTrainingBtn = document.getElementById('continue-training-btn') as HTMLButtonElement;
+  copyTrainingGraphBtn = document.getElementById('copy-training-graph-btn') as HTMLButtonElement;
+  testWithTrainSamplesBtn = document.getElementById('test-with-train-samples-btn') as HTMLButtonElement;
   closeTrainingGraphBtn = document.getElementById('close-training-graph-btn') as HTMLButtonElement;
   resetBtn = document.getElementById('reset-btn') as HTMLButtonElement;
   trainingEpochNotice = document.getElementById('training-epoch-notice');

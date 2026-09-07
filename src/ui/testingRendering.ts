@@ -23,7 +23,7 @@ const buildTestingChartTooltipRows = (
   isTarget: boolean
 ) => values
   .map((value, idx) => {
-    const rawLabel = isTarget ? getTargetLabel(idx, false) : `output ${idx + 1}`;
+    const rawLabel = getTargetLabel(idx, false);
     const label = escapeHtmlAttr(rawLabel);
     const widthPercent = Math.max(0, Math.min(100, value * 100));
     return `<div class="testing-chart-tooltip-row"><span class="testing-chart-tooltip-label">${label}</span><div class="testing-chart-tooltip-bar-wrap"><div class="testing-chart-tooltip-bar" style="width:${widthPercent}%; background:${getFillColor(value)};"></div></div><span class="testing-chart-tooltip-value">${value.toFixed(5)}</span></div>`;
@@ -61,10 +61,19 @@ export const buildTestingOutputCellHtml = (values: number[], getTargetLabel: Tar
 export const buildTestingTargetCellHtml = (values: number[], getTargetLabel: TargetLabelFn, escapeHtmlAttr: EscapeFn) =>
   buildTestingBarCellHtml(values, getTargetLabel, escapeHtmlAttr, true);
 
-export const buildTestingCostCellHtml = (cost: number, isSingleOutput: boolean) => {
+export const buildTestingCostCellHtml = (cost: number, output: number[], target: number[]) => {
+  const isSingleOutput = target.length === 1;
   if (isSingleOutput) {
     const bg = getTestingSingleCostColor(cost);
-    return `<div class="testing-cost-box" style="background:${bg};">${cost.toFixed(5)}</div>`;
+    const targetValue = target[0];
+    const outputValue = output[0];
+    const isBinaryTarget = targetValue === 0 || targetValue === 1;
+    const hasMatchingSide = (outputValue >= 0.5) === (targetValue >= 0.5);
+    const borderColor = isBinaryTarget
+      ? (hasMatchingSide ? 'rgb(34, 139, 34)' : 'rgb(205, 40, 40)')
+      : 'rgba(0, 0, 0, 0.85)';
+    const borderWidth = isBinaryTarget ? '3px' : '1px';
+    return `<div class="testing-cost-box" style="background:${bg}; border-color:${borderColor}; border-width:${borderWidth};">${cost.toFixed(5)}</div>`;
   }
   const normalized = Math.max(0, Math.min(1, cost));
   const bg = getTestingSingleCostColor(normalized);
