@@ -485,121 +485,811 @@
       </div>
     </div>
   </div>
-  <section id="id_info">
-    <br>
-    <h2>What is this?</h2>
-    <p>In this app, you can experiment with simple neural networks and visually inspect every aspect of what is happening under the hood. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load projekts - or weights or data individually - using a plain-text JSON structure.</p>
-    <h3>Limits</h3>
-    <p>Since this app runs entirely in your browser, the maximum size of the network architecture is limited (e.g. no more than 11 output neurons, no more than 5 fully connected layers). Even within these limits, you may notice that training or testing projects with many neurons or large numbers of samples can become quite slow. For substantially larger projects or deep learning architectures, you would need a more powerful environment in which all aspects of the network are defined programmatically. </p>
-    <p>Similarly, this app only implements the standard supervised learning paradigm. If you want to experiment with other learning paradigms, different activation functions, additional tricks to stabilize learning or other customized workflows, you would need a more advanced setup.</p>
-    <h2>Architecture</h2>
-    <p>The architecture of a neural network defines its structure, including the number of layers, the number of neurons in each layer, and how these neurons are connected. In this app, the architecture is kept intentionally simple: all layers are fully connected, meaning each neuron receives input from every neuron in the previous layer.</p>
+  <!-- INFO CONTENT START -->
+  <section class="info-accordion" aria-label="About neural networks">
+    <div class="info-accordion-header">
+      <h2 class="info-accordion-title">Understanding Neural Networks</h2>
+      <div class="info-accordion-controls">
+        <div class="info-language-selector" aria-label="Language">
+      <button type="button" class="info-language-button is-active" data-info-language="en" aria-pressed="true">English</button>
+      <button type="button" class="info-language-button" data-info-language="de" aria-pressed="false">Deutsch</button>
+        </div>
+      </div>
+    </div>
 
-    <h3>Input layer</h3>
-    <p>The input layer receives the raw values of a sample. Each input neuron corresponds to one value in the input vector. For example, if the input is a grayscale image, the color of each pixel can be represented by one number between 0 (=black) and 1 (white) that is applied to the corresponding input neuron. The values of the input neurons are then passed onward to the next layers.</p>
+    <div class="info-language-content" data-info-language-content="en">
 
-    <h3>Hidden layer(s)</h3>
-    <p>Hidden layers sit between the input and output layers. Their role is to transform the input into a representation that is useful for solving the task. A network with more hidden layers can, in principle, learn more complex mappings, but deeper networks are also harder to train and more sensitive to initialization, learning rate, and the choice of activation function.</p>
+      <section class="info-section" id="info-en-what-is-this" data-info-source-id="what-is-this" data-language="en">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="true" aria-controls="info-en-what-is-this-content">
+            <span>About this App</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-en-what-is-this-content">
+      <p>In this app, you can experiment with simple neural networks: you can modify their data, architecture, or hyperparameters; train the networks; test their performance; and visually inspect their internals. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load projects, weights, or data individually using a plain-text JSON structure.</p>
+        <section class="info-subsection" id="info-en-limits" data-info-source-id="limits">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-limits-content">
+              <span>Limits</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-limits-content" hidden>
+<p>Since this app runs entirely in your browser, the maximum size of the network architecture is limited (e.g. no more than 11 output neurons and no more than 5 fully connected layers). Even within these limits, training or testing projects with extensive architectures or large numbers of samples can become rather slow. For substantially larger projects or more advanced deep learning architectures, you would need a more powerful environment in which all aspects of the network are defined programmatically.</p>
+  <p>Similarly, this app only implements the standard supervised learning paradigm. If you want to experiment with other learning paradigms, different activation functions, additional tricks to stabilize learning, or customized workflows, you would need a more advanced setup.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-en-architecture" data-info-source-id="architecture" data-language="en">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-en-architecture-content">
+            <span>Architecture</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-en-architecture-content" hidden>
+      <p>The architecture of a neural network defines its structure, including the number of layers, the number of neurons in each layer, and how these neurons are connected. In this app, the architecture is intentionally simple: all layers are fully connected, meaning each neuron receives input from every neuron in the previous layer.</p>
+        <section class="info-subsection" id="info-en-input-layer" data-info-source-id="input-layer">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-input-layer-content">
+              <span>Input layer</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-input-layer-content" hidden>
+<p>The <a href="#data">data</a> enters the network through the input layer. Each input neuron corresponds to one value in the <a href="#input-target-values">input vector</a>.</p>
+  <p>For example, if the input is a grayscale image, the colour of each pixel can be represented by one number between 0 (= black) and 1 (= white) that is applied to the corresponding input neuron. The values of the input neurons are then passed onward to the next layer.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-hidden-layers" data-info-source-id="hidden-layers">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-hidden-layers-content">
+              <span>Hidden layer(s)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-hidden-layers-content" hidden>
+<p>Usually, the <a href="#output-layer">output layer</a> is reached only after the values have been transformed in the hidden layers. These layers sit between the input and output layers and play a crucial role in forming a useful representation of the task.</p>
+  <p>A network with more hidden layers can, in principle, have an advantage in learning complex mappings, but deeper networks are also harder to train and more sensitive to initialization, the learning rate, and the choice of activation function. In short: "vanilla" networks usually use only one hidden layer.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-output-layer" data-info-source-id="output-layer">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-output-layer-content">
+              <span>Output layer</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-output-layer-content" hidden>
+<p>The output layer contains the final <a href="#prediction">predictions</a> of the network. Its size depends on the task: for binary classification, it may contain a single neuron; for multi-class classification, it may contain one neuron per class (see <a href="#input-target-values">targets</a>).</p>
+  <p>Output values are interpreted as predictions, which are then compared with the target values during <a href="#training">training</a> and <a href="#testing">testing</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-weights" data-info-source-id="weights">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-weights-content">
+              <span>Weights</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-weights-content" hidden>
+<p>Each connection between neurons has a numerical weight. These weights determine how strongly one neuron influences a downstream neuron. During <a href="#training">training</a>, the network gradually updates these weights, thus changing the flow of activation through the network and ultimately the resulting prediction at the output layer. The overall behavior of the network is therefore determined by both the <a href="#architecture">architecture</a> and the learned weight values.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-bias-nodes" data-info-source-id="bias-nodes">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-bias-nodes-content">
+              <span>Bias nodes</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-bias-nodes-content" hidden>
+<p>In addition to incoming weighted connections, each neuron can also have a bias term. A bias acts like a constant offset: it shifts the neuron's activation independently of the actual inputs, thus "biasing" the neuron to be active or inactive even when the inputs are zero.</p>
+  <p>These bias terms are often represented as additional neurons (bias nodes) with a fixed value of 1 and learned weights that represent the individual bias values of the corresponding downstream neurons. For many tasks, the inclusion of bias nodes makes it much easier for the network to learn the desired mapping.</p>
+  <p>Do not confuse bias nodes with a possible <a href="#bias">bias</a> in a network's performance. Bias nodes are a structural component of the network, while performance bias refers to systematic errors in the model's predictions.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-deep-learning-architectures" data-info-source-id="deep-learning-architectures">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-deep-learning-architectures-content">
+              <span>Deep learning architectures</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-deep-learning-architectures-content" hidden>
+<p>This app supports architectures with up to three hidden layers. However, since all layers are fully connected, this does not really constitute "deep learning." Instead, it demonstrates that simply stacking multiple fully connected hidden layers often makes learning more difficult rather than more effective. Modern deep learning architectures typically include specialized layers, such as convolutional layers, that perform dedicated preprocessing tasks like feature extraction, edge detection, or spatial filtering. Such architectures are beyond the scope of this app, which is limited to fully connected "vanilla" neural networks.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-en-data" data-info-source-id="data" data-language="en">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-en-data-content">
+            <span>Data</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-en-data-content" hidden>
+      <p>Neural networks learn from examples. Data refers to the collection of all <a href="#samples">samples</a> available for training and testing the network. The choice of samples used for training and testing can significantly impact the network's performance and <a href="#generalisation">generalization ability</a>.</p>
+        <section class="info-subsection" id="info-en-samples" data-info-source-id="samples">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-samples-content">
+              <span>Samples</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-samples-content" hidden>
+<p>Each sample in the dataset requires an <a href="#input-target-values">input vector</a> that specifies the input values and a <a href="#input-target-values">target vector</a> that specifies the desired output. In this app, the data is represented in a simple tabular form, where every row corresponds to one sample and each column represents either an input feature or a target value. Additionally, each sample can be designated as either a training sample or a test sample.</p>
+  <p>It is also possible to edit the data visually using the provided interface. In this representation, colours are mapped to numerical values (e.g. white = 1 and black = 0).</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-input-target-values" data-info-source-id="input-target-values">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-input-target-values-content">
+              <span>Input &amp; target values</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-input-target-values-content" hidden>
+<p>The input values are fed directly into the <a href="#input-layer">input layer</a>, which therefore needs one node per input value. Input values range from 0 to 1; intermediate values are possible, but not used in some tasks.</p>
+  <p>The target values describe the desired output for each sample. The <a href="#output-layer">output layer</a> therefore needs one node per target value. They also range from 0 to 1.</p>
+  <p>Classification tasks usually use binary values to indicate whether a feature or class is present; regression tasks may use continuous values as approximation targets.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-train-test-samples" data-info-source-id="train-test-samples">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-train-test-samples-content">
+              <span>Train &amp; test samples</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-train-test-samples-content" hidden>
+<p>Samples can be marked either as training samples or as test samples. Training samples are used to adapt the weights of the network during training, while test samples are held back and used to assess how well the model <a href="#generalisation">generalizes</a> to unseen data.</p>
+  <p>It is important to keep these roles separate (see <a href="#testing">Testing</a>): if the model is evaluated on training data only, it may appear to perform very well even when it has not learned the more general task.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-forward-propagation" data-info-source-id="forward-propagation">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-forward-propagation-content">
+              <span>Forward propagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-forward-propagation-content" hidden>
+<p>Forward propagation is the process of passing the input of a sample through the network, layer by layer, until the final output is produced. In a fully connected network, every neuron receives values from all neurons in the previous layer, combines them according to their weights, and then passes the result onward. See also <a href="#training">Training</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-activation-function" data-info-source-id="activation-function">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-activation-function-content">
+              <span>Activation function</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-activation-function-content" hidden>
+<p>To calculate the activation value of a neuron, you first compute the weighted sum of all incoming signals. Then the result is remapped to the range [0, 1] by applying an activation function to this sum.</p>
+  <p>In this app, the activation function is the sigmoid, or <a href="https://en.wikipedia.org/wiki/Logistic_function">logistic function</a>: \(\sigma(z) = \frac{1}{1 + e^{-z}}\). This basically means that large positive or negative sums are mapped to values close to 1 or 0, respectively, while sums near zero are mapped almost linearly to values around 0.5.</p>
+  <p>Activation functions are used in neural networks for two reasons: a) repeated normalization of activations prevents values from growing too large, which could destabilize learning; and b) the learning algorithm (<a href="#backpropagation">backpropagation</a>) requires the network's error function to be differentiable at all points. A sigmoid function fulfils both requirements, as it neatly squashes the weighted sum to a value between 0 and 1 and has a very simple derivative: \(\sigma'(z) = \sigma(z) \cdot (1 - \sigma(z))\).</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-prediction" data-info-source-id="prediction">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-prediction-content">
+              <span>Prediction</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-prediction-content" hidden>
+<p>Once the activations have been computed for all neurons in the final layer, the network produces its output, often called a "prediction". This output is then compared with the target values for the current sample. The difference between network output and target (the <a href="#error-function">error</a>) provides the basis for learning: the weights are adjusted so that the next <a href="#forward-propagation">forward pass</a> brings the output closer to the desired result. See also <a href="#training">Training</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-error-function" data-info-source-id="error-function">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-error-function-content">
+              <span>Error function (loss / cost)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-error-function-content" hidden>
+<p>To assess how well the network is performing, we need a measure of how far the predictions deviate from the target values.</p>
+  <p>The deviation itself (target value - output value = error) is a good start, but not enough to judge performance in networks with multiple output neurons, because positive and negative errors could cancel each other out.</p>
+  <p>To assess the network's performance on an individual sample, we calculate half the sum of the squared errors for all output neurons: \(\frac{1}{2}\sum_i (\hat{y}_i - y_i)^2\). This is called the loss of a sample. It is also the measure that the learning algorithm tries to minimize; the factor \(\frac{1}{2}\) simplifies the calculations for <a href="#backpropagation">backpropagation</a>.</p>
+  <p>There is yet another level: if we want to evaluate the network's performance during training or testing, it makes sense to consider its performance across all samples. This average loss is called the cost. For example, the cost of an epoch is the average loss over all training samples: \(\frac{1}{N}\sum_{s=1}^{N}\text{loss}_s\).</p>
+  <p>In summary, the error measures the discrepancy for a single output neuron, the loss measures the total discrepancy for a single sample, and the cost measures the average loss over all samples.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-en-training" data-info-source-id="training" data-language="en">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-en-training-content">
+            <span>Training</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-en-training-content" hidden>
+      <p>The goal of learning in neural networks is to find a set of weights that makes the network display the desired behavior, that is, produce the correct output for a given input. To achieve this, the network must be trained in an iterative process that repeatedly presents training samples to the network and then adjusts the weights so that the network gets better at producing the desired output.</p>
+        <section class="info-subsection" id="info-en-epochs" data-info-source-id="epochs">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-epochs-content">
+              <span>Epochs</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-epochs-content" hidden>
+<p>An epoch is one complete pass through the entire training dataset. For example, after 100 epochs, the network has processed each training sample 100 times. Because the order of samples can affect learning, the training data is shuffled before each epoch, so every sample is still presented once per epoch, but in a different order.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-training-process" data-info-source-id="training-process">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-training-process-content">
+              <span>Training process</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-training-process-content" hidden>
+<p>The supervised learning process consists of three basic steps:</p>
+  <ol>
+    <li>First, the input is forward propagated through the network, and the difference between the resulting output and the target is calculated for each output neuron. These errors are combined into the loss for this sample.</li>
+    <li>Second, the loss is propagated backwards through the network, allowing the contribution of each individual weight to the overall loss to be determined, as well as the direction in which the weight should be adjusted to reduce it (using <a href="#gradient-descent">gradient descent</a>).</li>
+    <li>Third, the weights are updated accordingly. The <a href="#learning-rate">learning rate</a> determines how aggressively these updates are applied. The weights may be updated after each individual training sample or after an entire batch of samples has been processed (e.g. after one epoch).</li>
+  </ol>
+  <p>These steps are repeated many times with many different learning samples until, ideally, only a negligible discrepancy remains between the target values and the actual outputs of the network.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-supervised-learning" data-info-source-id="supervised-learning">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-supervised-learning-content">
+              <span>Supervised learning</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-supervised-learning-content" hidden>
+<p>"Supervised learning" means that each training sample is associated with a target, i.e. the desired output for a given input. This target is used to calculate the error of the network's output, which in turn guides the learning process.</p>
+  <p>There are many different paradigms in machine learning, including reinforcement learning, self-organizing learning, autoencoders, and others. This app focuses exclusively on the most fundamental paradigm: supervised learning with <a href="#backpropagation">backpropagation</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-backpropagation" data-info-source-id="backpropagation">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-backpropagation-content">
+              <span>Backpropagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-backpropagation-content" hidden>
+<p>Backpropagation is the most common algorithm for training neural networks with supervised learning. Essentially, it consists of comparing the actual output of the network with the desired output (target) and then propagating this error backwards through the network, thus figuring out which weight is responsible for the error and to what extent. Based on this calculation, the weights can be adjusted so that the error for this particular input is minimized.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-gradient-descent" data-info-source-id="gradient-descent">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-gradient-descent-content">
+              <span>Gradient descent</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-gradient-descent-content" hidden>
+<p>Gradient descent is a method for finding the minimum of a function and the principle behind the calculations performed during backpropagation. In the case of neural networks, the function to be minimized is the loss function, which measures the discrepancy between the actual output of the network and the target output.</p>
+  <p>The goal of training is to adjust the weights of the network in such a way that this loss is minimized for all training samples. For an individual training sample, this can be done by calculating the derivative of the loss function with respect to each individual weight, thus finding the direction in which to adjust this weight. The sigmoidal activation function used in this app has the advantage that its derivative can be expressed in terms of the function itself, which makes the math a lot easier: \(\sigma'(z) = \sigma(z)(1 - \sigma(z))\).</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-learning-rate" data-info-source-id="learning-rate">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-learning-rate-content">
+              <span>Learning rate</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-learning-rate-content" hidden>
+<p>The main difficulty in training neural networks arises from the fact that the derivatives of the loss function tell us how to adjust the weights in order to minimize the loss for a single training sample. However, since we want to minimize the loss for all training samples, we need to find a compromise between the adjustments suggested by each individual sample. This is where the learning rate comes into play. The learning rate determines how aggressively the weights are adjusted based on the calculated gradients. By presenting the training samples repeatedly in random order and adapting the weights only by a fraction (the learning rate) in the direction demanded by each sample, we hope that the network gradually converges to a configuration of weights that minimizes the loss of all training samples.</p>
+  <p>Choosing an appropriate learning rate can be challenging. If the learning rate is too high, the weights may oscillate or even diverge, preventing the network from converging to a minimum. If the learning rate is too low, training may become excessively slow or get stuck in local minima. Finding a suitable learning rate is crucial for effective learning.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-why-learning-might-fail" data-info-source-id="why-learning-might-fail">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-why-learning-might-fail-content">
+              <span>Why learning might fail</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-why-learning-might-fail-content" hidden>
+<p>In theory, even standard neural networks can learn any mapping between inputs and outputs because it can be proven that there exists a configuration (many, actually) of weights capable of implementing the desired function. However, this does not imply that training will actually find such a configuration. Stable and efficient learning depends on many additional factors, including the network architecture, the initialization of the weights, the choice of activation functions, the learning rate, and the quality of the training data.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-en-testing" data-info-source-id="testing" data-language="en">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-en-testing-content">
+            <span>Testing</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-en-testing-content" hidden>
+      <p>Once a neural network has been trained, it is important to test how it performs and whether it generalises to new inputs rather than just memorizing the training data. Testing is therefore a separate phase in which the model's reaction to various inputs is evaluated, but the weights are not updated.</p>
+        <section class="info-subsection" id="info-en-testing-with-train-test-data" data-info-source-id="testing-with-train-test-data">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-testing-with-train-test-data-content">
+              <span>Testing with train/test data</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-testing-with-train-test-data-content" hidden>
+<p>To evaluate a trained network, it is useful to test it on both the data it was trained on and on data it has not seen before. Testing on training data shows how well the model fits the examples it has learned from, whereas testing on test data reveals whether it can also handle new inputs. These two checks complement each other: the training result indicates how much the model has learned, while the test result shows how well it generalizes beyond the training set.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-overfitting" data-info-source-id="overfitting">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-overfitting-content">
+              <span>Overfitting</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-overfitting-content" hidden>
+<p>A model that performs well on the training data but fails on new examples is not very useful: we could have written a "normal" program that simply looks up the input in the data table and gives the corresponding target as output. This would work perfectly with all the training samples, but fail catastrophically as soon as a single input value deviates from the training set. Neural networks can also show this behaviour of simply memorizing the specific patterns from the training set; this is called overfitting. The risk of overfitting is particularly high when the network has many more parameters (weights) than are needed to solve the task. Conversely, limiting the number of parameters forces the network to use more general patterns of similarity between the training samples, which are more likely to be useful for unseen inputs. However, if the network is too small, it may not have enough capacity to learn the task at all. The art of designing a neural network is therefore to find a good balance between these two extremes.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-generalisation" data-info-source-id="generalisation">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-generalisation-content">
+              <span>Generalisation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-generalisation-content" hidden>
+<p>Generalisation is one of the central goals in machine learning, or learning in general. After all, you probably would not claim to have learned to read when in reality you have only memorized a few individual words. Someone who is able to read could be expected to demonstrate this ability by reading new words that they have never seen before. Similarly, a neural network that has learned a <a href="#task">task</a> should be able to make correct predictions on inputs it has not seen during training, thus indicating that it has learned something about the underlying rules or regularities of the task.</p>
+  <p>Testing the network's ability to generalise to novel inputs (test data) is therefore an extremely important aspect of evaluating its performance. As with most aspects of neural networks, however, this is not all or nothing: generalisation might work for some examples but not for others, and we can never prove perfect generalisation because, just like the training set, the test set can only be a hopefully representative selection of examples from the underlying task in general.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-task" data-info-source-id="task">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-task-content">
+              <span>Task</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-task-content" hidden>
+<p>A task can often be described quite simply in words, for example "recognise handwritten digits." In practice, however, such a description remains vague: it does not define every possible input that belongs to the task, nor does it specify exactly which variation a model should handle. Even for human readers, we would not expect perfect performance on every conceivable handwritten digit. Except for the most trivial tasks, the problem space is effectively infinite, while a training dataset can contain only a limited selection of examples.</p>
+  <p>Training samples should therefore cover the relevant variation in the task as representatively as possible. A network that performs well not only on its training samples but also on new, previously unseen examples has <a href="#generalisation">generalised</a>. In the best case, its generalisation is as good as, or better than, that of a human observer. This suggests that the network has learned useful regularities underlying the task rather than merely memorizing individual examples.</p>
+  <p>However, these regularities are not stored as explicit rules that can simply be read from the network. They are represented by the learned <a href="#weights">weights</a>, that is, a large collection of numbers distributed across the connections between neurons. Even when the network generalises well, it can therefore remain difficult to show directly which regularities it has learned or where exactly they are represented. This is one reason why <a href="#inspecting-activations">inspecting activations</a> can be useful, while still providing only partial insight.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-bias" data-info-source-id="bias">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-bias-content">
+              <span>Bias</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-bias-content" hidden>
+<p>Bias refers to a systematic failure in generalisation that can arise from non-representative data. It is usually introduced when the selection of training samples is skewed and therefore does not represent the <a href="#task">task</a> as a whole.</p>
+  <p>For example, imagine a digit-recognition dataset in which most examples of the digit 1 are written with a small hook at the top. If examples without this hook are rare or absent, the network may learn to treat the hook as an important feature of a 1. It can then perform well on the training data but make worse predictions for equally valid handwritten 1s without a hook. This is not a property of the network itself, but a consequence of training data that does not adequately represent the variation in the <a href="#task">task</a>.</p>
+  <p>Such biases can often be addressed by including more examples that cover this "blind spot" in the training set. However, they may go unnoticed because a skewed data selection is rarely intentional; it often reflects an unrecognized blind spot or bias of the person selecting the data. The same blind spot may then also be present in the testing data. Moreover, it is impossible for a selected set of examples to represent every aspect of a task without any skew. The aim is therefore not to eliminate skew entirely, but to keep it as small as possible.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-en-inspecting-activations" data-info-source-id="inspecting-activations">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-inspecting-activations-content">
+              <span>Inspecting activations</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-en-inspecting-activations-content" hidden>
+<p>A problematic aspect of neural networks is that, even when they perform admirably at a task, it is hard to understand exactly how they solve this problem, other than the general observation that they have found an appropriate set of weights during the learning process. While a network is not really a black box, as is sometimes claimed, we could maybe call it a grey box: while it is possible to look under the hood and inspect each and every value (this app allows you to do exactly that), it can still be challenging to interpret these values meaningfully.</p>
+  <p>At its core, this problem is unsolvable: the very essence of this approach is that an individual weight does not perform an identifiable subtask, does not represent anything specific, and has no meaning other than contributing in some small way to the overall workings of the system.</p>
+  <p>However, there are some techniques that can help to gain insight into the network's behavior. For example, one can visualize the activations of hidden neurons in response to different inputs. This can reveal which features or patterns the network has learned to detect and how it reorganizes the data internally prior to making a final prediction in the <a href="#output-layer">output layer</a>.</p>
+  <p>Most of these techniques are concerned with dimensionality reduction: the hidden layer may be understood as a high-dimensional representation of the input data, so its activation in response to an individual sample is a point in this high-dimensional space. The position of these points can reveal insights into which inputs the network considers similar. See also <a href="#data">Data</a>.</p>
+  <p>Two such techniques are provided in this app:</p>
+  <ul>
+    <li><strong>Principal component analysis (PCA)</strong> is a way of mapping high-dimensional data to an alternative coordinate system such that the first dimension contains the most variance, the second dimension contains the second most variance, and so on. Visualizing only the first two (PCA 2D) or three (PCA 3D) dimensions should still reveal the most meaningful aspects of the clustering of the data in hidden-layer space.</li>
+    <li><strong>Nearest neighbour</strong> is another way of visualizing clusters in hidden-layer space. It involves grouping the points that are closest to one another in a minicluster, then grouping these miniclusters with their closest neighbours into slightly larger clusters, and so on, so that this hierarchical clustering of neighbours reveals the overall structure of the data.</li>
+  </ul>
+          </div>
+        </section>
+        </div>
+      </section>
+    </div>
+    <div class="info-language-content" data-info-language-content="de" hidden>
 
-    <h3>Output layer</h3>
-    <p>The output layer contains the final predictions of the network. Its size depends on the task: for binary classification, it may contain a single neuron; for multi-class classification, it may contain one neuron per class. The output values are interpreted as predictions, which are then compared to the target values during training and testing.</p>
-
-    <h3>Weights</h3>
-    <p>Each connection between neurons has a numerical weight. These weights determine how strongly one neuron influences another. During training, the network gradually updates these weights, thus changing the flow of activation through the network and ultimately the resulting prediction at the output layer. The overall behavior of the network is therefore determined by both the architecture and the learned weight values.</p>
-
-    <h3>Bias nodes</h3>
-    <p>In addition to incoming weighted connections, each neuron can also have a bias term. A bias acts like a constant offset: it shifts the neuron’s activation independently of the actual inputs, thus "biasing" the neuron to be active or inactive even when the inputs are zero. Biases are often represented as additional neurons (bias nodes) with a fixed value of 1 and (learned) weights that represent the individual bias values of the corresponding downstream neurons. For many tasks the inclusion of bias nodes makes it much easier for the network to learn the desired mapping.</p>
-
-    <h3>Deep learning architectures</h3>
-    <p>This app supports architectures with up to three hidden layers. However, since all layers are fully connected, this does not really constitute "deep learning." Instead, it demonstrates that simply stacking multiple fully connected hidden layers often makes learning more difficult rather than more effective. Modern deep learning architectures typically include specialized layers, such as convolutional layers, that perform dedicated preprocessing tasks like feature extraction, edge detection, or spatial filtering. Such architectures are beyond the scope of this app, which is limited to fully connected "vanilla" neural networks.</p>
-    
-    <h2>Data</h2>
-    <p>Neural networks learn from examples. Each sample in the dataset contains an input vector and a target value or target vector that specifies the desired output. In this app, the data is represented in a simple tabular form, where every row corresponds to one sample and each column represents either an input feature or a target value. It is also possible to edit data visually, using the provided interface. In this representation, colors are mapped to numerical values (e.g., white = 1, black = 0).</p>
-
-    <h3>Input & target values</h3>
-    <p>The input values are fed directly into the input layer which, therefore, needs one node per input value. Input values range from 0 to 1, intermediary values are possible, but not used in some tasks. </p>
-    <p>The target values describe the desired output for each sample, the output layer needs one node per target value. Target values are used during training to compute the loss and drive the update of the weights. Target values range from 0 to 1. Classification tasks usually use binary values to represent the network's judgement whether the input belongs to a class or has a feature. Regression tasks may use continuous values as approximation targets.</p>
-
-    <h3>Train & test samples</h3>
-    <p>Samples can be marked either as training samples or as test samples. Training samples are used to adapt the weights of the network, while test samples are held back and used to assess how well the model generalizes to unseen data. It is important to keep these roles separate: if the model is evaluated on training data only, it may appear to perform very well even when it has not learned a general rule.</p>
-
-    <h2>Forward propagation</h2>
-    <p>Forward propagation is the process of passing an input sample through the network, layer by layer, until the final output is produced. In a fully connected network, every neuron receives values from all neurons in the previous layer, combines them according to their weights, and then passes the result onward.</p>
-
-    <h3>Activation function</h3>
-    <p>To calculate the activation value of a neuron, you first compute the weighted sum of all incoming signals. Then you apply the activation function to this sum. In this app, the activation function is the sigmoid: \(\sigma(z) = \frac{1}{1 + e^{-z}}\). This maps the weighted sum to a value between 0 and 1, which makes the output of one neuron interpretable as a normalized activation level.</p>
-
-    <h3>Prediction</h3>
-    <p>Once the activations have been computed for all neurons in the final layer, the network produces its output, often called "prediction". This output is then compared with the target values for the current sample. The difference between network output and target provides the basis for learning: the weights are adjusted so that the next forward pass brings the output closer to the desired result.</p>
-
-    
-    <h3>Error function (loss / cost)</h3>
-    <p>To assess how well the network is performing, we need a measure of how far the predictions deviate from the target values. In this app, the loss for one output neuron is defined as the squared difference between prediction and target: \((\hat{y} - y)^2\). For a single training sample, the total loss is the sum of the squared errors of all output neurons. The cost for one epoch is then the average loss across the full training set.</p>
-    <p>The differences between the terms error, loss and cost are subtle and not always consistently applied. Generally, "error" refers to the discrepancy for a single output neuron, "loss" refers to the total discrepancy for a single training sample, and "cost" refers to the average loss over the entire training set.</p>
-    
-    <h2>Learning</h2>
-    <p>The goal of learning in neural networks is to find a set of weights that makes the network display the desired behavior - that is, produce the correct output for a given input. In order to achieve this, the network must be trained in an iterative process that repeatedly presents training samples to the network and then adjusts the weights such that the network gets better at producing the desired output. </p>
-   
-    <p> The supervised learning process consists of three basic steps: 
-      <ol>
-        <li>First, the difference between the target and the actual output of the network (the loss) is calculated. </li>
-        <li>Second, this loss is propagated backwards through the network, allowing the contribution of each individual weight to the overall error to be determined, as well as the direction in which the weight should be adjusted to reduce the loss (using gradient descent).</li>
-        <li>Third, the weights are updated accordingly. The learning rate determines how aggressively these updates are applied. The weights may be updated after each individual training sample or after an entire batch of samples has been processed (e.g. after one epoch). </li>
-      </ol>
-      These steps are repeated many times with many different learning samples until, ideally, only a negligible discrepancy remains between the target values and the actual outputs of the network. 
-    </p>
-    <h3>Supervised learning</h3>
-    <p>"Supervised learning" means that each training sample is associated with a target, i.e. the desired output for a given input. This target is used to calculate the error of the network's output, which in turn guides the learning process.</p>
-    <p>There are many different paradigms in machine learning, including reinforcement learning, self-organizing learning, autoencoders, and others. This app focuses exclusively on the most fundamental paradigm: supervised learning with backpropagation.</p>
-    <h3 >Backpropagation </h3>
-    <p>Backpropagation is the most common algorithm for training neural networks with supervised learning. Essentially it consists of comparing the actual output of the network with the desired output (target) an then propagating this error backwards through the network, thus figuring out via some clever math, which weight is to blame for the error to which extent. Based on this calculation the weights can be adjusted such that the error for this particular input is minimized.</p>
-    <h3>Gradient descent</h3>
-    <p>Gradient descent is a method for finding the minimum of a function and the principle behind the clever math performed during backpropagation. In the case of neural networks, the function to be minimized is the loss function, which measures the discrepancy between the actual output of the network and the target output. <br>
-    The goal of training is to adjust the weights of the network in such a way that this loss is minimized for all training samples. For an individual training sample this can be done by calculating the derivative of the loss function with respect to each individual weight, thus finding the direction in which to adjust this weight. 
-    The sigmoidal activation function used in this app has the advantage that its derivative can be expressed in terms of the function itself, which makes the math a lot easier: \(\sigma'(z) = \sigma(z)(1 - \sigma(z))\).
-    </p>
-    <h3>Learning rate</h3>
-    <p>The main difficulty in training neural networks arises from the fact that the derivatives of the loss function tell us how to adjust the weights in order to minimize the loss for a single training sample. However, since we want to minimize the loss for all training samples, we need to find a compromise between the adjustments suggested by each individual sample. This is where the learning rate comes into play. The learning rate determines how aggressively the weights are adjusted based on the calculated gradients. By presenting the training samples repeatedly, in random order, and adapting the weights only by a fraction (the learning rate) into the direction demanded by this sample, we hope that the network gradually converges to a configuration of weights that minimizes the loss of all training samples. </p>
-    <p>Choosing an appropriate learning rate can be challenging. If the learning rate is too high, the weights may oscillate or even diverge, preventing the network from converging to a minimum. If the learning rate is too low, the training process may become excessively slow and get stuck in local minima. Finding a suitable learning rate is crucial for effective learning.</p>
-    <h3>Why learning might fail</h3>
-    <p>In theory, even standard neural networks can learn any mapping between inputs and outputs because it can be proven that there exists a configuration (many, actually) of weights capable of implementing the desired function. However, this does not imply that the training process will actually find such a configuration. Stable and efficient learning depends on many additional factors, including the network architecture, the initialization of the weights, the choice of activation functions, the learning rate, and the quality of the training data.</p>
-    
-    <h2>Testing</h2>
-    <p>Once a neural network has been trained, it is important to test how it performs and whether it generalizes to new inputs rather than just memorizing the training data. Testing is therefore a separate phase in which the model's reaction to various inputs is evaluated, but the weights are not updated.</p>
-
-    <h3>Testing with train/test data</h3>
-    <p>To evaluate a trained network, it is useful to test it on both the data it was trained on and on data it has not seen before. Testing on training data shows how well the model fits the examples it has learned from, whereas testing on test data reveals whether it can also handle new inputs. These two checks complement each other: the training result indicates how much the model has learned, while the test result shows how well it generalizes beyond the training set.</p>
-    <h3>Overfitting</h3>
-    <p>A model that performs well on the training data but fails on new examples is not very useful: we could have written a "normal" program that simply looks up the input in the data table and gives the corresponding target as output. This would work perfectly with all the training samples, but fail catastrophically as soon as a single input value deviates from the training set. Neural networks can also show this behaviour of simply memorizing the specific patterns from the training set - this is called overfitting. The risk of overfitting is particularly high when the network has many more parameters (weights) than are needed to solve the task. Conversely, limiting the number of parameters forces the network to use more general patterns of similarity between the training samples, which are more likely to be useful for unseen inputs. However, if the network is too small, it may not have enough capacity to learn the task at all. The art of designing a neural network is therefore to find a good balance between these two extremes.</p>
-    <h3>Generalisation</h3>
-    <p>Generalisation is one of the central goals in machine learning - or learning in general. After all, you probably would not claim to have learned to read when in reality you have only memorized a few individual words. Someone who is able to read could be expected to demonstrate this ability by reading new words that they have never seen before. Similarly, a neural network that has learned a task should be able to make correct predictions on inputs it has not seen during training, thus indicating that it has learned something about the underlying rules or regularities of the task.</p>
-    <p>Testing the networks ability to generalize to novel inputs (test data) is thus an extremely important aspect of evaluating a networks performance. As with most aspects of neural networks, however, this is not all or nothing; generalisation might work for some examples but not for others, and we can never prove perfect generalisation because, just like the train set, the test set can always only be a - hopefully representative - selection of examples from the underlaying task in general.  </p>      
-    <h3>Bias</h3>
-    <p>Bias refers to a systematic failure in generalisation. </p>
-    <p>Bias is usually introduced when the selection of training samples is in some way skewed and thus not representative of the task as a whole.  </p>
-    <h3>Inspecting activations</h3>
-    <p>A problematic aspect of neural networks is the fact that even when they perform admirably at a task, it is hard to understand how exactly they solve this problem - other than the general observation that, obviously, they have found an appropriate set of weights during the learning process. While a network is not really a black box, as is sometimes claimed, we could maybe call it a gray box: while it is possible to look under the hood and inspect each and every value (this app allows you to do exactly that) it can still be challenging to interpret these values meaningfully.</p>
-    <p>At its core this problem is unsolvable: the very essence of this approach is that an individual weight does not perform an identifiable subtask, it does not represent anything specific, it has no meaning other than contributing in some small way to the overall workings of the system.</p>
-    <p>However, there are some techniques that can help to gain insight into the network's behavior. For example, one can visualize the activations of hidden neurons in response to different inputs. This can reveal which features or patterns the network has learned to detect and how it (re)organizes the data internally prior to making a final prediction in the output layer.</p>
-    <p>Most of these techniques are concerned with dimension reduction: The hidden layer may be understood as a high-dimensional representation of the input data, so its activation in response to an individual sample is a point in this high-dimensional space. The position of these points can reveal insights into which inputs the network considers similar. </p>
-    <p>Two such techniques are provided in this app:
-      <ul>
-        <li><strong>Principal component analysis (PCA)</strong> is a way of mapping high-dimensional data to an alternative coordinate system such that the first dimension contains the most variance, the second dimension contains the second most variance, and so on. Visualizing only the first two (PCA 2D) or three (PCA 3D) dimensions thus should still reveal the most meaningful aspects of the clustering of the data in hidden layer space.</li>
-        <li><strong>Nearest neighbour</strong> is another way of visualizing clusters of the data in hidden layer space. It involves grouping the points that are closest to another in a minicluster, then grouping these miniclusters with their closest neighbours into slightly larger clusters and so on, such that this hierarchical clustering of neighbours reveals the overall structure of the data.</li>
-      </ul>
-    </p>
-    
-
-    
-
-
-  
-    <footer class="futter m-5" style="text-align: center;">
-      <br> Created by Nicolas Ruh
-      
-    </footer>
-
+      <section class="info-section" id="info-de-what-is-this" data-info-source-id="what-is-this" data-language="de">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="true" aria-controls="info-de-what-is-this-content">
+            <span>About this App</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-de-what-is-this-content">
+      <p>In dieser App kannst du mit einfachen Neural Networks experimentieren: Du kannst ihre Daten, Architektur oder Hyperparameter verändern, die Netzwerke trainieren, ihre Performance testen und jeden Aspekt dessen, was unter der Haube passiert, visuell untersuchen. Mehrere Beispielprojekte zu klassischen Machine-Learning-Aufgaben sind enthalten. Du kannst auch eigene Projekte erstellen und Projekte, Weights oder Daten einzeln über eine JSON-Struktur im Klartext speichern oder laden.</p>
+        <section class="info-subsection" id="info-de-limits" data-info-source-id="limits">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-limits-content">
+              <span>Limits</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-limits-content" hidden>
+<p>Da diese App vollständig in deinem Browser läuft, ist die maximale Größe der Netzwerkarchitektur begrenzt, zum Beispiel auf höchstens 11 Output-Neuronen und 5 vollständig verbundene Layers. Auch innerhalb dieser Grenzen können Projekte mit umfangreichen Architekturen oder großen Sample-Mengen beim Training oder Testing recht langsam werden. Für wesentlich größere Projekte oder fortgeschrittene Deep-Learning-Architekturen bräuchtest du eine leistungsfähigere Umgebung, in der alle Aspekte des Netzwerks programmatisch definiert werden.</p>
+  <p>Ebenso implementiert diese App nur das Standardparadigma des Supervised Learning. Wenn du mit anderen Lernparadigmen, anderen Activation Functions, zusätzlichen Methoden zur Stabilisierung des Trainings oder angepassten Workflows experimentieren möchtest, brauchst du ein fortgeschritteneres Setup.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-de-architecture" data-info-source-id="architecture" data-language="de">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-de-architecture-content">
+            <span>Architecture</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-de-architecture-content" hidden>
+      <p>Die Architektur eines Neural Networks definiert seine Struktur, einschließlich der Anzahl an Layers, der Anzahl an Neuronen in jeder Layer und der Art, wie diese Neuronen verbunden sind. In dieser App ist die Architektur absichtlich einfach: Alle Layers sind vollständig verbunden, das heißt, jedes Neuron erhält Input von jedem Neuron der vorherigen Layer.</p>
+        <section class="info-subsection" id="info-de-input-layer" data-info-source-id="input-layer">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-input-layer-content">
+              <span>Input layer</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-input-layer-content" hidden>
+<p>Die <a href="#data">Daten</a> gelangen über das Input Layer in das Network. Jedes Input-Neuron entspricht einem Wert im <a href="#input-target-values">Input Vector</a>.</p>
+  <p>Ist der Input zum Beispiel ein Graustufenbild, kann die Farbe jedes Pixels durch eine Zahl zwischen 0 (= schwarz) und 1 (= weiß) repräsentiert werden, die auf das entsprechende Input-Neuron angewendet wird. Die Werte der Input-Neuronen werden dann an das nächste Layer weitergegeben.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-hidden-layers" data-info-source-id="hidden-layers">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-hidden-layers-content">
+              <span>Hidden layer(s)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-hidden-layers-content" hidden>
+<p>Üblicherweise wird das <a href="#output-layer">Output Layer</a> erst erreicht, nachdem die Werte in den Hidden Layers transformiert wurden. Diese Layers liegen zwischen dem Input und dem Output Layer und spielen eine entscheidende Rolle bei der Bildung einer brauchbaren Repräsentation der Aufgabe.</p>
+  <p>Ein Network mit mehr Hidden Layers kann prinzipiell einen Vorteil beim Lernen komplexer Abbildungen haben, aber tiefere Networks sind auch schwieriger zu trainieren und empfindlicher gegenüber der Initialisierung, der Learning Rate und der Wahl der Activation Function. Kurz gesagt: "Vanilla" Networks verwenden üblicherweise nur ein Hidden Layer.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-output-layer" data-info-source-id="output-layer">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-output-layer-content">
+              <span>Output layer</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-output-layer-content" hidden>
+<p>Das Output Layer enthält die endgültigen <a href="#prediction">Predictions</a> des Networks. Seine Größe hängt von der Aufgabe ab: Bei binärer Klassifikation kann es ein einzelnes Neuron enthalten; bei Multi-Class-Klassifikation kann es ein Neuron pro Klasse enthalten (siehe <a href="#input-target-values">Targets</a>).</p>
+  <p>Output-Werte werden als Predictions interpretiert und während des <a href="#training">Trainings</a> und <a href="#testing">Testings</a> mit den Target-Werten verglichen.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-weights" data-info-source-id="weights">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-weights-content">
+              <span>Weights</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-weights-content" hidden>
+<p>Jede Verbindung zwischen Neuronen hat ein numerisches Weight. Diese Weights bestimmen, wie stark ein Neuron ein nachgelagertes Neuron beeinflusst. Während des <a href="#training">Trainings</a> aktualisiert das Network diese Weights schrittweise, verändert damit den Fluss der Activations im Network und letztlich die Prediction des Output Layers. Das Gesamtverhalten des Networks wird daher sowohl durch die <a href="#architecture">Architektur</a> als auch durch die gelernten Weight-Werte bestimmt.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-bias-nodes" data-info-source-id="bias-nodes">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-bias-nodes-content">
+              <span>Bias nodes</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-bias-nodes-content" hidden>
+<p>Zusätzlich zu eingehenden gewichteten Verbindungen kann jedes Neuron einen Bias Term haben. Ein Bias wirkt wie ein konstanter Offset: Er verschiebt die Activation eines Neurons unabhängig von den tatsächlichen Inputs und "biases" das Neuron damit in Richtung aktiv oder inaktiv, selbst wenn die Inputs null sind.</p>
+  <p>Diese Bias Terms werden oft als zusätzliche Neuronen (Bias Nodes) mit einem festen Wert von 1 und gelernten Weights dargestellt. Diese Weights repräsentieren die individuellen Bias-Werte der jeweiligen nachgelagerten Neuronen. Für viele Aufgaben erleichtert die Verwendung von Bias Nodes dem Netzwerk das Lernen der gewünschten Abbildung erheblich.</p>
+  <p>Bias Nodes dürfen nicht mit einem möglichen <a href="#bias">Bias</a> in der Performance eines Netzwerks verwechselt werden. Bias Nodes sind ein struktureller Bestandteil des Netzwerks, während Performance Bias systematische Fehler in den Predictions eines Modells beschreibt.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-deep-learning-architectures" data-info-source-id="deep-learning-architectures">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-deep-learning-architectures-content">
+              <span>Deep learning architectures</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-deep-learning-architectures-content" hidden>
+<p>Diese App unterstützt Architekturen mit bis zu drei Hidden Layers. Da alle Layers jedoch vollständig verbunden sind, handelt es sich dabei nicht wirklich um "Deep Learning". Vielmehr zeigt sie, dass das bloße Stapeln mehrerer vollständig verbundener Hidden Layers das Lernen häufig schwieriger statt effektiver macht. Moderne Deep-Learning-Architekturen enthalten typischerweise spezialisierte Layers, zum Beispiel Convolutional Layers, die eigene Vorverarbeitungsaufgaben wie Feature Extraction, Edge Detection oder räumliche Filterung übernehmen. Solche Architekturen liegen außerhalb des Umfangs dieser App, die auf vollständig verbundene "Vanilla" Neural Networks beschränkt ist.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-de-data" data-info-source-id="data" data-language="de">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-de-data-content">
+            <span>Data</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-de-data-content" hidden>
+      <p>Neural Networks lernen aus Beispielen. Data bezeichnet die Gesamtheit aller <a href="#samples">Samples</a>, die zum Training und Testing des Netzwerks verfügbar sind. Die Auswahl der Samples für Training und Testing kann die Performance und <a href="#generalisation">Generalisierungsfähigkeit</a> des Netzwerks erheblich beeinflussen.</p>
+        <section class="info-subsection" id="info-de-samples" data-info-source-id="samples">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-samples-content">
+              <span>Samples</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-samples-content" hidden>
+<p>Jedes Sample im Dataset benötigt einen <a href="#input-target-values">Input Vector</a>, der die Input-Werte festlegt, und einen <a href="#input-target-values">Target Vector</a>, der den gewünschten Output festlegt. In dieser App werden die Daten in einer einfachen Tabelle dargestellt, in der jede Zeile einem Sample entspricht und jede Spalte entweder ein Input Feature oder einen Target-Wert repräsentiert. Zusätzlich kann jedes Sample als Training Sample oder Test Sample festgelegt werden.</p>
+  <p>Die Daten können auch über die bereitgestellte Oberfläche visuell bearbeitet werden. In dieser Darstellung werden Farben auf numerische Werte abgebildet, zum Beispiel weiß = 1 und schwarz = 0.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-input-target-values" data-info-source-id="input-target-values">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-input-target-values-content">
+              <span>Input &amp; target values</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-input-target-values-content" hidden>
+<p>Die Input-Werte werden direkt in das <a href="#input-layer">Input Layer</a> eingespeist, das deshalb ein Neuron pro Input-Wert benötigt. Input-Werte liegen zwischen 0 und 1; Zwischenwerte sind möglich, werden aber in einigen Aufgaben nicht verwendet.</p>
+  <p>Die Target-Werte beschreiben den gewünschten Output für jedes Sample. Das <a href="#output-layer">Output Layer</a> benötigt daher ein Neuron pro Target-Wert. Auch sie liegen zwischen 0 und 1.</p>
+  <p>Classification Tasks verwenden üblicherweise binäre Werte, um anzugeben, ob ein Feature oder eine Klasse vorhanden ist; Regression Tasks können kontinuierliche Werte als Approximation Targets verwenden.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-train-test-samples" data-info-source-id="train-test-samples">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-train-test-samples-content">
+              <span>Train &amp; test samples</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-train-test-samples-content" hidden>
+<p>Samples können entweder als Training Samples oder Test Samples markiert werden. Training Samples werden während des Trainings verwendet, um die Weights des Netzwerks anzupassen; Test Samples werden zurückgehalten, um zu beurteilen, wie gut das Modell auf unbekannte Daten <a href="#generalisation">generalisiert</a>.</p>
+  <p>Es ist wichtig, diese Rollen getrennt zu halten (siehe <a href="#testing">Testing</a>): Wird ein Modell nur mit Training Data bewertet, kann es sehr gut wirken, obwohl es die allgemeinere Aufgabe noch nicht gelernt hat.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-forward-propagation" data-info-source-id="forward-propagation">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-forward-propagation-content">
+              <span>Forward propagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-forward-propagation-content" hidden>
+<p>Forward Propagation ist der Prozess, bei dem der Input eines Samples Layer für Layer durch das Network weitergegeben wird, bis der endgültige Output entsteht. In einem vollständig verbundenen Network erhält jedes Neuron Werte von allen Neuronen des vorherigen Layers, kombiniert sie entsprechend ihrer Weights und gibt das Ergebnis weiter. Siehe auch <a href="#training">Training</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-activation-function" data-info-source-id="activation-function">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-activation-function-content">
+              <span>Activation function</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-activation-function-content" hidden>
+<p>Um den Activation-Wert eines Neurons zu berechnen, wird zuerst die gewichtete Summe aller eingehenden Signale berechnet. Anschließend wird das Ergebnis durch Anwendung einer Activation Function auf diese Summe in den Bereich [0, 1] abgebildet.</p>
+  <p>In dieser App ist die Activation Function die Sigmoid- oder <a href="https://en.wikipedia.org/wiki/Logistic_function">Logistic Function</a>: \(\sigma(z) = \frac{1}{1 + e^{-z}}\). Das bedeutet im Wesentlichen, dass große positive oder negative Summen jeweils auf Werte nahe 1 oder 0 abgebildet werden, während Summen nahe null fast linear auf Werte um 0.5 abgebildet werden.</p>
+  <p>Activation Functions werden in Neural Networks aus zwei Gründen verwendet: a) Die wiederholte Normalisierung von Activations verhindert, dass Werte zu groß werden und das Training destabilisieren könnten; und b) der Lernalgorithmus (<a href="#backpropagation">Backpropagation</a>) verlangt, dass die Error Function des Netzwerks an allen Stellen differenzierbar ist. Eine Sigmoid Function erfüllt beide Anforderungen: Sie staucht die gewichtete Summe auf einen Wert zwischen 0 und 1 und hat eine sehr einfache Ableitung: \(\sigma'(z) = \sigma(z) \cdot (1 - \sigma(z))\).</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-prediction" data-info-source-id="prediction">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-prediction-content">
+              <span>Prediction</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-prediction-content" hidden>
+<p>Sobald die Activations aller Neuronen im finalen Layer berechnet wurden, erzeugt das Network seinen Output, der oft Prediction genannt wird. Dieser Output wird dann mit den Target-Werten des aktuellen Samples verglichen. Die Differenz zwischen Network-Output und Target (der <a href="#error-function">Error</a>) bildet die Grundlage für das Lernen: Die Weights werden so angepasst, dass der nächste <a href="#forward-propagation">Forward Pass</a> den Output näher an das gewünschte Ergebnis bringt. Siehe auch <a href="#training">Training</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-error-function" data-info-source-id="error-function">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-error-function-content">
+              <span>Error function (loss / cost)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-error-function-content" hidden>
+<p>Um zu beurteilen, wie gut das Netzwerk arbeitet, brauchen wir ein Maß dafür, wie weit die Predictions von den Target-Werten abweichen.</p>
+  <p>Die Abweichung selbst (Target-Wert - Output-Wert = Error) ist ein guter Anfang, reicht aber nicht aus, um die Performance von Netzwerken mit mehreren Output-Neuronen zu bewerten, da sich positive und negative Errors gegenseitig aufheben könnten.</p>
+  <p>Um die Performance des Netzwerks für ein einzelnes Sample zu bestimmen, berechnen wir die Hälfte der Summe der quadrierten Errors aller Output-Neuronen: \(\frac{1}{2}\sum_i (\hat{y}_i - y_i)^2\). Dies wird Loss eines Samples genannt. Sie ist auch das Maß, das der Lernalgorithmus minimieren soll; der Faktor \(\frac{1}{2}\) vereinfacht die Berechnungen für die <a href="#backpropagation">Backpropagation</a>.</p>
+  <p>Es gibt noch eine weitere Ebene: Um die Performance des Netzwerks während Training oder Testing zu bewerten, ist es sinnvoll, die Performance über alle Samples hinweg zu betrachten. Dieser durchschnittliche Loss wird Cost genannt. Zum Beispiel ist die Cost einer Epoch der durchschnittliche Loss über alle Training Samples: \(\frac{1}{N}\sum_{s=1}^{N}\text{loss}_s\).</p>
+  <p>Zusammengefasst misst der Error die Abweichung für ein einzelnes Output-Neuron, der Loss die gesamte Abweichung für ein einzelnes Sample und die Cost den durchschnittlichen Loss über alle Samples.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-de-training" data-info-source-id="training" data-language="de">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-de-training-content">
+            <span>Training</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-de-training-content" hidden>
+      <p>Das Ziel des Lernens in Neural Networks ist es, eine Konfiguration von Weights zu finden, die das gewünschte Verhalten des Netzwerks erzeugt, also für einen gegebenen Input den korrekten Output liefert. Dafür muss das Netzwerk in einem iterativen Prozess trainiert werden, der ihm wiederholt Training Samples präsentiert und dann die Weights anpasst, damit das Netzwerk immer besser den gewünschten Output erzeugt.</p>
+        <section class="info-subsection" id="info-de-epochs" data-info-source-id="epochs">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-epochs-content">
+              <span>Epochs</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-epochs-content" hidden>
+<p>Eine Epoch ist ein vollständiger Durchlauf durch das gesamte Training Dataset. Nach beispielsweise 100 Epochs hat das Netzwerk daher jedes Training Sample 100-mal verarbeitet. Da die Reihenfolge der Samples das Lernen beeinflussen kann, werden die Training Data vor jeder Epoch gemischt. Dadurch wird jedes Sample pro Epoch weiterhin einmal präsentiert, aber in einer anderen Reihenfolge.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-training-process" data-info-source-id="training-process">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-training-process-content">
+              <span>Training process</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-training-process-content" hidden>
+<p>Der Supervised-Learning-Prozess besteht aus drei grundlegenden Schritten:</p>
+  <ol>
+    <li>Zuerst wird der Input durch das Network weitergegeben (forward propagated) und für jedes Output-Neuron die Differenz zwischen dem resultierenden Output und dem Target berechnet. Diese Errors werden zum Loss für dieses Sample zusammengefasst.</li>
+    <li>Danach wird der Loss rückwärts durch das Netzwerk propagiert. So kann bestimmt werden, welchen Beitrag jedes einzelne Weight zum gesamten Loss leistet und in welche Richtung es angepasst werden muss, um diesen zu verringern (mittels <a href="#gradient-descent">Gradient Descent</a>).</li>
+    <li>Schließlich werden die Weights entsprechend aktualisiert. Die <a href="#learning-rate">Learning Rate</a> bestimmt, wie stark diese Anpassungen ausfallen. Die Weights können nach jedem einzelnen Training Sample oder nachdem ein ganzer Batch an Samples verarbeitet wurde aktualisiert werden, zum Beispiel nach einer Epoch.</li>
+  </ol>
+  <p>Diese Schritte werden mit vielen verschiedenen Training Samples wiederholt, bis idealerweise nur noch eine vernachlässigbare Abweichung zwischen den Target-Werten und den tatsächlichen Outputs bleibt.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-supervised-learning" data-info-source-id="supervised-learning">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-supervised-learning-content">
+              <span>Supervised learning</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-supervised-learning-content" hidden>
+<p>"Supervised Learning" bedeutet, dass jedes Training Sample mit einem Target verbunden ist, also dem gewünschten Output für einen gegebenen Input. Dieses Target wird verwendet, um den Error des Netzwerk-Outputs zu berechnen, der wiederum den Lernprozess steuert.</p>
+  <p>Es gibt viele weitere Paradigmen im Machine Learning, darunter Reinforcement Learning, Self-Organizing Learning, Autoencoders und andere. Diese App konzentriert sich ausschließlich auf das grundlegendste Paradigma: Supervised Learning mit <a href="#backpropagation">Backpropagation</a>.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-backpropagation" data-info-source-id="backpropagation">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-backpropagation-content">
+              <span>Backpropagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-backpropagation-content" hidden>
+<p>Backpropagation ist der häufigste Algorithmus zum Training von Neural Networks mit Supervised Learning. Im Kern vergleicht sie den tatsächlichen Output des Networks mit dem gewünschten Output (Target) und propagiert diesen Error rückwärts durch das Network. So wird bestimmt, welches Weight in welchem Ausmaß zum Error beiträgt. Auf Grundlage dieser Berechnung können die Weights so angepasst werden, dass der Error für diesen Input minimiert wird.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-gradient-descent" data-info-source-id="gradient-descent">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-gradient-descent-content">
+              <span>Gradient descent</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-gradient-descent-content" hidden>
+<p>Gradient Descent ist ein Verfahren, um das Minimum einer Funktion zu finden, und das Prinzip hinter den Berechnungen während der Backpropagation. Bei Neural Networks ist die zu minimierende Funktion die Loss Function, die die Abweichung zwischen dem tatsächlichen Output des Netzwerks und dem Target-Output misst.</p>
+  <p>Das Ziel des Trainings ist es, die Weights des Netzwerks so anzupassen, dass dieser Loss für alle Training Samples minimiert wird. Für ein einzelnes Training Sample kann dies geschehen, indem die Ableitung der Loss Function nach jedem einzelnen Weight berechnet wird. So findet man die Richtung, in die das Weight angepasst werden muss. Die in dieser App verwendete Sigmoid Activation Function hat den Vorteil, dass ihre Ableitung durch die Funktion selbst ausgedrückt werden kann, was die Mathematik erheblich vereinfacht: \(\sigma'(z) = \sigma(z)(1 - \sigma(z))\).</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-learning-rate" data-info-source-id="learning-rate">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-learning-rate-content">
+              <span>Learning rate</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-learning-rate-content" hidden>
+<p>Die Hauptschwierigkeit beim Training von Neural Networks besteht darin, dass die Ableitungen der Loss Function zeigen, wie die Weights angepasst werden müssen, um den Loss für ein einzelnes Training Sample zu minimieren. Wir wollen aber den Loss für alle Training Samples minimieren und müssen daher einen Kompromiss zwischen den Anpassungen finden, die jedes einzelne Sample nahelegt. Hier kommt die Learning Rate ins Spiel. Sie bestimmt, wie stark die Weights auf Grundlage der berechneten Gradients angepasst werden. Indem die Training Samples wiederholt in zufälliger Reihenfolge präsentiert und die Weights nur um einen Bruchteil, die Learning Rate, in die von jedem Sample geforderte Richtung angepasst werden, hoffen wir, dass das Netzwerk schrittweise zu einer Weight-Konfiguration konvergiert, die den Loss aller Training Samples minimiert.</p>
+  <p>Die Wahl einer geeigneten Learning Rate kann schwierig sein. Ist sie zu hoch, können die Weights oszillieren oder sogar divergieren, sodass das Netzwerk nicht zu einem Minimum konvergiert. Ist sie zu niedrig, kann das Training sehr langsam werden oder in lokalen Minima stecken bleiben. Eine geeignete Learning Rate zu finden, ist entscheidend für effektives Lernen.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-why-learning-might-fail" data-info-source-id="why-learning-might-fail">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-why-learning-might-fail-content">
+              <span>Why learning might fail</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-why-learning-might-fail-content" hidden>
+<p>Theoretisch können bereits Standard Neural Networks jede Abbildung zwischen Inputs und Outputs lernen, weil sich beweisen lässt, dass eine Konfiguration von Weights existiert, die die gewünschte Funktion implementieren kann, genauer gesagt viele solche Konfigurationen. Das bedeutet jedoch nicht, dass das Training tatsächlich eine solche Konfiguration findet. Stabiles und effizientes Lernen hängt von vielen weiteren Faktoren ab, darunter der Netzwerkarchitektur, der Initialisierung der Weights, der Wahl der Activation Functions, der Learning Rate und der Qualität der Training Data.</p>
+          </div>
+        </section>
+        </div>
+      </section>
+      <section class="info-section" id="info-de-testing" data-info-source-id="testing" data-language="de">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-de-testing-content">
+            <span>Testing</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-de-testing-content" hidden>
+      <p>Nachdem ein Neural Network trainiert wurde, ist es wichtig zu testen, wie gut es arbeitet und ob es auf neue Inputs generalisiert, statt nur die Training Data auswendig zu lernen. Testing ist daher eine separate Phase, in der die Reaktion des Modells auf verschiedene Inputs bewertet wird, ohne die Weights zu aktualisieren.</p>
+        <section class="info-subsection" id="info-de-testing-with-train-test-data" data-info-source-id="testing-with-train-test-data">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-testing-with-train-test-data-content">
+              <span>Testing with train/test data</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-testing-with-train-test-data-content" hidden>
+<p>Um ein trainiertes Netzwerk zu bewerten, ist es sinnvoll, es sowohl mit den Daten zu testen, mit denen es trainiert wurde, als auch mit Daten, die es noch nicht gesehen hat. Testing mit Training Data zeigt, wie gut das Modell die gelernten Beispiele abbildet, während Testing mit Test Data zeigt, ob es auch neue Inputs verarbeiten kann. Beide Prüfungen ergänzen sich: Das Trainingsergebnis zeigt, wie viel das Modell gelernt hat, während das Testergebnis zeigt, wie gut es über das Training Dataset hinaus generalisiert.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-overfitting" data-info-source-id="overfitting">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-overfitting-content">
+              <span>Overfitting</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-overfitting-content" hidden>
+<p>Ein Modell, das auf den Training Data gut arbeitet, aber bei neuen Beispielen scheitert, ist nicht besonders nützlich: Wir hätten auch ein "normales" Programm schreiben können, das den Input einfach in einer Tabelle nachschlägt und den entsprechenden Target-Wert als Output ausgibt. Das würde bei allen Training Samples perfekt funktionieren, aber katastrophal versagen, sobald ein einzelner Input-Wert vom Training Dataset abweicht. Neural Networks können ebenfalls die spezifischen Muster der Training Samples einfach auswendig lernen; das nennt man Overfitting. Das Risiko für Overfitting ist besonders hoch, wenn ein Netzwerk viel mehr Parameter (Weights) hat, als zur Lösung der Aufgabe nötig sind. Umgekehrt zwingt eine Begrenzung der Parameter das Netzwerk dazu, allgemeinere Ähnlichkeitsmuster zwischen den Training Samples zu verwenden, die für unbekannte Inputs eher nützlich sind. Ist ein Netzwerk jedoch zu klein, hat es möglicherweise nicht genug Kapazität, um die Aufgabe überhaupt zu lernen. Die Kunst beim Entwurf eines Neural Networks besteht daher darin, ein gutes Gleichgewicht zwischen diesen beiden Extremen zu finden.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-generalisation" data-info-source-id="generalisation">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-generalisation-content">
+              <span>Generalisation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-generalisation-content" hidden>
+<p>Generalisierung (generalisation) ist eines der zentralen Ziele im Machine Learning, oder im Lernen allgemein. Du würdest schließlich kaum behaupten, Lesen gelernt zu haben, wenn du in Wahrheit nur ein paar einzelne Wörter auswendig gelernt hast. Von jemandem, der lesen kann, würde man erwarten, dass diese Person ihre Fähigkeit zeigt, indem sie neue Wörter liest, die sie noch nie gesehen hat. Ebenso sollte ein Neural Network, das eine <a href="#task">Aufgabe</a> gelernt hat, korrekte Predictions für Inputs liefern können, die es während des Trainings nicht gesehen hat. Dies zeigt, dass es etwas über die zugrundeliegenden Regeln oder Regelmäßigkeiten der Aufgabe gelernt hat.</p>
+  <p>Die Fähigkeit eines Netzwerks zu testen, auf neue Inputs (Test Data) zu generalisieren, ist daher ein äußerst wichtiger Teil seiner Performance-Bewertung. Wie die meisten Aspekte von Neural Networks ist dies jedoch nicht alles oder nichts: Generalisierung kann bei manchen Beispielen funktionieren und bei anderen nicht. Außerdem können wir niemals perfekte Generalisierung beweisen, denn genau wie das Training Dataset kann auch das Test Dataset nur eine hoffentlich repräsentative Auswahl von Beispielen aus der allgemeinen Aufgabe sein.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-task" data-info-source-id="task">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-task-content">
+              <span>Task</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-task-content" hidden>
+<p>Eine Aufgabe (task) lässt sich oft einfach in Worte fassen, zum Beispiel "handschriftliche Ziffern erkennen". In der Praxis bleibt eine solche Beschreibung jedoch vage: Sie legt weder jeden möglichen Input fest, der zu der Aufgabe gehört, noch genau, welche Varianten ein Modell erkennen soll. Auch bei Menschen würden wir keine perfekte Leistung für jede denkbare handgeschriebene Ziffer erwarten. Außer bei den trivialsten Aufgaben ist der Problemraum praktisch unendlich groß, während ein Training Dataset nur eine begrenzte Auswahl an Beispielen enthalten kann.</p>
+  <p>Training Samples sollten daher die für die Aufgabe relevanten Varianten möglichst repräsentativ abdecken. Ein Network, das nicht nur auf seinen Training Samples, sondern auch auf neuen, bisher unbekannten Beispielen gut funktioniert, hat <a href="#generalisation">generalisiert</a>. Im besten Fall ist seine Generalisierung ebenso gut wie oder besser als die eines menschlichen Beobachters. Das legt nahe, dass das Network nützliche Regelmäßigkeiten der Aufgabe gelernt hat, statt einzelne Beispiele nur auswendig zu lernen.</p>
+  <p>Diese Regelmäßigkeiten sind jedoch nicht als explizite Regeln gespeichert, die sich einfach aus dem Network ablesen lassen. Sie werden durch die gelernten <a href="#weights">Weights</a> repräsentiert, also durch eine große Menge von Zahlen, die über die Verbindungen zwischen den Neuronen verteilt sind. Selbst wenn ein Network gut generalisiert, kann es deshalb schwierig bleiben, direkt zu zeigen, welche Regelmäßigkeiten es gelernt hat oder wo genau sie repräsentiert sind. Das ist ein Grund, warum <a href="#inspecting-activations">das Untersuchen von Activations</a> hilfreich sein kann, auch wenn es nur einen begrenzten Einblick bietet.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-bias" data-info-source-id="bias">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-bias-content">
+              <span>Bias</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-bias-content" hidden>
+<p>Bias bezeichnet einen systematischen Fehler bei der Generalisierung, der durch nicht repräsentative Daten entstehen kann.</p>
+  <p>Bias entsteht üblicherweise, wenn die Auswahl der Training Samples in irgendeiner Weise verzerrt und damit nicht repräsentativ für die <a href="#task">Aufgabe</a> als Ganzes ist. Siehe auch <a href="#testing-with-train-test-data">Testing with train/test data</a>.</p>
+  <p>Stell dir zum Beispiel ein Dataset zur Ziffernerkennung vor, in dem die meisten Beispiele der Ziffer 1 mit einem kleinen Haken am oberen Ende geschrieben sind. Wenn Beispiele ohne diesen Haken selten sind oder fehlen, kann das Network lernen, den Haken als wichtiges Merkmal einer 1 zu behandeln. Es kann dann auf den Training Data gut funktionieren, aber schlechtere Predictions für ebenso gültige handgeschriebene Einsen ohne Haken machen. Das ist keine Eigenschaft des Networks selbst, sondern eine Folge von Training Data, die die Varianten der <a href="#task">Aufgabe</a> nicht ausreichend repräsentieren.</p>
+  <p>Solche Biases lassen sich häufig verringern, indem mehr Beispiele in das Training Dataset aufgenommen werden, die diesen "blinden Fleck" abdecken. Sie bleiben jedoch möglicherweise unbemerkt, weil eine verzerrte Datenauswahl nur selten absichtlich erfolgt: Oft spiegelt sie einen nicht erkannten blinden Fleck oder Bias der Person wider, die die Daten auswählt. Derselbe blinde Fleck kann dann auch in den Test Data vorhanden sein. Außerdem ist es unmöglich, alle Aspekte einer Aufgabe durch eine Auswahl von Beispielen völlig unverzerrt darzustellen. Das Ziel ist daher nicht, Verzerrung vollständig zu vermeiden, sondern sie so gering wie möglich zu halten.</p>
+          </div>
+        </section>
+        <section class="info-subsection" id="info-de-inspecting-activations" data-info-source-id="inspecting-activations">
+          <h3 class="info-subsection-heading">
+            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-inspecting-activations-content">
+              <span>Inspecting activations</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="info-subsection-content" id="info-de-inspecting-activations-content" hidden>
+<p>Ein problematischer Aspekt von Neural Networks ist, dass es selbst dann schwer ist zu verstehen, wie genau sie eine Aufgabe lösen, wenn sie dabei beeindruckend gut funktionieren. Meist bleibt nur die allgemeine Beobachtung, dass sie während des Lernprozesses eine geeignete Konfiguration von Weights gefunden haben. Ein Netzwerk ist zwar nicht wirklich eine Black Box, wie manchmal behauptet wird, aber man könnte es vielleicht eine Grey Box nennen: Es ist möglich, unter die Haube zu schauen und jeden einzelnen Wert zu untersuchen, diese App erlaubt genau das, doch ihre Bedeutung kann trotzdem schwer zu interpretieren sein.</p>
+  <p>Im Kern ist dieses Problem unlösbar: Das Wesen dieses Ansatzes besteht gerade darin, dass ein einzelnes Weight keine identifizierbare Teilaufgabe ausführt, nichts Bestimmtes repräsentiert und keine Bedeutung hat, außer in kleinem Maß zum Gesamtverhalten des Systems beizutragen.</p>
+  <p>Es gibt jedoch einige Techniken, die Einblicke in das Verhalten eines Netzwerks geben können. So lassen sich beispielsweise die Activations von Hidden Neurons als Reaktion auf verschiedene Inputs visualisieren. Dies kann zeigen, welche Features oder Muster das Netzwerk gelernt hat zu erkennen und wie es die Daten intern neu organisiert, bevor es in der <a href="#output-layer">Output Layer</a> eine endgültige Prediction erzeugt.</p>
+  <p>Die meisten dieser Techniken befassen sich mit Dimensionality Reduction: Das Hidden Layer kann als hochdimensionale Repräsentation der Input Data verstanden werden, sodass seine Activation als Reaktion auf ein einzelnes Sample einen Punkt in diesem hochdimensionalen Raum bildet. Die Position dieser Punkte kann Einblicke darin geben, welche Inputs das Network als ähnlich betrachtet. Siehe auch <a href="#data">Data</a>.</p>
+  <p>Zwei solcher Techniken stellt diese App bereit:</p>
+  <ul>
+    <li><strong>Principal component analysis (PCA)</strong> ist ein Verfahren, hochdimensionale Daten auf ein alternatives Koordinatensystem abzubilden, sodass die erste Dimension die größte Varianz enthält, die zweite Dimension die zweitgrößte Varianz und so weiter. Die Visualisierung nur der ersten zwei (PCA 2D) oder drei (PCA 3D) Dimensionen sollte dennoch die aussagekräftigsten Aspekte der Clusterbildung der Daten im Hidden-Layer-Space zeigen.</li>
+    <li><strong>Nearest neighbour</strong> ist eine weitere Methode, Cluster im Hidden-Layer-Space zu visualisieren. Dabei werden zunächst die Punkte gruppiert, die einander am nächsten liegen, dann werden diese Minicluster mit ihren jeweils nächsten Nachbarn zu größeren Clustern zusammengefasst und so weiter. Dieses hierarchische Clustering von Nachbarn macht die Gesamtstruktur der Daten sichtbar.</li>
+  </ul>
+          </div>
+        </section>
+        </div>
+      </section>
+    </div>
+    <div class="info-floating-controls" aria-label="Accordion controls">
+      <button type="button" class="info-floating-button" data-info-expand="all" title="Open all sections" aria-label="Open all sections">open<br>all</button>
+      <button type="button" class="info-floating-button" data-info-expand="none" title="Close all sections" aria-label="Close all sections">close<br>all</button>
+      <span class="info-floating-separator" aria-hidden="true"></span>
+      <button type="button" class="info-floating-button info-to-app-button" data-info-to-app title="Back to the app" aria-label="Back to the app">&uarr;</button>
+    </div>
   </section>
+  <script>
+    (() => {
+      const accordion = document.querySelector('.info-accordion');
+      if (!accordion) return;
+      const setExpanded = (button, expanded) => {
+        const content = document.getElementById(button.getAttribute('aria-controls'));
+        button.setAttribute('aria-expanded', String(expanded));
+        if (content) content.hidden = !expanded;
+        if (!expanded && button.classList.contains('info-section-toggle')) {
+          content?.querySelectorAll('.info-subsection-toggle').forEach((subsectionButton) => {
+            setExpanded(subsectionButton, false);
+          });
+        }
+      };
+      const setAllExpanded = (expanded) => {
+        const activeContent = accordion.querySelector('[data-info-language-content]:not([hidden])');
+        if (!activeContent) return;
+        activeContent.querySelectorAll('.info-section-toggle, .info-subsection-toggle').forEach((button) => {
+          setExpanded(button, expanded);
+        });
+      };
+      const openAnchor = () => {
+        const sourceId = decodeURIComponent(window.location.hash.slice(1));
+        if (!sourceId) return;
+        const activeContent = accordion.querySelector('[data-info-language-content]:not([hidden])');
+        const target = Array.from(activeContent?.querySelectorAll('[data-info-source-id]') || [])
+          .find((element) => element.dataset.infoSourceId === sourceId)
+          || Array.from(accordion.querySelectorAll('[data-info-source-id]'))
+            .find((element) => element.dataset.infoSourceId === sourceId);
+        if (!target) return;
+        const languageContent = target.closest('[data-info-language-content]');
+        if (languageContent) setLanguage(languageContent.dataset.infoLanguageContent);
+        target.closest('.info-section')?.querySelector('.info-section-toggle') && setExpanded(target.closest('.info-section').querySelector('.info-section-toggle'), true);
+        target.closest('.info-subsection')?.querySelector('.info-subsection-toggle') && setExpanded(target.closest('.info-subsection').querySelector('.info-subsection-toggle'), true);
+        window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+      };
+      const setLanguage = (language) => {
+        accordion.querySelectorAll('[data-info-language-content]').forEach((content) => {
+          content.hidden = content.dataset.infoLanguageContent !== language;
+        });
+        accordion.querySelectorAll('[data-info-language]').forEach((button) => {
+          const active = button.dataset.infoLanguage === language;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+      };
+      accordion.querySelectorAll('.info-section-toggle, .info-subsection-toggle').forEach((button) => {
+        button.addEventListener('click', () => setExpanded(button, button.getAttribute('aria-expanded') !== 'true'));
+      });
+      accordion.querySelectorAll('[data-info-language]').forEach((button) => {
+        button.addEventListener('click', () => setLanguage(button.dataset.infoLanguage));
+      });
+      accordion.querySelectorAll('[data-info-expand]').forEach((button) => {
+        button.addEventListener('click', () => setAllExpanded(button.dataset.infoExpand === 'all'));
+      });
+      accordion.querySelector('[data-info-to-app]')?.addEventListener('click', () => {
+        document.getElementById('id_header')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      window.addEventListener('hashchange', openAnchor);
+      openAnchor();
+    })();
+  </script>
+<!-- INFO CONTENT END -->
   <section id="id_tooltips">
     <div class="tooltip" id="tt_project-selector-help">
       <p>Choose one of the preconfigured example projects:</p>

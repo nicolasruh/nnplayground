@@ -3,7 +3,7 @@
   "main": "index.js",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "node scripts/build-infotext.mjs && webpack --mode production",
     "check:unused": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
     "watch": "webpack --mode development --watch",
     "start": "npm run build && http-server . -p 8080",

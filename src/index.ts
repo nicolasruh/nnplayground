@@ -1292,6 +1292,19 @@ const loadPresetProject = async (projectType: string) => {
   }
 };
 
+const reloadCurrentPresetProject = () => {
+  const shouldReload = window.confirm(
+    'Reloading the project will reset it to its initial configuration. Any changes to the architecture, weights, or data will be lost.\n\nConsider saving the project as to JSON if you want to return to its current state later.\n\nDo you want to reload the project?'
+  );
+  if (!shouldReload) {
+    return;
+  }
+
+  loadPresetProject(projectSelect.value).catch((err) => {
+    alert(err instanceof Error ? err.message : String(err));
+  });
+};
+
 const makeDefaultTargetLabel = (idx: number) => `target ${idx + 1}`;
 
 const escapeHtmlAttr = (value: string) => value
@@ -5131,6 +5144,13 @@ const main = () => {
   projectSelect.addEventListener('change', () => {
     loadPresetProject(projectSelect.value).catch((err) => {
       alert(err instanceof Error ? err.message : String(err));
+    });
+  });
+  Array.from(projectSelect.options).forEach((option) => {
+    option.addEventListener('click', () => {
+      if (option.value === currentProjectType) {
+        reloadCurrentPresetProject();
+      }
     });
   });
 
