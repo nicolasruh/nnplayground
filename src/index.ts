@@ -192,6 +192,10 @@ let interfaceHelpTooltip: HTMLDivElement;
   closeTestingResultsOverlay();
 }
 
+(window as any).copyTestingResultsToClipboard = () => {
+  copyTestingResultsToClipboard();
+}
+
 (window as any).switchTestingResultsMode = () => {
   switchTestingResultsMode();
 }
@@ -206,6 +210,14 @@ let interfaceHelpTooltip: HTMLDivElement;
 
 (window as any).closeInspectOverlay = () => {
   closeInspectOverlay();
+}
+
+(window as any).copyInspectVisualizationToClipboard = () => {
+  copyInspectVisualizationToClipboard();
+}
+
+(window as any).copyInspectToClipboard = () => {
+  copyInspectVisualizationToClipboard();
 }
 
 (window as any).setInspectMode = (mode: string) => {
@@ -1922,6 +1934,13 @@ const renderTestingResultsBody = () => {
     const isClassification = sortedRows.length > 0 && sortedRows[0].isClassification;
     costHeaderLabelEl.textContent = isClassification ? 'loss' : 'error';
     costHeaderLabelEl.title = isClassification ? 'Half summed squared error' : '';
+    const costSortButtons = Array.from(testingResultsHeader?.querySelectorAll('.testing-sort-triangle') || [])
+      .filter((button) => button.getAttribute('onclick')?.includes("sortTestingResultsBy('cost'"));
+    costSortButtons.forEach((button) => {
+      (button as HTMLButtonElement).title = isClassification
+        ? 'sort loss ascending/descending'
+        : 'sort error ascending/descending';
+    });
   }
 
   let html = '';
@@ -1983,6 +2002,331 @@ const closeTestingResultsOverlay = () => {
     return;
   }
   testingResultsOverlay.style.display = 'none';
+};
+
+const copyTestingResultsToClipboard = async () => {
+  if (!testingResultsOverlay || testingResultsOverlay.style.display === 'none') {
+    return;
+  }
+
+  if (!navigator.clipboard?.write || typeof ClipboardItem === 'undefined') {
+    return;
+  }
+
+  const dialog = testingResultsOverlay.querySelector('.testing-results-dialog') as HTMLElement | null;
+  if (!dialog) {
+    return;
+  }
+
+  try {
+    const overlayTexts = buildTestingOverlayTexts(testingCurrentMode, testingRows);
+    const titleText = overlayTexts.titleText;
+    const perfEl = dialog.querySelector('.testing-average-error') as HTMLElement | null;
+    const perfText = perfEl ? perfEl.textContent?.trim() || '' : '';
+
+    const sortedRows = sortTestingRows(testingRows, testingSortField, testingSortDirection);
+    const showPredictedColumn = sortedRows.length > 0 && sortedRows[0].isClassification;
+    const isClassification = sortedRows.length > 0 && sortedRows[0].isClassification;
+    const outputSize = sortedRows.length > 0 ? sortedRows[0].target.length : 0;
+
+  let targetHeaderTitle = 'target';
+  if (outputSize === 1) {
+    const customLabel = getTargetLabel(0, false);
+    const defaultLabel = `target 1`;
+    const isTrivial = customLabel === defaultLabel || customLabel === 't1';
+    targetHeaderTitle = isTrivial ? 'target' : customLabel;
+  }
+
+  const costHeaderLabelEl = document.getElementById('testing-cost-label');
+  const costHeaderTitle = costHeaderLabelEl ? costHeaderLabelEl.textContent?.trim() || 'loss' : (isClassification ? 'loss' : 'error');
+
+  const currentEpoch = Math.max(0, epochCostHistory.length - 1);
+  const parts = [neuralCore.getInputSize(), ...neuralCore.getHiddenLayerSizes(), neuralCore.getOutputSize()];
+  const modelText = `${parts.join('x')} (${currentEpoch})`;
+
+  const colWidths = [50, 110, 120, 110, 110, 110];
+  if (showPredictedColumn) colWidths.push(140);
+
+  const padding = 20;
+  const tableWidth = colWidths.reduce((a, b) => a + b, 0);
+  const width = tableWidth + padding * 2;
+  const headerHeight = perfText ? 72 : 46;
+  const tableHeaderHeight = 36;
+  const rowHeight = 52;
+  const totalHeight = padding * 2 + headerHeight + tableHeaderHeight + sortedRows.length * rowHeight;
+
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = totalHeight;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    return;
+  }
+
+  // Background
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, width, totalHeight);
+  ctx.strokeStyle = 'rgba(46, 40, 42, 0.2)';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(0.5, 0.5, width - 1, totalHeight - 1);
+
+  // Title & Performance
+  ctx.fillStyle = 'rgb(46, 40, 42)';
+  ctx.font = 'bold 18px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText(titleText, padding, padding + 22);
+
+  if (perfText) {
+    ctx.fillStyle = '#d97706';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.fillText(perfText, padding, padding + 48);
+  }
+
+  // Table Header Background
+  const startY = padding + headerHeight;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(padding, startY, tableWidth, tableHeaderHeight);
+  ctx.strokeStyle = 'rgba(46, 40, 42, 0.35)';
+  ctx.beginPath();
+  ctx.moveTo(padding, startY + tableHeaderHeight);
+  ctx.lineTo(padding + tableWidth, startY + tableHeaderHeight);
+  ctx.stroke();
+
+  // Column X positions
+  const colX: number[] = [];
+  let currX = padding;
+  colWidths.forEach((w) => {
+    colX.push(currX);
+    currX += w;
+  });
+
+  const headerTitles = ['nr.', 'input', 'model (epoche)', 'output', targetHeaderTitle, costHeaderTitle];
+  if (showPredictedColumn) headerTitles.push('predicted (confidence)');
+
+    ctx.fillStyle = 'rgba(46, 40, 42, 0.95)';
+    ctx.font = 'bold 13px sans-serif';
+    ctx.textAlign = 'center';
+    headerTitles.forEach((h, idx) => {
+      ctx.fillText(h, colX[idx] + colWidths[idx] / 2, startY + 22);
+    });
+
+    // Helper to draw a single/multi bar cell directly from numerical values
+    const drawBarValuesOnCanvas = (
+      targetCtx: CanvasRenderingContext2D,
+      values: number[],
+      x: number,
+      y: number,
+      cellWidth: number,
+      cellHeight: number,
+      isTarget: boolean
+    ) => {
+      const bx = x + (cellWidth - 100) / 2;
+      const bw = 100;
+
+      if (values.length <= 1) {
+        const value = values.length === 1 ? values[0] : 0;
+        const clamped = Math.max(0, Math.min(1, value));
+        const by = y + (cellHeight - 24) / 2 - 4;
+        const bh = 24;
+
+        targetCtx.fillStyle = '#ffffff';
+        targetCtx.fillRect(bx, by, bw, bh);
+
+        const alpha = isTarget ? Math.max(0.2, clamped) : Math.max(0.18, clamped);
+        targetCtx.fillStyle = isTarget ? `rgba(0, 0, 0, ${alpha})` : `rgba(33, 100, 205, ${alpha})`;
+        targetCtx.fillRect(bx, by, bw * clamped, bh);
+
+        targetCtx.strokeStyle = 'rgba(0, 0, 0, 0.65)';
+        targetCtx.lineWidth = 1;
+        targetCtx.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
+
+        targetCtx.fillStyle = isTarget ? '#ffffff' : '#2E282A';
+        targetCtx.font = 'bold 11px sans-serif';
+        targetCtx.textAlign = 'center';
+        targetCtx.fillText(value.toFixed(5), bx + bw / 2, by + 16);
+
+        targetCtx.fillStyle = 'rgba(46, 40, 42, 0.65)';
+        targetCtx.font = '9px sans-serif';
+        targetCtx.textAlign = 'left';
+        targetCtx.fillText('0', bx, by + bh + 10);
+        targetCtx.textAlign = 'right';
+        targetCtx.fillText('1', bx + bw, by + bh + 10);
+        return;
+      }
+
+      const by = y + (cellHeight - 36) / 2;
+      const bh = 36;
+      targetCtx.fillStyle = '#ffffff';
+      targetCtx.fillRect(bx, by, bw, bh);
+      targetCtx.strokeStyle = 'rgba(0, 0, 0, 0.65)';
+      targetCtx.lineWidth = 1;
+      targetCtx.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
+
+      const barW = (bw - (values.length - 1) * 2) / values.length;
+      values.forEach((value, idx) => {
+        const clamped = Math.max(0, Math.min(1, value));
+        const barH = bh * clamped;
+        const barX = bx + idx * (barW + 2);
+        const barY = by + bh - barH;
+        const alpha = isTarget ? Math.max(0.2, clamped) : Math.max(0.18, clamped);
+        targetCtx.fillStyle = isTarget ? `rgba(0, 0, 0, ${alpha})` : `rgba(33, 100, 205, ${alpha})`;
+        targetCtx.fillRect(barX, barY, barW, barH);
+      });
+    };
+
+    // Helper to draw cost box directly from value
+    const drawCostBoxOnCanvas = (
+      targetCtx: CanvasRenderingContext2D,
+      cost: number,
+      output: number[],
+      target: number[],
+      x: number,
+      y: number,
+      cellWidth: number,
+      cellHeight: number
+    ) => {
+      const bx = x + (cellWidth - 100) / 2;
+      const by = y + (cellHeight - 36) / 2;
+      const bw = 100;
+      const bh = 36;
+
+      const isSingleOutput = target.length === 1;
+      let bg = '';
+      let borderColor = 'rgba(0, 0, 0, 0.85)';
+      let borderWidth = 1;
+
+      if (isSingleOutput) {
+        bg = getTestingSingleCostColor(cost);
+        const targetValue = target[0];
+        const outputValue = output[0];
+        const isBinaryTarget = targetValue === 0 || targetValue === 1;
+        const hasMatchingSide = (outputValue >= 0.5) === (targetValue >= 0.5);
+        borderColor = isBinaryTarget
+          ? (hasMatchingSide ? 'rgb(34, 139, 34)' : 'rgb(205, 40, 40)')
+          : 'rgba(0, 0, 0, 0.85)';
+        borderWidth = isBinaryTarget ? 3 : 1;
+      } else {
+        const normalized = Math.max(0, Math.min(1, cost));
+        bg = getTestingSingleCostColor(normalized);
+      }
+
+      targetCtx.fillStyle = bg;
+      targetCtx.fillRect(bx, by, bw, bh);
+
+      targetCtx.strokeStyle = borderColor;
+      targetCtx.lineWidth = borderWidth;
+      targetCtx.strokeRect(bx + borderWidth / 2, by + borderWidth / 2, bw - borderWidth, bh - borderWidth);
+
+      targetCtx.fillStyle = 'rgba(46, 40, 42, 0.95)';
+      targetCtx.font = 'bold 11px sans-serif';
+      targetCtx.textAlign = 'center';
+      targetCtx.fillText(cost.toFixed(5), bx + bw / 2, by + 22);
+    };
+
+    // Helper to draw predicted/correct box directly
+    const drawCorrectBoxOnCanvas = (
+      targetCtx: CanvasRenderingContext2D,
+      output: number[],
+      target: number[],
+      x: number,
+      y: number,
+      cellWidth: number,
+      cellHeight: number
+    ) => {
+      const bx = x + (cellWidth - 100) / 2;
+      const by = y + (cellHeight - 36) / 2;
+      const bw = 100;
+      const bh = 36;
+
+      const oneHot = isOneHotTarget(target);
+      let bg = 'rgba(200, 200, 200, 0.4)';
+      let text = '–';
+      let textColor = 'rgba(46, 40, 42, 0.95)';
+
+      if (target.length === 1) {
+        const diff = output[0] - target[0];
+        const cost = diff * diff;
+        bg = getTestingCorrectColor(Math.min(1, cost));
+        text = cost.toFixed(5);
+      } else if (oneHot) {
+        const argmaxOutput = output.indexOf(Math.max(...output));
+        const argmaxTarget = target.indexOf(1);
+        const correct = argmaxOutput === argmaxTarget;
+        bg = correct ? 'rgb(34, 139, 34)' : 'rgb(205, 40, 40)';
+        textColor = '#ffffff';
+        const confidence = output[argmaxOutput];
+        const label = getTargetLabel(argmaxOutput, true);
+        text = `${label} (${confidence.toFixed(2)})`;
+      }
+
+      targetCtx.fillStyle = bg;
+      targetCtx.fillRect(bx, by, bw, bh);
+
+      targetCtx.strokeStyle = 'rgba(0, 0, 0, 0.85)';
+      targetCtx.lineWidth = 1;
+      targetCtx.strokeRect(bx + 0.5, by + 0.5, bw - 1, bh - 1);
+
+      targetCtx.fillStyle = textColor;
+      targetCtx.font = 'bold 11px sans-serif';
+      targetCtx.textAlign = 'center';
+      targetCtx.fillText(text, bx + bw / 2, by + 22);
+    };
+
+    // Draw Rows
+    sortedRows.forEach((row, rIdx) => {
+      const y = startY + tableHeaderHeight + rIdx * rowHeight;
+
+      // 0: nr
+      ctx.fillStyle = 'rgba(46, 40, 42, 0.92)';
+      ctx.font = 'bold 13px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(row.nr.toString(), colX[0] + colWidths[0] / 2, y + 30);
+
+      // 1: input thumbnail canvas
+      const inputCanvasEl = dialog.querySelectorAll('.testing-results-row')[rIdx]?.querySelector('.testing-input-canvas') as HTMLCanvasElement | null;
+      if (inputCanvasEl) {
+        const cw = inputCanvasEl.width;
+        const ch = inputCanvasEl.height;
+        const cx = colX[1] + (colWidths[1] - cw) / 2;
+        const cy = y + (rowHeight - ch) / 2;
+        ctx.drawImage(inputCanvasEl, cx, cy);
+      }
+
+      // 2: model
+      ctx.fillStyle = 'rgba(46, 40, 42, 0.9)';
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(modelText, colX[2] + colWidths[2] / 2, y + rowHeight / 2 + 4);
+
+      // 3: output
+      drawBarValuesOnCanvas(ctx, row.output, colX[3], y, colWidths[3], rowHeight, false);
+
+      // 4: target
+      drawBarValuesOnCanvas(ctx, row.target, colX[4], y, colWidths[4], rowHeight, true);
+
+      // 5: cost/loss
+      drawCostBoxOnCanvas(ctx, row.cost, row.output, row.target, colX[5], y, colWidths[5], rowHeight);
+
+      // 6: predicted (if classification)
+      if (showPredictedColumn) {
+        drawCorrectBoxOnCanvas(ctx, row.output, row.target, colX[6], y, colWidths[6], rowHeight);
+      }
+    });
+
+    const imageBlob = await new Promise<Blob | null>((resolve) => {
+      canvas.toBlob(resolve, 'image/png');
+    });
+
+    if (!imageBlob) {
+      closeTestingResultsOverlay();
+      return;
+    }
+
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': imageBlob })]);
+    closeTestingResultsOverlay();
+  } catch (err) {
+    closeTestingResultsOverlay();
+  }
 };
 
 const switchTestingResultsMode = () => {
@@ -2542,6 +2886,46 @@ const closeInspectOverlay = () => {
   hideInspectHover();
   if (inspectPlotlyContainer && typeof Plotly !== 'undefined') {
     Plotly.purge(inspectPlotlyContainer);
+  }
+};
+
+const copyInspectVisualizationToClipboard = async () => {
+  if (!inspectOverlay || inspectOverlay.style.display === 'none') {
+    return;
+  }
+
+  if (!navigator.clipboard?.write || typeof ClipboardItem === 'undefined') {
+    return;
+  }
+
+  try {
+    let imageBlob: Blob | null = null;
+    if (inspectActiveMode === 'pca3d') {
+      if (inspectPlotlyContainer && typeof Plotly !== 'undefined') {
+        const dataUrl = await Plotly.toImage(inspectPlotlyContainer, {
+          format: 'png',
+          width: 1100,
+          height: 560,
+        });
+        if (dataUrl) {
+          const res = await fetch(dataUrl);
+          imageBlob = await res.blob();
+        }
+      }
+    } else if (inspectCanvas) {
+      imageBlob = await new Promise<Blob | null>((resolve) => {
+        inspectCanvas.toBlob(resolve, 'image/png');
+      });
+    }
+
+    if (!imageBlob) {
+      return;
+    }
+
+    await navigator.clipboard.write([new ClipboardItem({ 'image/png': imageBlob })]);
+    closeInspectOverlay();
+  } catch (err) {
+    closeInspectOverlay();
   }
 };
 
@@ -3343,6 +3727,9 @@ const addEditablePixelSample = () => {
     updateMainEditTrainSelectControlVisibility();
   }
   selectEditablePixelSample(sourceSamples.length - 1);
+  if (currentProjectType === 'smileys') {
+    applyPixelEditorCircle();
+  }
 };
 
 const deleteEditablePixelSample = (rowIdx: number) => {
@@ -4546,7 +4933,7 @@ const drawFullTrainingGraph = (costHistory: number[]) => {
   ctx.save();
   ctx.translate(18, height / 2);
   ctx.rotate(-Math.PI / 2);
-  ctx.fillText('error', 0, 0);
+  ctx.fillText('cost', 0, 0);
   ctx.restore();
 
   ctx.strokeStyle = 'rgba(46, 40, 42, 0.55)';
@@ -4644,7 +5031,7 @@ const drawFullTrainingGraph = (costHistory: number[]) => {
     ctx.fillText(`current epoch: ${currentEpoch}/${targetEpoch}`, width - right - 20, currentLabelY);
     ctx.fillStyle = 'rgba(33, 100, 205, 1)';
     ctx.font = 'bold 14px sans-serif';
-    ctx.fillText(`Current loss of an epoch: ${lastValue.toFixed(4)}`, width - right - 20, currentLabelY + lineHeight);
+    ctx.fillText(`Current cost of an epoch: ${lastValue.toFixed(4)}`, width - right - 20, currentLabelY + lineHeight);
   }
 };
 

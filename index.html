@@ -247,7 +247,7 @@
         <h5 class="mb-0">Full training progress</h5>
         <div class="d-flex align-items-center">
           <button type="button" id="continue-training-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="continueFullTraining()" style="display: none;">continue for another 5000 epochs</button>
-          <button type="button" id="copy-training-graph-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="copyTrainingGraphToClipboard()" style="display: none;">copy train graph to clipboard</button>
+          <button type="button" id="copy-training-graph-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="copyTrainingGraphToClipboard()" style="display: none;">copy to clipboard</button>
           <button type="button" id="test-with-train-samples-btn" class="btn btn-primary btn-sm mr-2" onclick="testWithTrainSamplesAfterTraining()" style="display: none;">test with train samples</button>
           <button type="button" id="stop-full-training-btn" class="btn btn-warning btn-sm" onclick="stopFullTraining()" style="display: none;">stop</button>
           <button type="button" id="close-training-graph-btn" class="btn btn-secondary btn-sm" onclick="closeTrainingGraphOverlay()" style="display: none;">close</button>
@@ -264,6 +264,7 @@
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h5 class="mb-0" id="testing-results-title">testing results</h5>
         <div class="d-flex align-items-center">
+          <button type="button" id="copy-testing-results-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="copyTestingResultsToClipboard()">copy to clipboard</button>
           <button type="button" id="testing-results-switch-btn" class="btn btn-secondary btn-sm mr-2" onclick="switchTestingResultsMode()">test with test data</button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="closeTestingResultsOverlay()">close</button>
         </div>
@@ -303,6 +304,7 @@
           <button type="button" class="btn btn-outline-primary btn-sm inspect-mode-btn" data-inspect-mode="nearest" onclick="setInspectMode('nearest')">nearest neighbour</button>
         </div>
         <div class="d-flex align-items-center ml-2">
+          <button type="button" id="copy-inspect-visualization-btn" class="btn btn-outline-primary btn-sm mr-2" onclick="copyInspectVisualizationToClipboard()">copy to clipboard</button>
           <button type="button" class="btn btn-secondary btn-sm" onclick="closeInspectOverlay()">close</button>
         </div>
       </div>
@@ -496,6 +498,12 @@
         </div>
       </div>
     </div>
+    <div class="info-floating-controls" aria-label="Accordion controls">
+      <button type="button" class="info-floating-button" data-info-expand="all" title="Open all sections" aria-label="Open all sections">open<br>all</button>
+      <button type="button" class="info-floating-button" data-info-expand="none" title="Close all sections" aria-label="Close all sections">close<br>all</button>
+      <span class="info-floating-separator" aria-hidden="true"></span>
+      <button type="button" class="info-floating-button info-to-app-button" data-info-to-app title="Back to the app" aria-label="Back to the app">&uarr;</button>
+    </div>
 
     <div class="info-language-content" data-info-language-content="en">
 
@@ -506,7 +514,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-en-what-is-this-content">
-      <p>In this app, you can experiment with simple neural networks: you can modify their data, architecture, or hyperparameters; train the networks; test their performance; and visually inspect their internals. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load projects, weights, or data individually using a plain-text JSON structure.</p>
+<p>In this app, you can experiment with simple neural networks: you can modify their data, architecture, or hyperparameters; train the networks; test their performance; and visually inspect their internals. Several sample projects covering classical machine learning tasks are included. You can also create your own custom projects and save or load projects, weights, or data individually using a plain-text JSON structure.</p>
         <section class="info-subsection" id="info-en-limits" data-info-source-id="limits">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-limits-content">
@@ -527,7 +535,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-en-architecture-content" hidden>
-      <p>The architecture of a neural network defines its structure, including the number of layers, the number of neurons in each layer, and how these neurons are connected. In this app, the architecture is intentionally simple: all layers are fully connected, meaning each neuron receives input from every neuron in the previous layer.</p>
+<p>The architecture of a neural network defines its structure, including the number of layers, the number of neurons in each layer, and how these neurons are connected. In this app, the architecture is intentionally simple: all layers are fully connected, meaning each neuron receives input from every neuron in the previous layer.</p>
         <section class="info-subsection" id="info-en-input-layer" data-info-source-id="input-layer">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-input-layer-content">
@@ -602,7 +610,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-en-data-content" hidden>
-      <p>Neural networks learn from examples. Data refers to the collection of all <a href="#samples">samples</a> available for training and testing the network. The choice of samples used for training and testing can significantly impact the network's performance and <a href="#generalisation">generalization ability</a>.</p>
+<p>Neural networks learn from examples. Data refers to the collection of all <a href="#samples">samples</a> available for training and testing the network. The choice of samples used for training and testing can significantly impact the network's performance and <a href="#generalisation">generalization ability</a>.</p>
         <section class="info-subsection" id="info-en-samples" data-info-source-id="samples">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-samples-content">
@@ -637,16 +645,16 @@
   <p>It is important to keep these roles separate (see <a href="#testing">Testing</a>): if the model is evaluated on training data only, it may appear to perform very well even when it has not learned the more general task.</p>
           </div>
         </section>
-        <section class="info-subsection" id="info-en-forward-propagation" data-info-source-id="forward-propagation">
-          <h3 class="info-subsection-heading">
-            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-forward-propagation-content">
-              <span>Forward propagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="info-subsection-content" id="info-en-forward-propagation-content" hidden>
+        </div>
+      </section>
+      <section class="info-section" id="info-en-forward-propagation" data-info-source-id="forward-propagation" data-language="en">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-en-forward-propagation-content">
+            <span>Forward propagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-en-forward-propagation-content" hidden>
 <p>Forward propagation is the process of passing the input of a sample through the network, layer by layer, until the final output is produced. In a fully connected network, every neuron receives values from all neurons in the previous layer, combines them according to their weights, and then passes the result onward. See also <a href="#training">Training</a>.</p>
-          </div>
-        </section>
         <section class="info-subsection" id="info-en-activation-function" data-info-source-id="activation-function">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-activation-function-content">
@@ -672,7 +680,7 @@
         <section class="info-subsection" id="info-en-error-function" data-info-source-id="error-function">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-error-function-content">
-              <span>Error function (loss / cost)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+              <span>Error (loss / cost)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
             </button>
           </h3>
           <div class="info-subsection-content" id="info-en-error-function-content" hidden>
@@ -692,7 +700,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-en-training-content" hidden>
-      <p>The goal of learning in neural networks is to find a set of weights that makes the network display the desired behavior, that is, produce the correct output for a given input. To achieve this, the network must be trained in an iterative process that repeatedly presents training samples to the network and then adjusts the weights so that the network gets better at producing the desired output.</p>
+<p>The goal of learning in neural networks is to find a set of weights that makes the network display the desired behavior, that is, produce the correct output for a given input. To achieve this, the network must be trained in an iterative process that repeatedly presents training samples to the network and then adjusts the weights so that the network gets better at producing the desired output.</p>
         <section class="info-subsection" id="info-en-epochs" data-info-source-id="epochs">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-epochs-content">
@@ -781,7 +789,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-en-testing-content" hidden>
-      <p>Once a neural network has been trained, it is important to test how it performs and whether it generalises to new inputs rather than just memorizing the training data. Testing is therefore a separate phase in which the model's reaction to various inputs is evaluated, but the weights are not updated.</p>
+<p>Once a neural network has been trained, it is important to test how it performs and whether it generalises to new inputs rather than just memorizing the training data. Testing is therefore a separate phase in which the model's reaction to various inputs is evaluated, but the weights are not updated.</p>
         <section class="info-subsection" id="info-en-testing-with-train-test-data" data-info-source-id="testing-with-train-test-data">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-en-testing-with-train-test-data-content">
@@ -867,7 +875,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-de-what-is-this-content">
-      <p>In dieser App kannst du mit einfachen Neural Networks experimentieren: Du kannst ihre Daten, Architektur oder Hyperparameter verändern, die Netzwerke trainieren, ihre Performance testen und jeden Aspekt dessen, was unter der Haube passiert, visuell untersuchen. Mehrere Beispielprojekte zu klassischen Machine-Learning-Aufgaben sind enthalten. Du kannst auch eigene Projekte erstellen und Projekte, Weights oder Daten einzeln über eine JSON-Struktur im Klartext speichern oder laden.</p>
+<p>In dieser App kannst du mit einfachen Neural Networks experimentieren: Du kannst ihre Daten, Architektur oder Hyperparameter verändern, die Netzwerke trainieren, ihre Performance testen und jeden Aspekt dessen, was unter der Haube passiert, visuell untersuchen. Mehrere Beispielprojekte zu klassischen Machine-Learning-Aufgaben sind enthalten. Du kannst auch eigene Projekte erstellen und Projekte, Weights oder Daten einzeln über eine JSON-Struktur im Klartext speichern oder laden.</p>
         <section class="info-subsection" id="info-de-limits" data-info-source-id="limits">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-limits-content">
@@ -888,7 +896,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-de-architecture-content" hidden>
-      <p>Die Architektur eines Neural Networks definiert seine Struktur, einschließlich der Anzahl an Layers, der Anzahl an Neuronen in jeder Layer und der Art, wie diese Neuronen verbunden sind. In dieser App ist die Architektur absichtlich einfach: Alle Layers sind vollständig verbunden, das heißt, jedes Neuron erhält Input von jedem Neuron der vorherigen Layer.</p>
+<p>Die Architektur eines Neural Networks definiert seine Struktur, einschließlich der Anzahl an Layers, der Anzahl an Neuronen in jeder Layer und der Art, wie diese Neuronen verbunden sind. In dieser App ist die Architektur absichtlich einfach: Alle Layers sind vollständig verbunden, das heißt, jedes Neuron erhält Input von jedem Neuron der vorherigen Layer.</p>
         <section class="info-subsection" id="info-de-input-layer" data-info-source-id="input-layer">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-input-layer-content">
@@ -963,7 +971,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-de-data-content" hidden>
-      <p>Neural Networks lernen aus Beispielen. Data bezeichnet die Gesamtheit aller <a href="#samples">Samples</a>, die zum Training und Testing des Netzwerks verfügbar sind. Die Auswahl der Samples für Training und Testing kann die Performance und <a href="#generalisation">Generalisierungsfähigkeit</a> des Netzwerks erheblich beeinflussen.</p>
+<p>Neural Networks lernen aus Beispielen. Data bezeichnet die Gesamtheit aller <a href="#samples">Samples</a>, die zum Training und Testing des Netzwerks verfügbar sind. Die Auswahl der Samples für Training und Testing kann die Performance und <a href="#generalisation">Generalisierungsfähigkeit</a> des Netzwerks erheblich beeinflussen.</p>
         <section class="info-subsection" id="info-de-samples" data-info-source-id="samples">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-samples-content">
@@ -998,16 +1006,16 @@
   <p>Es ist wichtig, diese Rollen getrennt zu halten (siehe <a href="#testing">Testing</a>): Wird ein Modell nur mit Training Data bewertet, kann es sehr gut wirken, obwohl es die allgemeinere Aufgabe noch nicht gelernt hat.</p>
           </div>
         </section>
-        <section class="info-subsection" id="info-de-forward-propagation" data-info-source-id="forward-propagation">
-          <h3 class="info-subsection-heading">
-            <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-forward-propagation-content">
-              <span>Forward propagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
-            </button>
-          </h3>
-          <div class="info-subsection-content" id="info-de-forward-propagation-content" hidden>
+        </div>
+      </section>
+      <section class="info-section" id="info-de-forward-propagation" data-info-source-id="forward-propagation" data-language="de">
+        <h2 class="info-section-heading">
+          <button type="button" class="info-section-toggle" aria-expanded="false" aria-controls="info-de-forward-propagation-content">
+            <span>Forward propagation</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </h2>
+        <div class="info-section-content" id="info-de-forward-propagation-content" hidden>
 <p>Forward Propagation ist der Prozess, bei dem der Input eines Samples Layer für Layer durch das Network weitergegeben wird, bis der endgültige Output entsteht. In einem vollständig verbundenen Network erhält jedes Neuron Werte von allen Neuronen des vorherigen Layers, kombiniert sie entsprechend ihrer Weights und gibt das Ergebnis weiter. Siehe auch <a href="#training">Training</a>.</p>
-          </div>
-        </section>
         <section class="info-subsection" id="info-de-activation-function" data-info-source-id="activation-function">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-activation-function-content">
@@ -1033,7 +1041,7 @@
         <section class="info-subsection" id="info-de-error-function" data-info-source-id="error-function">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-error-function-content">
-              <span>Error function (loss / cost)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
+              <span>Error (loss / cost)</span><span class="info-toggle-indicator" aria-hidden="true"></span>
             </button>
           </h3>
           <div class="info-subsection-content" id="info-de-error-function-content" hidden>
@@ -1053,7 +1061,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-de-training-content" hidden>
-      <p>Das Ziel des Lernens in Neural Networks ist es, eine Konfiguration von Weights zu finden, die das gewünschte Verhalten des Netzwerks erzeugt, also für einen gegebenen Input den korrekten Output liefert. Dafür muss das Netzwerk in einem iterativen Prozess trainiert werden, der ihm wiederholt Training Samples präsentiert und dann die Weights anpasst, damit das Netzwerk immer besser den gewünschten Output erzeugt.</p>
+<p>Das Ziel des Lernens in Neural Networks ist es, eine Konfiguration von Weights zu finden, die das gewünschte Verhalten des Netzwerks erzeugt, also für einen gegebenen Input den korrekten Output liefert. Dafür muss das Netzwerk in einem iterativen Prozess trainiert werden, der ihm wiederholt Training Samples präsentiert und dann die Weights anpasst, damit das Netzwerk immer besser den gewünschten Output erzeugt.</p>
         <section class="info-subsection" id="info-de-epochs" data-info-source-id="epochs">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-epochs-content">
@@ -1142,7 +1150,7 @@
           </button>
         </h2>
         <div class="info-section-content" id="info-de-testing-content" hidden>
-      <p>Nachdem ein Neural Network trainiert wurde, ist es wichtig zu testen, wie gut es arbeitet und ob es auf neue Inputs generalisiert, statt nur die Training Data auswendig zu lernen. Testing ist daher eine separate Phase, in der die Reaktion des Modells auf verschiedene Inputs bewertet wird, ohne die Weights zu aktualisieren.</p>
+<p>Nachdem ein Neural Network trainiert wurde, ist es wichtig zu testen, wie gut es arbeitet und ob es auf neue Inputs generalisiert, statt nur die Training Data auswendig zu lernen. Testing ist daher eine separate Phase, in der die Reaktion des Modells auf verschiedene Inputs bewertet wird, ohne die Weights zu aktualisieren.</p>
         <section class="info-subsection" id="info-de-testing-with-train-test-data" data-info-source-id="testing-with-train-test-data">
           <h3 class="info-subsection-heading">
             <button type="button" class="info-subsection-toggle" aria-expanded="false" aria-controls="info-de-testing-with-train-test-data-content">
@@ -1220,34 +1228,42 @@
         </div>
       </section>
     </div>
-    <div class="info-floating-controls" aria-label="Accordion controls">
-      <button type="button" class="info-floating-button" data-info-expand="all" title="Open all sections" aria-label="Open all sections">open<br>all</button>
-      <button type="button" class="info-floating-button" data-info-expand="none" title="Close all sections" aria-label="Close all sections">close<br>all</button>
-      <span class="info-floating-separator" aria-hidden="true"></span>
-      <button type="button" class="info-floating-button info-to-app-button" data-info-to-app title="Back to the app" aria-label="Back to the app">&uarr;</button>
-    </div>
   </section>
   <script>
     (() => {
       const accordion = document.querySelector('.info-accordion');
       if (!accordion) return;
+
       const setExpanded = (button, expanded) => {
-        const content = document.getElementById(button.getAttribute('aria-controls'));
+        const contentId = button.getAttribute('aria-controls');
+        if (!contentId) return;
+        const content = document.getElementById(contentId);
+
         button.setAttribute('aria-expanded', String(expanded));
+
         if (content) content.hidden = !expanded;
+
         if (!expanded && button.classList.contains('info-section-toggle')) {
           content?.querySelectorAll('.info-subsection-toggle').forEach((subsectionButton) => {
             setExpanded(subsectionButton, false);
           });
         }
       };
+
       const setAllExpanded = (expanded) => {
         const activeContent = accordion.querySelector('[data-info-language-content]:not([hidden])');
         if (!activeContent) return;
         activeContent.querySelectorAll('.info-section-toggle, .info-subsection-toggle').forEach((button) => {
           setExpanded(button, expanded);
         });
+
+        if (!expanded) {
+          window.requestAnimationFrame(() => {
+            accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
       };
+
       const openAnchor = () => {
         const sourceId = decodeURIComponent(window.location.hash.slice(1));
         if (!sourceId) return;
@@ -1263,6 +1279,7 @@
         target.closest('.info-subsection')?.querySelector('.info-subsection-toggle') && setExpanded(target.closest('.info-subsection').querySelector('.info-subsection-toggle'), true);
         window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
       };
+
       const setLanguage = (language) => {
         accordion.querySelectorAll('[data-info-language-content]').forEach((content) => {
           content.hidden = content.dataset.infoLanguageContent !== language;
@@ -1273,18 +1290,34 @@
           button.setAttribute('aria-pressed', String(active));
         });
       };
+
       accordion.querySelectorAll('.info-section-toggle, .info-subsection-toggle').forEach((button) => {
-        button.addEventListener('click', () => setExpanded(button, button.getAttribute('aria-expanded') !== 'true'));
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+          setExpanded(button, !isExpanded);
+
+          if (isExpanded) {
+            const section = button.closest('.info-section');
+            if (section && section.getBoundingClientRect().top < 0) {
+              section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
       });
+
       accordion.querySelectorAll('[data-info-language]').forEach((button) => {
         button.addEventListener('click', () => setLanguage(button.dataset.infoLanguage));
       });
+
       accordion.querySelectorAll('[data-info-expand]').forEach((button) => {
         button.addEventListener('click', () => setAllExpanded(button.dataset.infoExpand === 'all'));
       });
+
       accordion.querySelector('[data-info-to-app]')?.addEventListener('click', () => {
         document.getElementById('id_header')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
+
       window.addEventListener('hashchange', openAnchor);
       openAnchor();
     })();

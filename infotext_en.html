@@ -48,7 +48,7 @@
   <p>Samples can be marked either as training samples or as test samples. Training samples are used to adapt the weights of the network during training, while test samples are held back and used to assess how well the model <a href="#generalisation">generalizes</a> to unseen data.</p>
   <p>It is important to keep these roles separate (see <a href="#testing">Testing</a>): if the model is evaluated on training data only, it may appear to perform very well even when it has not learned the more general task.</p>
 
-  <h3 id="forward-propagation">Forward propagation</h3>
+  <h2 id="forward-propagation">Forward propagation</h2>
   <p>Forward propagation is the process of passing the input of a sample through the network, layer by layer, until the final output is produced. In a fully connected network, every neuron receives values from all neurons in the previous layer, combines them according to their weights, and then passes the result onward. See also <a href="#training">Training</a>.</p>
 
   <h3 id="activation-function">Activation function</h3>
@@ -59,7 +59,7 @@
   <h3 id="prediction">Prediction</h3>
   <p>Once the activations have been computed for all neurons in the final layer, the network produces its output, often called a "prediction". This output is then compared with the target values for the current sample. The difference between network output and target (the <a href="#error-function">error</a>) provides the basis for learning: the weights are adjusted so that the next <a href="#forward-propagation">forward pass</a> brings the output closer to the desired result. See also <a href="#training">Training</a>.</p>
 
-  <h3 id="error-function">Error function (loss / cost)</h3>
+  <h3 id="error-function">Error (loss / cost)</h3>
   <p>To assess how well the network is performing, we need a measure of how far the predictions deviate from the target values.</p>
   <p>The deviation itself (target value - output value = error) is a good start, but not enough to judge performance in networks with multiple output neurons, because positive and negative errors could cancel each other out.</p>
   <p>To assess the network's performance on an individual sample, we calculate half the sum of the squared errors for all output neurons: \(\frac{1}{2}\sum_i (\hat{y}_i - y_i)^2\). This is called the loss of a sample. It is also the measure that the learning algorithm tries to minimize; the factor \(\frac{1}{2}\) simplifies the calculations for <a href="#backpropagation">backpropagation</a>.</p>

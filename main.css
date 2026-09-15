@@ -59,15 +59,12 @@ body{
 }
 
 .info-accordion {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 44px;
-  column-gap: 12px;
+  position: relative;
   margin-top: 36px;
   border-top: 1px solid rgba(46, 40, 42, 0.3);
 }
 
 .info-accordion-header {
-  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -113,11 +110,12 @@ body{
 }
 
 .info-floating-controls {
-  grid-column: 2;
-  grid-row: 2;
   position: sticky;
   top: 16px;
-  align-self: start;
+  float: right;
+  margin-right: -56px;
+  width: 44px;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -158,8 +156,7 @@ body{
 }
 
 .info-language-content {
-  grid-column: 1;
-  grid-row: 2;
+  width: 100%;
 }
 
 .info-section {
@@ -170,7 +167,10 @@ body{
   margin-top: 8px;
 }
 
-.info-section-heading,
+.info-section-heading {
+  margin: 0;
+}
+
 .info-subsection-heading {
   margin: 0;
 }
@@ -196,6 +196,14 @@ body{
 }
 
 .info-subsection-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: rgb(46, 40, 42);
+  text-align: left;
   padding: 10px 12px 10px 4px;
   font-size: 1rem;
   font-weight: 600;
@@ -204,13 +212,14 @@ body{
 .info-toggle-indicator {
   width: 9px;
   height: 9px;
-  margin-left: 16px;
+  margin-left: 12px;
   border-right: 2px solid currentColor;
   border-bottom: 2px solid currentColor;
   transform: rotate(45deg) translateY(-2px);
   transition: transform 150ms ease;
 }
 
+.info-section-indicator-btn[aria-expanded='true'] .info-toggle-indicator,
 .info-section-toggle[aria-expanded='true'] .info-toggle-indicator,
 .info-subsection-toggle[aria-expanded='true'] .info-toggle-indicator {
   transform: rotate(225deg) translateY(-2px);
@@ -223,6 +232,14 @@ body{
 
 .info-subsection-content {
   padding: 0 4px 12px;
+}
+
+.info-section-content a[href^='#'],
+.info-subsection-content a[href^='#'] {
+  color: rgba(46, 40, 42, 0.82);
+  font-variant: normal;
+  font-variant-caps: small-caps;
+  text-transform: none;
 }
 
 .info-subsection-toggle[aria-expanded='true'] {

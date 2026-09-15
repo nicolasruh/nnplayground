@@ -19,7 +19,7 @@ export const getNextTestingMode = (mode: TestingMode): TestingMode => (
 );
 
 export const buildTestingOverlayTexts = (mode: TestingMode, rows: TestingOverlayRow[]): TestingOverlayTexts => {
-  const avgLoss = rows.length > 0
+  const averageCost = rows.length > 0
     ? rows.reduce((sum, row) => sum + row.loss, 0) / rows.length
     : 0;
   const modeLabel = mode === 'train' ? 'train data' : 'test data';
@@ -30,7 +30,7 @@ export const buildTestingOverlayTexts = (mode: TestingMode, rows: TestingOverlay
     : 'test with train data';
 
   if (rows.length > 0) {
-    const performanceParts = [`${avgLoss.toFixed(5)} (average loss of samples)`];
+    const performanceParts = [`${averageCost.toFixed(5)} (cost = average loss of samples)`];
     const classificationRows = rows.filter((row) => row.isClassification && row.output.length === row.target.length && row.output.length > 0);
 
     if (classificationRows.length > 0) {

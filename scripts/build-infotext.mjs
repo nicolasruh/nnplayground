@@ -75,7 +75,7 @@ ${subsection.content}
           </button>
         </h2>
         <div class="info-section-content" id="${sourceIdToDomId(language, `${section.id}-content`)}"${expanded ? '' : ' hidden'}>
-      ${section.content}${subsectionMarkup}
+${section.content}${subsectionMarkup}
         </div>
       </section>`;
 }).join('');
@@ -109,35 +109,49 @@ const generatedMarkup = `${startMarker}
         </div>
       </div>
     </div>
-${languageContent}
     <div class="info-floating-controls" aria-label="Accordion controls">
       <button type="button" class="info-floating-button" data-info-expand="all" title="Open all sections" aria-label="Open all sections">open<br>all</button>
       <button type="button" class="info-floating-button" data-info-expand="none" title="Close all sections" aria-label="Close all sections">close<br>all</button>
       <span class="info-floating-separator" aria-hidden="true"></span>
       <button type="button" class="info-floating-button info-to-app-button" data-info-to-app title="Back to the app" aria-label="Back to the app">&uarr;</button>
     </div>
+${languageContent}
   </section>
   <script>
     (() => {
       const accordion = document.querySelector('.info-accordion');
       if (!accordion) return;
+
       const setExpanded = (button, expanded) => {
-        const content = document.getElementById(button.getAttribute('aria-controls'));
+        const contentId = button.getAttribute('aria-controls');
+        if (!contentId) return;
+        const content = document.getElementById(contentId);
+
         button.setAttribute('aria-expanded', String(expanded));
+
         if (content) content.hidden = !expanded;
+
         if (!expanded && button.classList.contains('info-section-toggle')) {
           content?.querySelectorAll('.info-subsection-toggle').forEach((subsectionButton) => {
             setExpanded(subsectionButton, false);
           });
         }
       };
+
       const setAllExpanded = (expanded) => {
         const activeContent = accordion.querySelector('[data-info-language-content]:not([hidden])');
         if (!activeContent) return;
         activeContent.querySelectorAll('.info-section-toggle, .info-subsection-toggle').forEach((button) => {
           setExpanded(button, expanded);
         });
+
+        if (!expanded) {
+          window.requestAnimationFrame(() => {
+            accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
       };
+
       const openAnchor = () => {
         const sourceId = decodeURIComponent(window.location.hash.slice(1));
         if (!sourceId) return;
@@ -153,6 +167,7 @@ ${languageContent}
         target.closest('.info-subsection')?.querySelector('.info-subsection-toggle') && setExpanded(target.closest('.info-subsection').querySelector('.info-subsection-toggle'), true);
         window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
       };
+
       const setLanguage = (language) => {
         accordion.querySelectorAll('[data-info-language-content]').forEach((content) => {
           content.hidden = content.dataset.infoLanguageContent !== language;
@@ -163,18 +178,34 @@ ${languageContent}
           button.setAttribute('aria-pressed', String(active));
         });
       };
+
       accordion.querySelectorAll('.info-section-toggle, .info-subsection-toggle').forEach((button) => {
-        button.addEventListener('click', () => setExpanded(button, button.getAttribute('aria-expanded') !== 'true'));
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isExpanded = button.getAttribute('aria-expanded') === 'true';
+          setExpanded(button, !isExpanded);
+
+          if (isExpanded) {
+            const section = button.closest('.info-section');
+            if (section && section.getBoundingClientRect().top < 0) {
+              section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
       });
+
       accordion.querySelectorAll('[data-info-language]').forEach((button) => {
         button.addEventListener('click', () => setLanguage(button.dataset.infoLanguage));
       });
+
       accordion.querySelectorAll('[data-info-expand]').forEach((button) => {
         button.addEventListener('click', () => setAllExpanded(button.dataset.infoExpand === 'all'));
       });
+
       accordion.querySelector('[data-info-to-app]')?.addEventListener('click', () => {
         document.getElementById('id_header')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
+
       window.addEventListener('hashchange', openAnchor);
       openAnchor();
     })();

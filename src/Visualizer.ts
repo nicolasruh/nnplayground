@@ -305,10 +305,10 @@ export class Visualizer {
       this.ctx.fillStyle = isManualInput ? `rgba(120, 120, 120, 1)` : `rgb(46, 40, 42, 1)`;
       this.ctx.font = `12px sans-serif`;
       this.ctx.textAlign = 'center';
-      this.ctx.fillText(`cost of this sample`, costColumnX, summaryLabelY);
+      this.ctx.fillText(`loss of this sample`, costColumnX, summaryLabelY);
       this.ctx.font = `bold 14px sans-serif`;
       this.ctx.fillText(sampleCost.toFixed(4), costColumnX, summaryValueY);
-      this.pushHoverHotspot(costColumnX, (summaryLabelY + summaryValueY) / 2, 34, 'Half summed squared error');
+      this.pushHoverHotspot(costColumnX, (summaryLabelY + summaryValueY) / 2, 34, 'Half summed squared error (loss of this sample)');
       this.ctx.textAlign = 'start';
       this.ctx.globalAlpha = 1.0;
     }
@@ -318,9 +318,15 @@ export class Visualizer {
     this.ctx.textAlign = 'left';
     this.ctx.fillText(`epochs trained: ${epochsTrained}`, 18, this.height - 14);
     this.ctx.textAlign = 'right';
-    const epochLossText = `current loss of an epoch: ${currentEpochCost.toFixed(6)}`;
-    this.ctx.fillText(epochLossText, this.width - 18, this.height - 14);
-    this.pushHoverHotspot(this.width - 18 - this.ctx.measureText(epochLossText).width / 2, this.height - 18, 16, 'average cost of all train samples');
+    const epochCostText = `current cost of an epoch: ${currentEpochCost.toFixed(6)}`;
+    this.ctx.fillText(epochCostText, this.width - 18, this.height - 14);
+    const epochCostTextWidth = this.ctx.measureText(epochCostText).width;
+    this.pushHoverHotspot(
+      this.width - 18 - epochCostTextWidth / 2,
+      this.height - 18,
+      epochCostTextWidth / 2 + 8,
+      'average loss of all train samples (cost of an epoch)'
+    );
     this.ctx.textAlign = 'start';
   }
 
