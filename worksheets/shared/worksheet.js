@@ -308,7 +308,13 @@
     if (solutionButton && solutionEl) {
       solutionButton.disabled = !any;
       solutionButton.title = any ? '' : 'Schreibe zuerst deine eigene Antwort.';
-      solutionButton.textContent = meta.open ? 'Musterlösung verbergen' : 'Musterlösung anzeigen';
+      solutionButton.textContent = meta.open ? 'Musterlösung verbergen' : (meta.sc ? 'Musterlösung nochmal ansehen' : 'Musterlösung anzeigen');
+      const rating = $('.ws-rating', qEl);
+      if (rating) {
+        const labels = { yes: 'Einschätzung: ja', part: 'Einschätzung: teilweise', no: 'Einschätzung: noch nicht' };
+        rating.textContent = any && meta.sc ? labels[meta.sc] : '';
+        rating.dataset.rating = any && meta.sc ? meta.sc : '';
+      }
       solutionEl.hidden = !(any && meta.open);
       $$('.ws-sc', solutionEl).forEach((button) => button.setAttribute('aria-pressed', String(meta.sc === button.dataset.sc)));
       $$('[data-crit]', solutionEl).forEach((box) => { box.checked = Boolean(meta.crit && meta.crit[Number(box.dataset.crit)]); });
@@ -665,8 +671,13 @@
     const clear = target.closest('.ws-clear');
     if (clear) { clearField(clear.dataset.clear); return; }
 
-    const drop = target.closest('.ws-drop');
-    if (drop) { $('input[type="file"]', drop.closest('.ws-shot')).click(); return; }
+    const shotAction = target.closest('[data-shot-act]');
+    if (shotAction) {
+      const shotEl = shotAction.closest('.ws-shot');
+      setActiveShot(shotEl);
+      if (shotAction.dataset.shotAct === 'file') $('input[type="file"]', shotEl).click(); else pasteFromClipboard(shotEl);
+      return;
+    }
 
     const action = target.closest('[data-act]');
     if (action) {
@@ -694,7 +705,7 @@
       const qEl = selfCheck.closest('.ws-q');
       const meta = state.q[qEl.dataset.q] || (state.q[qEl.dataset.q] = {});
       meta.sc = meta.sc === selfCheck.dataset.sc ? null : selfCheck.dataset.sc;
-      if (!meta.sc) delete meta.sc;
+      if (!meta.sc) delete meta.sc; else meta.open = false;
       touch();
       updateAll();
       return;
@@ -773,12 +784,23 @@
     activeShots.current = shotEl;
     shotEl.classList.add('is-active');
   };
-  document.addEventListener('keydown', (event) => {
-    if ((event.key === 'Enter' || event.key === ' ') && event.target.classList && event.target.classList.contains('ws-drop')) {
-      event.preventDefault();
-      $('input[type="file"]', event.target.closest('.ws-shot')).click();
+  // Button variant of Ctrl+V. Needs a secure context and (in Chrome/Edge) a one-time permission prompt.
+  const pasteFromClipboard = async (shotEl) => {
+    const fallback = 'Das direkte Einfügen geht in deinem Browser nicht. Klicke in das gestrichelte Feld und drücke Strg/Cmd + V.';
+    if (!navigator.clipboard || !navigator.clipboard.read) { toast(fallback, { timeout: 7000 }); return; }
+    try {
+      const items = await navigator.clipboard.read();
+      const files = [];
+      for (const item of items) {
+        const type = item.types.find((t) => t.startsWith('image/'));
+        if (type) files.push(new File([await item.getType(type)], 'screenshot', { type }));
+      }
+      if (!files.length) { toast('In der Zwischenablage ist kein Bild. Klicke in der App auf «copy to clipboard» und versuche es nochmal.', { timeout: 7000 }); return; }
+      addImages(shotEl, files);
+    } catch (error) {
+      toast(fallback, { timeout: 7000 });
     }
-  });
+  };
 
   document.addEventListener('dragover', (event) => {
     if (!event.dataTransfer || !Array.from(event.dataTransfer.types || []).includes('Files')) return;

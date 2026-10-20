@@ -73,7 +73,7 @@
 <p class="ws-text">Arbeite ggf. zu zweit: Eine Person bedient, die andere protokolliert. Wechselt ab und zu die Rollen.</p>
 <div class="ws-profile"><label>Name<input type="text" data-profile="name" autocomplete="name" placeholder="Vorname Nachname"></label><label>Partner/in (optional)<input type="text" data-profile="partner" placeholder="Vorname Nachname"></label><p class="ws-profile-note">Die Namen bleiben auf diesem Gerät und erscheinen nur in der Sicherungsdatei und im Ausdruck.</p></div>
 <aside class="ws-info"><strong class="ws-info-title">So arbeitest du mit diesem Arbeitsblatt</strong><ul class="ws-list"><li>Lass die App und dieses Blatt nebeneinander offen (zwei Fenster oder zwei Hälften des Bildschirms).</li></ul>
-<ul class="ws-list"><li>Alles, was du hier eingibst, wird automatisch in deinem Browser gespeichert. Mit «Meine Daten» oben rechts kannst du es als Datei sichern.</li></ul>
+<ul class="ws-list"><li>Alles, was du im Arbeitsblatt eingibst, wird automatisch in deinem Browser gespeichert. Mit «Meine Daten» oben rechts kannst du es als Datei sichern.</li></ul>
 <ul class="ws-list"><li>Screenshots: In der App gibt es bei den Ergebnissen den Knopf «copy to clipboard». Klicke danach hier ins Bild-Feld und drücke Strg/Cmd + V. Du kannst Bilder auch hineinziehen oder eine Datei wählen.</li></ul>
 <ul class="ws-list"><li>Die Musterlösung erscheint, sobald du eine eigene Antwort eingegeben hast. Vergleiche dann ehrlich und schätze dich selbst ein.</li></ul>
 <ul class="ws-list"><li>Unterstrichene Fachbegriffe kannst du anklicken: Du siehst eine kurze Erklärung und den passenden Abschnitt aus dem Infotext der App.</li></ul></aside>
@@ -106,7 +106,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-architektur" data-q="q-architektur" data-check="{&quot;type&quot;:&quot;numbers&quot;,&quot;values&quot;:[1600,11,1],&quot;ordered&quot;:true,&quot;hint&quot;:&quot;Schau im Bereich network architecture nach: Input size, Hidden layer size, Output size.&quot;}">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Welche Netzwerkarchitektur (network architecture) hat das geladene Netz?</p>
       <div class="ws-field ws-field-line" data-kind="line"><label class="ws-label" for="f-q-architektur-0">Layer sizes; input / hidden / output:</label><input id="f-q-architektur-0" class="ws-input" type="text" data-f="q-architektur:0" placeholder=""><button type="button" class="ws-clear" data-clear="q-architektur:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Das Netz besitzt 1600 input-Neuronen, 11 Neuronen im hidden layer und 1 output-Neuron. Zusätzlich gibt es nach der input- und der hidden-Schicht je ein <span class="ws-term" role="button" tabindex="0" data-term="bias">bias-Neuron</span>-Neuron. In der Anzeige steht daher: 1600 + 1 / 11 + 1 / 1.</p></div>
@@ -119,7 +119,7 @@
 <div class="ws-q" id="q-anzahl-weights" data-q="q-anzahl-weights" data-check="{&quot;type&quot;:&quot;numbers&quot;,&quot;values&quot;:[17623],&quot;hint&quot;:&quot;Jedes Neuron hat ein weight zu jedem Neuron der vorigen Schicht, dazu eines vom bias-Neuron. Rechne beide Schichtübergänge und addiere.&quot;}">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Wie viele Gewichte (weights) hat dieses Netz?</p>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-anzahl-weights-0">Anzahl Gewichte (inkl. Rechnung):</label><textarea id="f-q-anzahl-weights-0" class="ws-input" rows="2" data-f="q-anzahl-weights:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-anzahl-weights:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Zwischen input layer und hidden layer liegen (1600 + 1) × 11 = 17 611 weights.</p>
@@ -134,7 +134,7 @@
 <div class="ws-q" id="q-samples-zaehlen" data-q="q-samples-zaehlen" data-check="{&quot;type&quot;:&quot;numbers&quot;,&quot;values&quot;:[11,6,5],&quot;ordered&quot;:true,&quot;hint&quot;:&quot;Training samples erkennst du am Häkchen in der Spalte «train?».&quot;}">
       <p class="ws-q-prompt"><span class="ws-q-label">c</span>Zähle in der data-Tabelle:</p>
       <div class="ws-field ws-field-line" data-kind="line"><label class="ws-label" for="f-q-samples-zaehlen-0">Samples total / training samples / test samples:</label><input id="f-q-samples-zaehlen-0" class="ws-input" type="text" data-f="q-samples-zaehlen:0" placeholder=""><button type="button" class="ws-clear" data-clear="q-samples-zaehlen:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Die data-Tabelle enthält 11 samples: 6 training samples und 5 test samples.</p></div>
@@ -147,7 +147,7 @@
 <div class="ws-q" id="q-happy" data-q="q-happy">
       <p class="ws-q-prompt"><span class="ws-q-label">d</span>Die target-Spalte ist überschrieben mit «happy?»: Was könnten die Werte 1 und 0 bedeuten?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-happy-0" class="ws-input" rows="2" data-f="q-happy:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-happy:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Der target-Wert 1 steht für ein glückliches Gesicht, der target-Wert 0 für ein nicht glückliches beziehungsweise trauriges Gesicht.</p></div>
@@ -175,7 +175,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-input20" data-q="q-input20" data-check="{&quot;type&quot;:&quot;numbers&quot;,&quot;values&quot;:[0],&quot;hint&quot;:&quot;Öffne das erste sample in edit in table und suche die Spalte i20.&quot;}">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Welchen Wert hat der 20. input im ersten sample?</p>
       <div class="ws-field ws-field-line" data-kind="line"><input id="f-q-input20-0" class="ws-input" type="text" data-f="q-input20:0" placeholder=""><button type="button" class="ws-clear" data-clear="q-input20:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Der 20. input-Wert des ersten samples ist 0.</p></div>
@@ -188,7 +188,7 @@
 <div class="ws-q" id="q-pixel-schwarz" data-q="q-pixel-schwarz">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Wie macht man das Pixel ganz oben links schwarz?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-pixel-schwarz-0" class="ws-input" rows="2" data-f="q-pixel-schwarz:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-pixel-schwarz:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Man setzt den input-Wert i1 auf 0. Dadurch wird das Pixel oben links schwarz.</p></div>
@@ -201,7 +201,7 @@
 <div class="ws-q" id="q-pixel-grau" data-q="q-pixel-grau">
       <p class="ws-q-prompt"><span class="ws-q-label">c</span>Wie macht man im zweiten sample das letzte Pixel in der obersten Zeile grau?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-pixel-grau-0" class="ws-input" rows="2" data-f="q-pixel-grau:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-pixel-grau:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Man setzt i40 ungefähr auf 0.5. Dadurch erscheint das letzte Pixel der obersten Zeile grau.</p></div>
@@ -214,7 +214,7 @@
 <div class="ws-q" id="q-1600" data-q="q-1600">
       <p class="ws-q-prompt"><span class="ws-q-label">d</span>Erkläre in einem Satz: Warum braucht das Netz für ein 40 × 40-Bild genau 1600 inputs?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-1600-0" class="ws-input" rows="2" data-f="q-1600:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-1600:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Das Bild besitzt 40 × 40 = 1600 Pixel. Jedes Pixel wird durch genau einen Zahlenwert beschrieben und liefert deshalb genau einen input-Wert.</p></div>
@@ -234,7 +234,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-neues-sample-output" data-q="q-neues-sample-output">
       <p class="ws-q-prompt">Klicke in der Datentabelle auf das neue sample – wie beurteilt das Netz das neue Beispiel?</p>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-neues-sample-output-0">Interpretiere den output in der network visualisation:</label><textarea id="f-q-neues-sample-output-0" class="ws-input" rows="3" data-f="q-neues-sample-output:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-neues-sample-output:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Mögliche Beobachtung: Der output beträgt etwa 0.28. Das Netz beurteilt den selbst gezeichneten Smiley damit eher als nicht glücklich. Bei einer anderen Zeichnung kann der output deutlich abweichen.</p></div>
@@ -265,7 +265,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-wechsel" data-q="q-wechsel">
       <p class="ws-q-prompt">Was ändert sich beim Wechsel des samples? Was bleibt unverändert?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-wechsel-0" class="ws-input" rows="3" data-f="q-wechsel:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-wechsel:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Beim Wechsel des samples ändern sich die input-Werte, die Aktivierungen im hidden layer, der output sowie target und error. Unverändert bleiben die Netzwerkarchitektur und die weights, weil beim testing keine Gewichte angepasst werden.</p></div>
@@ -285,7 +285,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-tab-vortrainiert" data-q="q-tab-vortrainiert" data-check="{&quot;type&quot;:&quot;table&quot;,&quot;consistency&quot;:true,&quot;tol&quot;:0.02,&quot;expected&quot;:{&quot;1&quot;:{&quot;output&quot;:0.99,&quot;target&quot;:1,&quot;error&quot;:-0.01},&quot;6&quot;:{&quot;output&quot;:0.02,&quot;target&quot;:0,&quot;error&quot;:0.02},&quot;11&quot;:{&quot;output&quot;:0.14,&quot;target&quot;:0.5,&quot;error&quot;:-0.36}}}">
       
       <div class="ws-field" data-kind="table" data-f="q-tab-vortrainiert:0"><div class="ws-table-wrap"><table class="ws-grid"><thead><tr><th>sample no</th><th>output</th><th>target</th><th>error</th></tr></thead><tbody><tr data-row="1"><th scope="row">1</th><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="output" aria-label="1 – output"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="target" aria-label="1 – target"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="error" aria-label="1 – error"></td></tr><tr data-row="6"><th scope="row">6</th><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="output" aria-label="6 – output"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="target" aria-label="6 – target"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="error" aria-label="6 – error"></td></tr><tr data-row="11"><th scope="row">11</th><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="output" aria-label="11 – output"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="target" aria-label="11 – target"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="error" aria-label="11 – error"></td></tr></tbody></table></div><button type="button" class="ws-clear" data-clear="q-tab-vortrainiert:0" hidden>Tabelle leeren</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Für das geladene, vortrainierte Projekt ergeben sich die folgenden Werte (error = output − target):</p>
@@ -300,13 +300,13 @@
 <section class="ws-task" id="t-live" data-task="t-live" data-num="8">
       <div class="ws-task-box">
         <div class="ws-task-head"><span class="ws-task-num">Aufgabe 8</span></div>
-        <div class="ws-task-text"><p class="ws-text">Du kannst das aktuell verarbeitete sample auch live anpassen. Wähle ein glückliches Smiley in der Datentabelle, klicke dann auf das Auge in der linken Spalte der network visualisation.</p></div>
+        <div class="ws-task-text"><p class="ws-text">Du kannst das aktuell verarbeitete sample auch live anpassen. Wähle ein glückliches Smiley in der Datentabelle, klicke dann auf das Auge in der linken Spalte der network visualisation. Was geschieht, wenn dieser Input durch das Netz geschickt wird, siehst du in der visualisation - auch, wenn du jetzt "live" Pixel veränderst.</p></div>
         <figure class="ws-figure" id="abb-live" style="--ws-fig-width:36%"><img src="img/abb4-live-eingabe.png" alt="Dialog «set input visually» mit einem gezeichneten glücklichen Smiley im 40×40-Pixelraster." loading="lazy" data-zoom><figcaption><strong>Abb.&nbsp;4</strong> · Live-Eingabe für einen eigenen 40 × 40-Smiley.</figcaption></figure>
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-live-output" data-q="q-live-output">
-      <p class="ws-q-prompt"><span class="ws-q-label">a</span>Wie beurteilt das Netz dieses sample?</p>
+      <p class="ws-q-prompt"><span class="ws-q-label">a</span>Wie beurteilt das Netz das gewählte sample?</p>
       <div class="ws-field ws-field-line" data-kind="line"><label class="ws-label" for="f-q-live-output-0">output:</label><input id="f-q-live-output-0" class="ws-input" type="text" data-f="q-live-output:0" placeholder=""><button type="button" class="ws-clear" data-clear="q-live-output:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Beispiel mit sample 3: Der output liegt bei 0.99. Das Netz beurteilt diesen Smiley daher mit hoher Sicherheit als glücklich.</p></div>
@@ -318,12 +318,12 @@
     </div>
 <div class="ws-q" id="q-live-aendern" data-q="q-live-aendern">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Ändere die Pixel des glücklichen Smileys, bis das Netz es für unglücklich hält.</p>
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-live-aendern:0" data-max="2"><label class="ws-label" for="f-q-live-aendern-0">Screenshot einfügen</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-live-aendern:0" data-max="2"><label class="ws-label" for="f-q-live-aendern-0">Screenshot einfügen</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
 <div class="ws-field ws-field-line" data-kind="line"><label class="ws-label" for="f-q-live-aendern-1">resultierender output:</label><input id="f-q-live-aendern-1" class="ws-input" type="text" data-f="q-live-aendern:1" placeholder=""><button type="button" class="ws-clear" data-clear="q-live-aendern:1" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
-      <div class="ws-solution-body"><p class="ws-text">Eine mögliche Veränderung senkt den output auf 0.26. Andere Zeichnungen können zu anderen Werten führen; der Screenshot zeigt nur ein Beispiel.</p>
+      <div class="ws-solution-body"><p class="ws-text">Diese mögliche Veränderung senkt den output auf 0.26. Andere Zeichnungen können zu anderen Werten führen; der Screenshot zeigt nur ein Beispiel.</p>
 <figure class="ws-figure ws-figure-solution" style="--ws-fig-width:36%"><img src="img/l-live-ungluecklich.png" alt="Live-Eingabe mit einem veränderten, traurigen Smiley." loading="lazy" data-zoom></figure></div>
       
       <div class="ws-selfcheck" role="group" aria-label="Selbsteinschätzung"><span>Meine Antwort enthält das Wesentliche:</span>
@@ -334,7 +334,7 @@
 <div class="ws-q" id="q-live-warum" data-q="q-live-warum">
       <p class="ws-q-prompt"><span class="ws-q-label">c</span>Wieso führen diese neuen Pixel jetzt zu einem sehr kleinen output?</p>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-live-warum-0">Ggf. vermuten, formuliere vorsichtig:</label><textarea id="f-q-live-warum-0" class="ws-input" rows="3" data-f="q-live-warum:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-live-warum:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Durch die veränderten Pixel ändern sich mehrere input-Werte. Diese werden mit den gelernten weights gewichtet und erzeugen dadurch andere Aktivierungen im hidden layer. In diesem Beispiel fehlen Merkmale, die das Netz mit einem glücklichen Gesicht verbindet, oder es kommen Merkmale hinzu, die den output senken. Entscheidend ist also nicht nur die Anzahl schwarzer Pixel, sondern auch ihre Position und Gewichtung.</p></div>
@@ -367,7 +367,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-tab-random" data-q="q-tab-random" data-check="{&quot;type&quot;:&quot;table&quot;,&quot;consistency&quot;:true,&quot;tol&quot;:0.02,&quot;expected&quot;:{&quot;1&quot;:{&quot;target&quot;:1},&quot;6&quot;:{&quot;target&quot;:0},&quot;11&quot;:{&quot;target&quot;:0.5}}}">
       
       <div class="ws-field" data-kind="table" data-f="q-tab-random:0"><div class="ws-table-wrap"><table class="ws-grid"><thead><tr><th>sample no</th><th>output</th><th>target</th><th>error</th></tr></thead><tbody><tr data-row="1"><th scope="row">1</th><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="output" aria-label="1 – output"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="target" aria-label="1 – target"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="error" aria-label="1 – error"></td></tr><tr data-row="6"><th scope="row">6</th><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="output" aria-label="6 – output"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="target" aria-label="6 – target"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="error" aria-label="6 – error"></td></tr><tr data-row="11"><th scope="row">11</th><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="output" aria-label="11 – output"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="target" aria-label="11 – target"></td><td><input class="ws-cell" type="text" inputmode="decimal" autocomplete="off" data-col="error" aria-label="11 – error"></td></tr></tbody></table></div><button type="button" class="ws-clear" data-clear="q-tab-random:0" hidden>Tabelle leeren</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn" data-act="check">Prüfen</button><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Ein möglicher Durchlauf nach random weights liefert die folgenden Werte. Wegen der Zufallsgewichte sind andere Resultate ebenso korrekt:</p>
@@ -388,7 +388,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-vergleich" data-q="q-vergleich">
       <p class="ws-q-prompt">Beschreibe die Unterschiede und versuche dich an einer Erklärung: Was hat sich (als einziges) geändert, und wie erklärt das die neue, deutlich schlechtere performance?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-vergleich-0" class="ws-input" rows="4" data-f="q-vergleich:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-vergleich:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Die inputs und targets sind gleich geblieben. Geändert wurden nur die zufälligen weights. Dadurch entstehen andere Aktivierungen, outputs und errors; die performance ist deutlich schlechter, weil die neuen weights noch nicht an den Beispielen trainiert wurden.</p></div>
@@ -411,10 +411,10 @@
       <div class="ws-questions"><div class="ws-q" id="q-klicks" data-q="q-klicks">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Wie oft musst du klicken, bis der output grösser wird als 0.85?</p>
       <div class="ws-field ws-field-line" data-kind="line"><label class="ws-label" for="f-q-klicks-0">Anzahl Klicks:</label><input id="f-q-klicks-0" class="ws-input" type="text" data-f="q-klicks:0" placeholder=""><button type="button" class="ws-clear" data-clear="q-klicks:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
-      <div class="ws-solution-body"><p class="ws-text">In diesem Beispiel waren 24 Klicks nötig, bis der output über 0.85 lag. Die genaue Anzahl hängt von den zufälligen Startgewichten ab.</p></div>
+      <div class="ws-solution-body"><p class="ws-text">In meinem Beispiel waren 24 Klicks nötig, bis der output über 0.85 lag. Die genaue Anzahl hängt von den zufälligen Startgewichten ab.</p></div>
       
       <div class="ws-selfcheck" role="group" aria-label="Selbsteinschätzung"><span>Meine Antwort enthält das Wesentliche:</span>
         <button type="button" class="ws-sc" data-sc="yes">ja</button><button type="button" class="ws-sc" data-sc="part">teilweise</button><button type="button" class="ws-sc" data-sc="no">noch nicht</button>
@@ -424,10 +424,10 @@
 <div class="ws-q" id="q-sample6" data-q="q-sample6">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Wähle jetzt sample 6 (target = 0). Wie hat sich dessen output verändert (vergleiche <a class="ws-ref" href="#t-tabelle-random">Aufgabe 10</a>)?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-sample6-0" class="ws-input" rows="3" data-f="q-sample6:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-sample6:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
-      <div class="ws-solution-body"><p class="ws-text">Der output von sample 6 stieg in diesem Durchlauf von ungefähr 0.31 auf 0.85, obwohl sein target 0 ist. Das Training mit sample 1 hat gemeinsame weights in Richtung eines höheren outputs verändert und dadurch die Vorhersage für sample 6 verschlechtert.</p></div>
+      <div class="ws-solution-body"><p class="ws-text">Der output von sample 6 stieg in meinem Beispiel von ungefähr 0.31 auf 0.85, obwohl sein target 0 ist. Das Training mit sample 1 hat gemeinsame weights in Richtung eines höheren outputs verändert und dadurch die Vorhersage für sample 6 verschlechtert.</p></div>
       
       <div class="ws-selfcheck" role="group" aria-label="Selbsteinschätzung"><span>Meine Antwort enthält das Wesentliche:</span>
         <button type="button" class="ws-sc" data-sc="yes">ja</button><button type="button" class="ws-sc" data-sc="part">teilweise</button><button type="button" class="ws-sc" data-sc="no">noch nicht</button>
@@ -446,10 +446,10 @@
       <div class="ws-questions"><div class="ws-q" id="q-epochen" data-q="q-epochen">
       
       <div class="ws-field" data-kind="text"><textarea id="f-q-epochen-0" class="ws-input" rows="3" data-f="q-epochen:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-epochen:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
-      <div class="ws-solution-body"><p class="ws-text">Mögliches Ergebnis: In der ersten epoch wurde der error von sample 1 zunächst sogar grösser. Nach 41 Epochen lagen die outputs bei ungefähr 0.86 für sample 1 und 0.15 für sample 6. Die Zahlen variieren. Der error eines einzelnen samples muss nicht in jeder epoch sinken, weil Gewichtsänderungen zugunsten anderer samples dieses Ergebnis vorübergehend verschlechtern können.</p></div>
+      <div class="ws-solution-body"><p class="ws-text">Mögliches Ergebnis: In meinem Beispiel wurde in der ersten epoch der error von sample 1 zunächst sogar grösser. Nach 41 Epochen lagen die outputs bei ungefähr 0.86 für sample 1 und 0.15 für sample 6. Die Zahlen variieren. Der error eines einzelnen samples muss nicht in jeder epoch sinken, weil Gewichtsänderungen zugunsten anderer samples dieses Ergebnis vorübergehend verschlechtern können.</p></div>
       
       <div class="ws-selfcheck" role="group" aria-label="Selbsteinschätzung"><span>Meine Antwort enthält das Wesentliche:</span>
         <button type="button" class="ws-sc" data-sc="yes">ja</button><button type="button" class="ws-sc" data-sc="part">teilweise</button><button type="button" class="ws-sc" data-sc="no">noch nicht</button>
@@ -473,8 +473,8 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-shot-test-train-1" data-q="q-shot-test-train-1">
       
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-shot-test-train-1:0" data-max="1"><label class="ws-label" for="f-q-shot-test-train-1-0">Screenshot</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-shot-test-train-1:0" data-max="1"><label class="ws-label" for="f-q-shot-test-train-1-0">Screenshot</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Beispielergebnis vor dem längeren Training. Die dargestellten outputs und der cost-Wert gehören zu diesem konkreten Durchlauf und dürfen abweichen.</p>
@@ -495,7 +495,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-error-loss-cost" data-q="q-error-loss-cost">
       <p class="ws-q-prompt">Erkläre in je einem Satz, was error, loss und cost bedeuten.</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-error-loss-cost-0" class="ws-input" rows="4" data-f="q-error-loss-cost:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-error-loss-cost:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">error bezeichnet hier die gerichtete Abweichung zwischen output und target bei einem Beispiel (output − target). loss ist ein nicht negativer Fehlerwert für ein einzelnes sample, beispielsweise der quadrierte error. cost fasst die losses mehrerer samples zusammen; in NNPlayground wird dafür der Durchschnitt verwendet.</p></div>
@@ -515,8 +515,8 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-shot-graph" data-q="q-shot-graph">
       
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-shot-graph:0" data-max="1"><label class="ws-label" for="f-q-shot-graph-0">Screenshot des Trainingsgraphen</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-shot-graph:0" data-max="1"><label class="ws-label" for="f-q-shot-graph-0">Screenshot des Trainingsgraphen</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Im gezeigten Beispiel sinkt cost während des Trainings stark und liegt am Ende ungefähr bei 0.0003. Das zeigt, dass das Netz seine outputs zunehmend an die targets der training samples angepasst hat. Der genaue Kurvenverlauf kann variieren.</p>
@@ -537,8 +537,8 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-shot-test-train-2" data-q="q-shot-test-train-2">
       
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-shot-test-train-2:0" data-max="1"><label class="ws-label" for="f-q-shot-test-train-2-0">Screenshot</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-shot-test-train-2:0" data-max="1"><label class="ws-label" for="f-q-shot-test-train-2-0">Screenshot</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Nach dem Training liegen die outputs der sechs training samples nahe bei ihren targets; alle werden nach der einfachen Farblogik der App korrekt beurteilt. Auch dieser Screenshot ist nur ein mögliches Resultat.</p>
@@ -559,7 +559,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-zusammenfassung-a" data-q="q-zusammenfassung-a">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span></p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-zusammenfassung-a-0" class="ws-input" rows="5" data-f="q-zusammenfassung-a:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-zusammenfassung-a:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Beim training wird für ein sample zunächst per forward propagation ein output berechnet. Der Vergleich mit dem target liefert error beziehungsweise loss. Anschliessend wird per backpropagation bestimmt, in welche Richtung die weights verändert werden müssen, damit der loss kleiner wird. Eine epoch verarbeitet alle training samples einmal. Über viele Epochen soll dadurch der gemeinsame cost sinken.</p></div>
@@ -572,7 +572,7 @@
 <div class="ws-q" id="q-zusammenfassung-b" data-q="q-zusammenfassung-b">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span></p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-zusammenfassung-b-0" class="ws-input" rows="4" data-f="q-zusammenfassung-b:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-zusammenfassung-b:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Das Netz hat zunächst vor allem weights gelernt, mit denen es die sechs training samples passend beurteilt. Das beweist noch nicht, dass es die allgemeine Regel «glücklich oder nicht glücklich» gelernt hat. Dafür muss es auch bei unbekannten test samples gute predictions liefern.</p></div>
@@ -596,8 +596,8 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-gen-shot-1" data-q="q-gen-shot-1">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Füge einen Screenshot ein:</p>
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-gen-shot-1:0" data-max="1"><label class="ws-label" for="f-q-gen-shot-1-0">Screenshot von test with test data</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-gen-shot-1:0" data-max="1"><label class="ws-label" for="f-q-gen-shot-1-0">Screenshot von test with test data</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Beispiel für test with test data nach dem ersten selbst durchgeführten Training:</p>
@@ -611,7 +611,7 @@
 <div class="ws-q" id="q-gen-urteil-1" data-q="q-gen-urteil-1">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Beurteile die Generalisierungsfähigkeit deines Netzes: Hat es die allgemeine Aufgabe gelernt? Mit welchen samples hat es Mühe?</p><div class="ws-refs" data-refs="[{&quot;q&quot;:&quot;q-gen-shot-1&quot;,&quot;label&quot;:&quot;Dein Test mit test data&quot;}]"></div>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-gen-urteil-1-0">Dein Urteil (mit Bezug auf einzelne samples):</label><textarea id="f-q-gen-urteil-1-0" class="ws-input" rows="4" data-f="q-gen-urteil-1:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-gen-urteil-1:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">In diesem Beispiel generalisiert das Netz nur teilweise. Die test samples 4 und 5 werden als nicht glücklich beurteilt, obwohl ihr target 1 ist. Die samples 9 und 10 werden korrekt als nicht glücklich erkannt. Bei sample 11 (target 0.5) liegt der output mit etwa 0.10 deutlich unter dem neutralen target. Andere Trainingsdurchläufe können ein anderes Muster zeigen.</p></div>
@@ -630,8 +630,8 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-gen-shot-2" data-q="q-gen-shot-2">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Füge Screenshots beider Tests ein.</p>
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-gen-shot-2:0" data-max="2"><label class="ws-label" for="f-q-gen-shot-2-0">Screenshots von beiden Tests</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-gen-shot-2:0" data-max="2"><label class="ws-label" for="f-q-gen-shot-2-0">Screenshots von beiden Tests</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">test with train data – mögliches Ergebnis:</p>
@@ -647,7 +647,7 @@
 <div class="ws-q" id="q-urteil-training-2" data-q="q-urteil-training-2">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Beurteile den Trainingserfolg dieser Version: Ist die prediction wieder nahe an den targets? Gilt das für alle training samples? Sind die Werte genau gleich wie letztes Mal? Warum (nicht)?</p><div class="ws-refs" data-refs="[{&quot;q&quot;:&quot;q-gen-shot-2&quot;,&quot;label&quot;:&quot;Zweites Training&quot;}]"></div>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-urteil-training-2-0">Dein Urteil:</label><textarea id="f-q-urteil-training-2-0" class="ws-input" rows="4" data-f="q-urteil-training-2:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-urteil-training-2:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Der Trainingserfolg ist in diesem Durchlauf sehr gut: Die outputs aller training samples liegen nahe bei ihren targets, und cost ist mit ungefähr 0.00045 sehr klein. Die Werte sind nicht exakt gleich wie beim ersten Training, weil neue Zufallsgewichte verwendet wurden und die Reihenfolge der samples innerhalb der Epochen variiert.</p></div>
@@ -660,7 +660,7 @@
 <div class="ws-q" id="q-urteil-gen-2" data-q="q-urteil-gen-2">
       <p class="ws-q-prompt"><span class="ws-q-label">c</span>Beurteile die Generalisierungsfähigkeit dieser Version: Werden jetzt alle samples korrekt beurteilt? Gibt es mit denselben samples Probleme wie vorher? Warum (nicht)?</p><div class="ws-refs" data-refs="[{&quot;q&quot;:&quot;q-gen-shot-1&quot;,&quot;label&quot;:&quot;Erstes Training (test data)&quot;},{&quot;q&quot;:&quot;q-gen-shot-2&quot;,&quot;label&quot;:&quot;Zweites Training&quot;}]"></div>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-urteil-gen-2-0">Dein Urteil:</label><textarea id="f-q-urteil-gen-2-0" class="ws-input" rows="4" data-f="q-urteil-gen-2:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-urteil-gen-2:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Auch die Generalisierung ist diesmal besser (cost bei den test samples etwa 0.065 statt 0.135), aber nicht perfekt. Sample 4 wird weiterhin falsch beurteilt; sample 5 wird nun korrekt erkannt. Die samples 9 und 10 werden richtig beurteilt, und sample 11 liegt mit etwa 0.21 näher an seinem target 0.5 als beim ersten Training. Dass sich gerade sample 5 verbessert, zeigt: Verschiedene Trainingsdurchläufe können trotz gleicher Daten unterschiedliche Generalisierungsleistungen ergeben.</p></div>
@@ -679,8 +679,8 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-gen-shot-3" data-q="q-gen-shot-3">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Füge Screenshots beider Tests ein.</p>
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-gen-shot-3:0" data-max="2"><label class="ws-label" for="f-q-gen-shot-3-0">Screenshots von beiden Tests</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-gen-shot-3:0" data-max="2"><label class="ws-label" for="f-q-gen-shot-3-0">Screenshots von beiden Tests</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Trainingserfolg (test with train data):</p>
@@ -696,7 +696,7 @@
 <div class="ws-q" id="q-urteil-vortrainiert" data-q="q-urteil-vortrainiert">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Beurteile diesen Durchgang im Vergleich zu deinen selbst durchgeführten Trainings: Sind Trainingserfolg und Generalisierungsfähigkeit vergleichbar? Wo ergeben sich die grössten Unterschiede? Was könnte der Grund dafür sein?</p><div class="ws-refs" data-refs="[{&quot;q&quot;:&quot;q-gen-shot-1&quot;,&quot;label&quot;:&quot;Erstes Training&quot;},{&quot;q&quot;:&quot;q-gen-shot-2&quot;,&quot;label&quot;:&quot;Zweites Training&quot;},{&quot;q&quot;:&quot;q-gen-shot-3&quot;,&quot;label&quot;:&quot;Vortrainiert&quot;}]"></div>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-urteil-vortrainiert-0">Dein Urteil:</label><textarea id="f-q-urteil-vortrainiert-0" class="ws-input" rows="4" data-f="q-urteil-vortrainiert:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-urteil-vortrainiert:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Im vorhandenen test-data-Screenshot erreicht das vortrainierte Netz mit cost ≈ 0.02842 die beste Generalisierungsleistung der drei gezeigten Hauptdurchläufe; die vier eindeutigen test samples liegen innerhalb der einfachen Fehlergrenze (output näher am target als am Gegenteil).</p>
@@ -718,7 +718,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-gb-immer-gleich" data-q="q-gb-immer-gleich">
       <p class="ws-q-prompt"><span class="ws-q-label">a</span>Klappt das Generalisieren immer gleich gut? Sind immer dieselben test samples problematisch?</p><div class="ws-refs" data-refs="[{&quot;q&quot;:&quot;q-gen-shot-1&quot;,&quot;label&quot;:&quot;Erstes Training&quot;},{&quot;q&quot;:&quot;q-gen-shot-2&quot;,&quot;label&quot;:&quot;Zweites Training&quot;},{&quot;q&quot;:&quot;q-gen-shot-3&quot;,&quot;label&quot;:&quot;Vortrainiert&quot;}]"></div>
       <div class="ws-field" data-kind="text"><textarea id="f-q-gb-immer-gleich-0" class="ws-input" rows="3" data-f="q-gb-immer-gleich:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-gb-immer-gleich:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Beispiel – dein Ergebnis darf abweichen</p>
       <div class="ws-solution-body"><p class="ws-text">Nein. In den gezeigten Durchläufen bleibt sample 4 bei den beiden selbst trainierten Netzen problematisch, sample 5 wird dagegen einmal falsch und einmal korrekt beurteilt. Die samples 9 und 10 sind in allen gezeigten Tests vergleichsweise stabil. Diese Beobachtung gilt nur für die vorliegenden Durchläufe und ist kein allgemeines Gesetz.</p></div>
@@ -731,7 +731,7 @@
 <div class="ws-q" id="q-gb-unterschiede" data-q="q-gb-unterschiede">
       <p class="ws-q-prompt"><span class="ws-q-label">b</span>Wieso ergeben sich überhaupt Unterschiede, wo doch der Prozess immer gleich war?</p>
       <div class="ws-field" data-kind="text"><label class="ws-label" for="f-q-gb-unterschiede-0">Hinweis: Gab es vielleicht doch minimale Unterschiede zwischen deinen beiden Durchläufen? Welche?</label><textarea id="f-q-gb-unterschiede-0" class="ws-input" rows="4" data-f="q-gb-unterschiede:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-gb-unterschiede:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Die Startgewichte werden zufällig gewählt, und die Reihenfolge der training samples wird innerhalb der Epochen variiert. Ein nichtlineares Netz kann deshalb bei gleichen Einstellungen unterschiedliche Wege durch den Lernprozess nehmen und bei verschiedenen weight-Sätzen enden.</p>
@@ -747,7 +747,7 @@
 <div class="ws-q" id="q-gb-aendern" data-q="q-gb-aendern">
       <p class="ws-q-prompt"><span class="ws-q-label">c</span>Was könnte man (am training) ändern, damit die test samples zuverlässiger erkannt werden?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-gb-aendern-0" class="ws-input" rows="3" data-f="q-gb-aendern:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-gb-aendern:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Am wichtigsten wären mehr und vielfältigere training samples, besonders Beispiele, die den bisher problematischen test samples ähneln. Die Klassen sollten ausgewogen vertreten sein; für neutrale Smileys wären eigene Beispiele mit passendem target nötig. Zusätzlich könnte man learning rate, Zahl der Epochen oder Netzwerkgrösse systematisch untersuchen und mehrere Trainingsdurchläufe vergleichen, möglicherweise gibt es effizientere Settings.</p></div>
@@ -760,7 +760,7 @@
 <div class="ws-q" id="q-gb-warum-generalisieren" data-q="q-gb-warum-generalisieren">
       <p class="ws-q-prompt"><span class="ws-q-label">d</span>Wieso können neuronale Netze überhaupt (mehr oder weniger gut) generalisieren? Genauer: Wieso können Netze auch unbekannte Beispiele beurteilen, und weshalb ist dieses Urteil zumindest oft korrekt?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-gb-warum-generalisieren-0" class="ws-input" rows="5" data-f="q-gb-warum-generalisieren:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-gb-warum-generalisieren:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Alle samples werden mit denselben weights verarbeitet. Während des Trainings bilden sich in diesen weights statistische Muster ab, die für mehrere Beispiele gemeinsam nützlich sind. Ein unbekanntes sample mit ähnlichen Merkmalen benutzt dieselben weights, erzeugt deshalb ähnliche Aktivierungen und oft einen passenden output. Generalisierung gelingt vor allem dann, wenn die training samples die späteren Fälle gut repräsentieren; bei stark abweichenden Beispielen kann sie scheitern.</p></div>
@@ -773,7 +773,7 @@
 <div class="ws-q" id="q-gb-sample11" data-q="q-gb-sample11">
       <p class="ws-q-prompt"><span class="ws-q-label">e</span><span class="ws-star" title="anspruchsvoll">★</span>Wieso ist sample 11 eigentlich kein fairer Test? Wie könnte man ihn fairer machen?</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-gb-sample11-0" class="ws-input" rows="4" data-f="q-gb-sample11:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-gb-sample11:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Sample 11 hat target 0.5 und steht damit für einen neutralen oder unsicheren Fall. Unter den training samples gibt es jedoch nur targets 0 und 1; das Netz erhält also kein vergleichbares neutrales Beispiel. Fairer wäre der Test, wenn mehrere neutrale Smileys mit target 0.5 zu den training samples gehören würden. Alternativ müsste man die Aufgabe konsequent binär definieren und den neutralen Fall aus dem Test entfernen.</p></div>
@@ -797,7 +797,7 @@
       <div class="ws-questions"><div class="ws-q" id="q-lk-sample" data-q="q-lk-sample">
       <p class="ws-q-prompt"><span class="ws-q-label">1</span>Ein sample ist …</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-lk-sample-0" class="ws-input" rows="3" data-f="q-lk-sample:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-lk-sample:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Ein sample ist ein einzelnes Beispiel: Es besteht aus den input-Werten und dem zugehörigen target. In diesem Projekt bilden 1600 Pixelwerte die inputs, das target ist eine Zahl zwischen 1 (= glücklich) und 0 (= nicht glücklich).</p></div>
@@ -810,7 +810,7 @@
 <div class="ws-q" id="q-lk-testing" data-q="q-lk-testing">
       <p class="ws-q-prompt"><span class="ws-q-label">2</span>Beim Testen (testing) …</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-lk-testing-0" class="ws-input" rows="3" data-f="q-lk-testing:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-lk-testing:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Beim testing werden samples per forward propagation verarbeitet, ohne die weights zu verändern. Output beziehungsweise prediction werden mit dem target verglichen, um die performance zu beurteilen. Test samples wurden zuvor nicht zum Training verwendet.</p></div>
@@ -823,7 +823,7 @@
 <div class="ws-q" id="q-lk-training" data-q="q-lk-training">
       <p class="ws-q-prompt"><span class="ws-q-label">3</span>Beim training …</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-lk-training-0" class="ws-input" rows="3" data-f="q-lk-training:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-lk-training:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Beim training werden die training samples wiederholt verarbeitet. Aus der Abweichung zwischen output und target wird berechnet, wie die weights angepasst werden sollen. Dadurch sollen loss (Fehler pro sample) und cost (durchschnittlicher Fehler über mehrere samples, z. B. pro epoch) kleiner werden.</p></div>
@@ -836,7 +836,7 @@
 <div class="ws-q" id="q-lk-weights" data-q="q-lk-weights">
       <p class="ws-q-prompt"><span class="ws-q-label">4</span>Unter weights versteht man …</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-lk-weights-0" class="ws-input" rows="3" data-f="q-lk-weights:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-lk-weights:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Unter weights versteht man die Zahlen an den Verbindungen zwischen Neuronen. Sie bestimmen, wie stark und mit welchem Vorzeichen die Aktivierung eines Neurons die Neuronen der nächsten Schicht beeinflusst.</p>
@@ -850,7 +850,7 @@
 <div class="ws-q" id="q-lk-generalisation" data-q="q-lk-generalisation">
       <p class="ws-q-prompt"><span class="ws-q-label">5</span>Generalisation bedeutet …</p>
       <div class="ws-field" data-kind="text"><textarea id="f-q-lk-generalisation-0" class="ws-input" rows="3" data-f="q-lk-generalisation:0" placeholder="Deine Antwort …"></textarea><button type="button" class="ws-clear" data-clear="q-lk-generalisation:0" hidden>Löschen</button></div>
-      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-feedback" role="status" aria-live="polite"></span></div>
+      <div class="ws-actions"><button type="button" class="ws-btn ws-btn-solution" data-act="solution" disabled title="Schreibe zuerst deine eigene Antwort.">Musterlösung anzeigen</button><span class="ws-rating"></span><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       <div class="ws-solution" data-solution hidden>
       <p class="ws-solution-head">Musterlösung</p>
       <div class="ws-solution-body"><p class="ws-text">Generalisation bedeutet, dass ein Netz nicht nur bei den training samples kleine Fehler erreicht, sondern auch unbekannte test samples zuverlässig beurteilt. Im besten Fall hat es also die eigentliche Aufgabe (hier: glückliche Smileys von unglücklichen zu unterscheiden) gelernt. Wirklich sicher sein kann man aber nie, denn dafür müsste man das Netz mit allen (theoretisch) möglichen Beispielen testen. Schon am Beispiel der Smileys zeigt sich: Das sind mindestens SEHR viele (wenn man Grauwerte zulässt, gibt es sogar unendlich viele potenzielle Smileys, d. h. Verteilungen von 1600 Zahlenwerten zwischen 0 und 1).</p></div>
@@ -910,7 +910,7 @@
       </div>
       <div class="ws-questions"><div class="ws-q" id="q-v-belege" data-q="q-v-belege">
       
-      <div class="ws-field ws-shot" data-kind="shot" data-f="q-v-belege:0" data-max="8"><label class="ws-label" for="f-q-v-belege-0">z. B. von data, Trainingsgraph, training-samples-Test, test-samples-Test, ggf. zusätzliche Live-Tests</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="button" aria-label="Bild einfügen"><span class="ws-drop-main">Bild einfügen</span><span class="ws-drop-sub">Strg/Cmd + V · hierher ziehen · <u>Datei wählen</u></span></div><input type="file" accept="image/*" multiple hidden></div>
+      <div class="ws-field ws-shot" data-kind="shot" data-f="q-v-belege:0" data-max="8"><label class="ws-label" for="f-q-v-belege-0">z. B. von data, Trainingsgraph, training-samples-Test, test-samples-Test, ggf. zusätzliche Live-Tests</label><div class="ws-shot-items"></div><div class="ws-drop" tabindex="0" role="group" aria-label="Bild einfügen"><span class="ws-drop-main">Screenshot einfügen</span><span class="ws-drop-sub">In der App «copy to clipboard» klicken, dann hier klicken und <kbd>Strg</kbd>/<kbd>Cmd</kbd> + <kbd>V</kbd> drücken. Oder eine Bilddatei hierher ziehen.</span><span class="ws-drop-buttons"><button type="button" class="ws-btn ws-btn-small" data-shot-act="clipboard">Aus Zwischenablage einfügen</button><button type="button" class="ws-btn ws-btn-small" data-shot-act="file">Datei wählen …</button></span></div><input type="file" accept="image/*" multiple hidden></div>
       <div class="ws-actions"><span class="ws-feedback" role="status" aria-live="polite"></span></div>
       
     </div></div>

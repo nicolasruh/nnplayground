@@ -249,6 +249,11 @@ textarea.ws-input { resize: vertical; min-height: 3.2em; line-height: 1.45; over
 .ws-feedback { font-size: 14px; font-weight: 600; }
 .ws-feedback[data-result="ok"] { color: #2e7d32; }
 .ws-feedback[data-result="bad"] { color: #b3402f; }
+.ws-rating { font-size: 13px; font-weight: 600; padding: 2px 10px; border-radius: 12px; }
+.ws-rating:empty { display: none; }
+.ws-rating[data-rating="yes"] { background: #e1f1e1; color: #2e7d32; }
+.ws-rating[data-rating="part"] { background: #fdeccd; color: #8a5a07; }
+.ws-rating[data-rating="no"] { background: #fbe3e0; color: #a3281f; }
 
 /* screenshots */
 .ws-shot-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; margin-bottom: 8px; }
@@ -259,13 +264,15 @@ textarea.ws-input { resize: vertical; min-height: 3.2em; line-height: 1.45; over
 .ws-shot-remove { position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border: 0; border-radius: 50%; background: rgba(18, 59, 93, .75); color: #fff; cursor: pointer; line-height: 1; }
 .ws-shot-remove:hover { background: #a3281f; }
 .ws-drop {
-  display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 18px 12px; text-align: center;
-  border: 2px dashed #b3c0cc; border-radius: var(--ws-radius); background: var(--ws-field); color: var(--ws-muted); cursor: pointer; outline: none;
+  display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 16px 12px; text-align: center;
+  border: 2px dashed #b3c0cc; border-radius: var(--ws-radius); background: var(--ws-field); color: var(--ws-muted); cursor: text; outline: none;
 }
 .ws-drop[hidden] { display: none; }
 .ws-drop-main { font-weight: 700; color: var(--ws-navy); }
-.ws-drop-sub { font-size: 13px; }
-.ws-drop:hover, .ws-drop:focus-visible { border-color: var(--ws-blue); background: var(--ws-blue-soft); }
+.ws-drop-sub { font-size: 13px; max-width: 520px; }
+.ws-drop kbd { padding: 0 4px; border: 1px solid #b3c0cc; border-radius: 3px; background: #fff; font: inherit; font-size: 12px; }
+.ws-drop-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.ws-drop:hover, .ws-drop:focus, .ws-drop:focus-within { border-color: var(--ws-blue); background: var(--ws-blue-soft); }
 .ws-shot.is-active .ws-drop { border-color: var(--ws-blue); }
 .ws-shot.is-over .ws-drop { border-color: var(--ws-orange); background: #fdf3e8; }
 

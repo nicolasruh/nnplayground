@@ -59,7 +59,7 @@ export default {
       title: 'So arbeitest du mit diesem Arbeitsblatt',
       text: P(
         '- Lass die App und dieses Blatt nebeneinander offen (zwei Fenster oder zwei Hälften des Bildschirms).',
-        '- Alles, was du hier eingibst, wird automatisch in deinem Browser gespeichert. Mit «Meine Daten» oben rechts kannst du es als Datei sichern.',
+        '- Alles, was du im Arbeitsblatt eingibst, wird automatisch in deinem Browser gespeichert. Mit «Meine Daten» oben rechts kannst du es als Datei sichern.',
         '- Screenshots: In der App gibt es bei den Ergebnissen den Knopf «copy to clipboard». Klicke danach hier ins Bild-Feld und drücke Strg/Cmd + V. Du kannst Bilder auch hineinziehen oder eine Datei wählen.',
         '- Die Musterlösung erscheint, sobald du eine eigene Antwort eingegeben hast. Vergleiche dann ehrlich und schätze dich selbst ein.',
         '- Unterstrichene Fachbegriffe kannst du anklicken: Du siehst eine kurze Erklärung und den passenden Abschnitt aus dem Infotext der App.',
@@ -273,12 +273,12 @@ export default {
         {
           type: 'task',
           id: 't-live',
-          text: 'Du kannst das aktuell verarbeitete sample auch live anpassen. Wähle ein glückliches Smiley in der Datentabelle, klicke dann auf das Auge in der linken Spalte der network visualisation.',
+          text: 'Du kannst das aktuell verarbeitete sample auch live anpassen. Wähle ein glückliches Smiley in der Datentabelle, klicke dann auf das Auge in der linken Spalte der network visualisation. Was geschieht, wenn dieser Input durch das Netz geschickt wird, siehst du in der visualisation - auch, wenn du jetzt "live" Pixel veränderst.',
           media: [figure('abb-live', 'abb4-live-eingabe.png', 'Dialog «set input visually» mit einem gezeichneten glücklichen Smiley im 40×40-Pixelraster.', 'Live-Eingabe für einen eigenen 40 × 40-Smiley.', 36)],
           questions: [
             {
               id: 'q-live-output',
-              prompt: 'Wie beurteilt das Netz dieses sample?',
+              prompt: 'Wie beurteilt das Netz das gewählte sample?',
               fields: [line('output:')],
               solution: {
                 example: true,
@@ -291,7 +291,7 @@ export default {
               fields: [shot('Screenshot einfügen', 2), line('resultierender output:')],
               solution: {
                 example: true,
-                text: 'Eine mögliche Veränderung senkt den output auf 0.26. Andere Zeichnungen können zu anderen Werten führen; der Screenshot zeigt nur ein Beispiel.',
+                text: 'Diese mögliche Veränderung senkt den output auf 0.26. Andere Zeichnungen können zu anderen Werten führen; der Screenshot zeigt nur ein Beispiel.',
                 blocks: [solutionFigure('l-live-ungluecklich.png', 'Live-Eingabe mit einem veränderten, traurigen Smiley.', null, 36)],
               },
             },
@@ -366,7 +366,7 @@ export default {
               id: 'q-klicks',
               prompt: 'Wie oft musst du klicken, bis der output grösser wird als 0.85?',
               fields: [line('Anzahl Klicks:')],
-              solution: { example: true, text: 'In diesem Beispiel waren 24 Klicks nötig, bis der output über 0.85 lag. Die genaue Anzahl hängt von den zufälligen Startgewichten ab.' },
+              solution: { example: true, text: 'In meinem Beispiel waren 24 Klicks nötig, bis der output über 0.85 lag. Die genaue Anzahl hängt von den zufälligen Startgewichten ab.' },
             },
             {
               id: 'q-sample6',
@@ -374,7 +374,7 @@ export default {
               fields: [area('', 3)],
               solution: {
                 example: true,
-                text: 'Der output von sample 6 stieg in diesem Durchlauf von ungefähr 0.31 auf 0.85, obwohl sein target 0 ist. Das Training mit sample 1 hat gemeinsame weights in Richtung eines höheren outputs verändert und dadurch die Vorhersage für sample 6 verschlechtert.',
+                text: 'Der output von sample 6 stieg in meinem Beispiel von ungefähr 0.31 auf 0.85, obwohl sein target 0 ist. Das Training mit sample 1 hat gemeinsame weights in Richtung eines höheren outputs verändert und dadurch die Vorhersage für sample 6 verschlechtert.',
               },
             },
           ],
@@ -391,7 +391,7 @@ export default {
               fields: [area('', 3)],
               solution: {
                 example: true,
-                text: 'Mögliches Ergebnis: In der ersten epoch wurde der error von sample 1 zunächst sogar grösser. Nach 41 Epochen lagen die outputs bei ungefähr 0.86 für sample 1 und 0.15 für sample 6. Die Zahlen variieren. Der error eines einzelnen samples muss nicht in jeder epoch sinken, weil Gewichtsänderungen zugunsten anderer samples dieses Ergebnis vorübergehend verschlechtern können.',
+                text: 'Mögliches Ergebnis: In meinem Beispiel wurde in der ersten epoch der error von sample 1 zunächst sogar grösser. Nach 41 Epochen lagen die outputs bei ungefähr 0.86 für sample 1 und 0.15 für sample 6. Die Zahlen variieren. Der error eines einzelnen samples muss nicht in jeder epoch sinken, weil Gewichtsänderungen zugunsten anderer samples dieses Ergebnis vorübergehend verschlechtern können.',
               },
             },
           ],
