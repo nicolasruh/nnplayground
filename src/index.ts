@@ -1856,7 +1856,7 @@ const evaluateTestingRows = (mode: TestingMode): TestingResultRow[] => {
       return sum + (value - expectedValue) ** 2;
     }, 0) / 2;
     const cost = isSingleOutput
-      ? ((sampleEntry.sample.output[0] || 0) - prediction[0])
+      ? (prediction[0] - (sampleEntry.sample.output[0] || 0))
       : loss;
     return {
       nr: sampleEntry.idx + 1,
@@ -2392,7 +2392,7 @@ const evaluateInspectPoints = (): InspectPoint[] => neuralCore.getTrainingSample
   const isSingleOutput = sample.output.length === 1;
   const isClassification = isOneHotTarget(sample.output);
   const cost = isSingleOutput
-    ? ((sample.output[0] || 0) - output[0])
+    ? (output[0] - (sample.output[0] || 0))
     : output.reduce((acc, value, outputIdx) => {
         const targetValue = sample.output[outputIdx] || 0;
         return acc + (value - targetValue) ** 2;
