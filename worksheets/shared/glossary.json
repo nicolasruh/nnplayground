@@ -1,0 +1,106 @@
+{
+  "sample": {
+    "label": "sample",
+    "short": "Ein Beispiel aus input-Werten und einem target.",
+    "info": "samples"
+  },
+  "input": {
+    "label": "input",
+    "short": "Die Werte, die in das Netz hineingehen. Im Projekt «smileys» sind das 1600 Pixelwerte.",
+    "info": "input-target-values"
+  },
+  "target": {
+    "label": "target",
+    "short": "Der gewünschte Sollwert eines samples.",
+    "info": "input-target-values",
+    "para": 1
+  },
+  "output": {
+    "label": "output / prediction",
+    "short": "Die aktuelle Vorhersage (prediction) des Netzes, hier ein Wert zwischen 0 und 1.",
+    "info": "prediction"
+  },
+  "weights": {
+    "label": "weights",
+    "short": "Die Zahlen an den Verbindungen zwischen den Neuronen. Sie bestimmen, wie stark und mit welchem Vorzeichen eine Aktivierung (activation) an die nächste Schicht weitergegeben wird.",
+    "info": "weights"
+  },
+  "architecture": {
+    "label": "network architecture",
+    "short": "Die Form des Netzes: Anzahl der Schichten und Neuronen. Sie legt auch die Anzahl der weights fest.",
+    "info": "architecture"
+  },
+  "hidden-layer": {
+    "label": "hidden layer",
+    "short": "Die Zwischenschicht(en) zwischen input und output.",
+    "info": "hidden-layers"
+  },
+  "bias": {
+    "label": "bias-Neuron",
+    "short": "Ein zusätzliches Neuron mit konstantem Wert 1. Es hat eigene weights und verschiebt die Schwelle, ab der ein Neuron aktiv wird.",
+    "info": "bias-nodes"
+  },
+  "activation": {
+    "label": "activation (Aktivierung)",
+    "short": "Der Wert eines Neurons: gewichtete Summe der eingehenden Signale, durch die Aktivierungsfunktion auf den Bereich 0 bis 1 abgebildet.",
+    "info": "activation-function"
+  },
+  "forward-propagation": {
+    "label": "forward propagation",
+    "short": "Der Vorwärtsdurchlauf: Ein sample wird Schicht für Schicht durch das Netz geschickt, bis der output entsteht.",
+    "info": "forward-propagation"
+  },
+  "backpropagation": {
+    "label": "backpropagation",
+    "short": "Der Rückwärtsdurchlauf beim training: Aus dem error wird berechnet, wie die weights angepasst werden müssen, damit der error kleiner wird.",
+    "info": "backpropagation"
+  },
+  "training": {
+    "label": "training",
+    "short": "Wiederholtes Verarbeiten der training samples, wobei die weights schrittweise verändert werden.",
+    "info": "training"
+  },
+  "testing": {
+    "label": "testing",
+    "short": "Samples werden nur durch das Netz geschickt und ausgewertet. Die weights verändern sich dabei nicht.",
+    "info": "testing-with-train-test-data"
+  },
+  "train-test": {
+    "label": "training sample / test sample",
+    "short": "Mit training samples wird gelernt. Test samples werden nie zum Lernen benutzt, sie zeigen, ob das Netz auch mit unbekannten Beispielen zurechtkommt.",
+    "info": "train-test-samples"
+  },
+  "epoch": {
+    "label": "epoch",
+    "short": "Ein vollständiger Durchlauf durch alle training samples (in zufälliger Reihenfolge).",
+    "info": "epochs"
+  },
+  "error": {
+    "label": "error",
+    "short": "Die Abweichung für ein einzelnes output-Neuron: output − target.",
+    "info": "error-function",
+    "para": 1
+  },
+  "loss": {
+    "label": "loss",
+    "short": "Der Fehler eines einzelnen samples, zusammengefasst über alle output-Neuronen (hier: die Hälfte der Summe der quadrierten errors).",
+    "info": "error-function",
+    "para": 4
+  },
+  "cost": {
+    "label": "cost",
+    "short": "Der durchschnittliche loss über mehrere samples, zum Beispiel über alle training samples einer epoch.",
+    "info": "error-function",
+    "para": 4
+  },
+  "learning-rate": {
+    "label": "learning rate",
+    "short": "Bestimmt, wie stark die weights bei jedem Trainingsschritt angepasst werden.",
+    "info": "learning-rate"
+  },
+  "generalisation": {
+    "label": "Generalisierung (generalisation)",
+    "short": "Die Fähigkeit eines Netzes, auch unbekannte samples richtig zu beurteilen und nicht nur die training samples.",
+    "info": "generalisation"
+  }
+}

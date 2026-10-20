@@ -32,7 +32,7 @@ Your prototype will then be available at:
 
 Notes:
 - For private repositories, GitHub Pages availability depends on your GitHub plan.
-- The deployment artifact includes ``index.html``, ``main.css``, ``favicon.ico``, ``dist/``, and ``Projekts/``.
+- The deployment artifact includes ``index.html``, ``main.css``, ``favicon.ico``, ``dist/``, ``Projekts/`` and ``worksheets/`` (online worksheets, see ``worksheets/README.md``).
 - ``data_resources/`` remains in the repository for future project generation but is intentionally not included in the prototype deployment.
 
 ### How to contribute

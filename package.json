@@ -3,7 +3,8 @@
   "main": "index.js",
   "version": "1.0.0",
   "scripts": {
-    "build": "node scripts/build-infotext.mjs && webpack --mode production",
+    "build": "node scripts/build-infotext.mjs && node scripts/build-worksheets.mjs && webpack --mode production",
+    "build:worksheets": "node scripts/build-worksheets.mjs",
     "check:unused": "tsc --noEmit --noUnusedLocals --noUnusedParameters",
     "watch": "webpack --mode development --watch",
     "start": "npm run build && http-server . -p 8080",

@@ -40,6 +40,7 @@ jobs:
           cp index.html main.css favicon.ico public/
           cp -R dist public/dist
           cp -R Projekts public/Projekts
+          cp -R worksheets public/worksheets
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
