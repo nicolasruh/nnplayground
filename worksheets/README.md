@@ -48,7 +48,7 @@ Markup in Texten: `**fett**`, `*kursiv*`, `[[term]]` oder `[[term|Anzeigetext]]`
 
 - **Prüfen** (`check`): `numbers` sucht die erwarteten Zahlen im Antworttext (tolerant bei «17 623», «17'623»). `table` prüft Tabellen: erwartete Werte (`expected`, `tol`) und `consistency: true` (error = output − target). Werte, die vom Projekt abhängen (z. B. `smileys.json`), nach Änderungen am Projekt neu kontrollieren.
 - **Musterlösung** erscheint erst, wenn etwas eingegeben wurde. `example: true` markiert Lösungen, die vom Zufall abhängen («dein Ergebnis darf abweichen»). `criteria` werden als Checkliste zum Abhaken gezeigt. Danach schätzen sich die SuS selbst ein (ja / teilweise / noch nicht).
-- **Screenshots**: Einfügen per Strg/Cmd+V (die App kopiert Ergebnisse mit «copy to clipboard»), Drag & Drop oder Dateiauswahl. Bilder werden auf max. 1600 px verkleinert und in IndexedDB gespeichert. Mit `refs` binden spätere Aufgaben frühere Screenshots als Vorschau ein.
+- **Screenshots**: Einfügen per Knopf «Aus Zwischenablage einfügen» (Clipboard API, Chrome/Edge fragen einmal nach Erlaubnis), per Strg/Cmd+V in das fokussierte gestrichelte Feld (die App kopiert Ergebnisse mit «copy to clipboard»), Drag & Drop oder Dateiauswahl. Bilder werden auf max. 1600 px verkleinert und in IndexedDB gespeichert. Mit `refs` binden spätere Aufgaben frühere Screenshots als Vorschau ein.
 
 ## Speicherung und Sicherung
 

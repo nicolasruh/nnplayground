@@ -60,7 +60,7 @@ export default {
       text: P(
         '- Lass die App und dieses Blatt nebeneinander offen (zwei Fenster oder zwei Hälften des Bildschirms).',
         '- Alles, was du im Arbeitsblatt eingibst, wird automatisch in deinem Browser gespeichert. Mit «Meine Daten» oben rechts kannst du es als Datei sichern.',
-        '- Screenshots: In der App gibt es bei den Ergebnissen den Knopf «copy to clipboard». Klicke danach hier ins Bild-Feld und drücke Strg/Cmd + V. Du kannst Bilder auch hineinziehen oder eine Datei wählen.',
+        '- Screenshots: In der App gibt es bei den Ergebnissen den Knopf «copy to clipboard». Klicke danach hier auf «Aus Zwischenablage einfügen» (der Browser fragt beim ersten Mal nach Erlaubnis). Alternativ klickst du in das gestrichelte Feld und drückst Strg/Cmd + V. Bilddateien kannst du auch hineinziehen oder über «Datei wählen» laden.',
         '- Die Musterlösung erscheint, sobald du eine eigene Antwort eingegeben hast. Vergleiche dann ehrlich und schätze dich selbst ein.',
         '- Unterstrichene Fachbegriffe kannst du anklicken: Du siehst eine kurze Erklärung und den passenden Abschnitt aus dem Infotext der App.',
       ),
